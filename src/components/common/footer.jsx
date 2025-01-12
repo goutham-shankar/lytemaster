@@ -55,41 +55,58 @@ const footerLinks = [
   },
 ];
 
+const FooterSection = ({ section, links, index }) => {
+  return (
+    <div key={index}>
+      <div className="relative inline-block">
+        <h4 className="text-sm">{section}</h4>
+        <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
+      </div>
+      <ul className="py-2 flex flex-col gap-1">
+        {links.map(({ name, link }, index) => (
+          <li key={index} className="text-xs">
+            <Link href={link}>{name}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const Branding = () => {
+  return (
+    <div className="flex items-center gap-4">
+      <Image src={logo} alt="LyteMaster Logo" width={50} />
+      <h1 className="text-3xl font-dmSerifDisplay">LyteMaster</h1>
+    </div>
+  );
+};
+
+const Socials = () => {
+  return (
+    <div className="flex gap-2">
+      {socials.map((social) => (
+        <Link key={social.alt} href={social.link}>
+          <social.icon size={16} />
+        </Link>
+      ))}
+    </div>
+  );
+};
+
 export default function Footer() {
   return (
     <footer className="w-full h-80 pl-16 pr-24 flex justify-between items-center bg-black text-white">
       <div className="flex flex-col items-center justify-center gap-3">
-        <div className="flex items-center gap-4">
-          <Image src={logo} alt="LyteMaster Logo" width={50} />
-          <h1 className="text-3xl font-dmSerifDisplay">LyteMaster</h1>
-        </div>
+        <Branding />
         <div className="flex flex-col gap-4">
           <p className="text-xs whitespace-pre-wrap">{address}</p>
-
-          <div className="flex gap-2">
-            {socials.map((social) => (
-              <Link key={social.alt} href={social.link}>
-                <social.icon size={16} />
-              </Link>
-            ))}
-          </div>
+          <Socials />
         </div>
       </div>
       <div className="flex gap-16">
         {footerLinks.map(({ section, links }, index) => (
-          <div key={index}>
-            <div className="relative inline-block">
-              <h4 className="text-sm">{section}</h4>
-              <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
-            </div>
-            <ul className="py-2 flex flex-col gap-1">
-              {links.map(({ name, link }, index) => (
-                <li key={index} className="text-xs">
-                  <Link href={link}>{name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterSection key={index} section={section} links={links} />
         ))}
       </div>
     </footer>
