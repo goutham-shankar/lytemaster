@@ -9,6 +9,8 @@ const navItems = [
   { name: "Contact", href: "/contact", dropdown: false },
 ];
 
+// TODO: Add dropdown functionality
+// TODO: Add global search functionality
 export default function Nav() {
   return (
     <nav className="w-full h-20 flex justify-evenly items-center bg-white">
