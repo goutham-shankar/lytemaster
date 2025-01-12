@@ -7,9 +7,10 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        dmSerifDisplay: ["var(--font-dm-serif-display)", "serif"],
+        bebasNeue: ["var(--font-bebas-neue)", "sans-serif"],
+        satoshiVariable: ["var(--font-satoshi-variable)", "sans-serif"],
       },
     },
   },
