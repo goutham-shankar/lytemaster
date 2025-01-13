@@ -1,13 +1,21 @@
 "use client";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const navItems = [
-  { name: "Products", href: "/products", dropdown: true },
-  { name: "Projects", href: "/projects", dropdown: false },
-  { name: "About us", href: "/about-us", dropdown: false },
-  { name: "News", href: "/news", dropdown: false },
+  {
+    name: "Products",
+    href: "/products",
+    dropdown: [
+      { name: "Product 1", href: "/products/product-1" },
+      { name: "Product 2", href: "/products/product-2" },
+      { name: "Product 3", href: "/products/product-3" },
+    ],
+  },
+  { name: "Projects", href: "/projects", dropdown: null },
+  { name: "About us", href: "/about-us", dropdown: null },
+  { name: "News", href: "/news", dropdown: null },
   { name: "Contact", href: "/contact", dropdown: false },
 ];
 
@@ -17,17 +25,57 @@ const variants = {
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
+const Dropdown = ({ items, isOpen, setIsOpen }) => {
+  return (
+    <ul
+      className={`z-10 absolute left-0 w-36 h-max px-3 py-2 flex flex-col justify-evenly items-start gap-2 bg-white/10 rounded-lg shadow-lg backdrop-blur-md transform transition-all duration-300 ease-in-out origin-top ${
+        isOpen
+          ? "opacity-100 translate-y-0 visible"
+          : "opacity-0 -translate-y-2 invisible"
+      }`}
+      onMouseOver={() => setIsOpen(true)}
+      onMouseOut={() => setIsOpen(false)}
+    >
+      {items.map((item, index) => (
+        <li key={index} className="group/dropdown">
+          <Link href={item.href}>{item.name}</Link>
+          <span className="block max-w-0 group-hover/dropdown:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const NavItem = ({ item }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <li
+      className="relative mx-2 group"
+      onMouseOver={() => setIsOpen(true)}
+      onMouseOut={() => setIsOpen(false)}
+    >
+      <Link href={item.href} className="flex items-center gap-2">
+        {item.name}
+        {item.dropdown &&
+          (isOpen ? (
+            <ChevronUp size={16} className="" />
+          ) : (
+            <ChevronDown size={16} className="" />
+          ))}
+      </Link>
+      <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+      {item.dropdown && isOpen && (
+        <Dropdown items={item.dropdown} isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
+    </li>
+  );
+};
+
 const Navbar = () => {
   return (
     <ul className="flex justify-center items-center gap-3 text-sm">
       {navItems.map((item, index) => (
-        <li key={index} className="mx-2 group">
-          <Link href={item.href} className="flex items-center gap-2">
-            {item.name}
-            {item.dropdown && <ChevronDown size={16} />}
-          </Link>
-          <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-        </li>
+        <NavItem key={index} item={item} />
       ))}
     </ul>
   );
@@ -80,7 +128,6 @@ const breakpoints = {
   "2xl": "1536",
 };
 
-// TODO: Add dropdown functionality
 // TODO: Add global search functionality
 export default function Nav() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -106,7 +153,7 @@ export default function Nav() {
     }
   }, [width]);
   return (
-    <nav className={`${variants.navbar}`}>
+    <nav className={`${variants.navbar} z-50`}>
       <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
