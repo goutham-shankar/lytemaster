@@ -13,7 +13,7 @@ const navItems = [
 
 const variants = {
   navbar:
-    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12 sm:py-0",
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
@@ -45,7 +45,7 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
-    <div className="z-10 absolute top-0 right-0 pl-4 pr-8 py-6 w-screen h-screen flex flex-col justify-center items-center gap-2 text-sm bg-white/25 backdrop-blur-md no-doc-scroll">
+    <div className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.37rem] w-screen h-screen flex flex-col justify-center items-center gap-2 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12">
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
         <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
