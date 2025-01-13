@@ -24,9 +24,15 @@ const SectionDescription = ({ description }) => {
   return <p className="text-xs text-center">{description}</p>;
 };
 
-const CtaButton = ({ name, href, className = "text-black border-black" }) => {
+const CtaButton = ({
+  name,
+  href,
+  className = "text-black border-black hover:bg-black hover:text-white",
+}) => {
   return (
-    <button className={`${className} px-8 py-2 text-xs border rounded-full`}>
+    <button
+      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105`}
+    >
       <Link href={href} className="w-full h-full">
         {name}
       </Link>
@@ -44,7 +50,11 @@ const ProductCard = ({ title, cta, thumbnail }) => {
       />
       <div className="absolute top-0 left-0 w-full py-6 flex flex-col gap-4 justify-center items-center">
         <h1 className="text-lg text-white text-center">{title}</h1>
-        <CtaButton name={cta.text} href={cta.href} className="text-white" />
+        <CtaButton
+          name={cta.text}
+          href={cta.href}
+          className="text-white hover:bg-white hover:text-black"
+        />
       </div>
     </div>
   );
@@ -66,7 +76,11 @@ const Hero = ({ title, cta }) => {
         <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">
           {title}
         </h1>
-        <CtaButton name={cta.name} href={cta.href} className="border-white" />
+        <CtaButton
+          name={cta.name}
+          href={cta.href}
+          className="border-white hover:bg-white hover:text-black"
+        />
       </div>
     </section>
   );
@@ -159,7 +173,7 @@ const ContactSection = ({ title, description, cta }) => {
         <CtaButton
           name={cta.text}
           href={cta.href}
-          className="text-white border-white"
+          className="text-white border-white hover:bg-white hover:text-black"
         />
       </div>
     </section>

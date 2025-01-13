@@ -21,11 +21,12 @@ const Navbar = () => {
   return (
     <ul className="flex justify-center items-center gap-3 text-sm">
       {navItems.map((item, index) => (
-        <li key={index} className="mx-2">
+        <li key={index} className="mx-2 group">
           <Link href={item.href} className="flex items-center gap-2">
             {item.name}
             {item.dropdown && <ChevronDown size={16} />}
           </Link>
+          <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
         </li>
       ))}
     </ul>
@@ -45,21 +46,25 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
-    <div className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.37rem] w-screen h-screen flex flex-col justify-center items-center gap-2 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12">
+    <div
+      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.37rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12"
+      onClick={() => setNavrailOpen(!navrailOpen)}
+    >
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
         <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       </div>
-      <ul className="w-full h-full flex flex-col justify-start items-start gap-5 text-sm">
+      <ul className="w-full h-full flex flex-col justify-start items-start gap-2 text-sm">
         {navItems.map((item, index) => (
-          <li key={index}>
+          <li key={index} className="group">
             <Link
               href={item.href}
-              className="flex justify-center items-center gap-2 text-2xl"
+              className="flex justify-center items-center gap-2 text-2xl "
             >
               {item.name}
               {item.dropdown && <ChevronDown size={16} />}
             </Link>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
         ))}
       </ul>
@@ -97,11 +102,9 @@ export default function Nav() {
       setIsMobile(true);
     } else {
       setIsMobile(false);
+      setNavrailOpen(false);
     }
   }, [width]);
-  useEffect(() => {
-    console.log(navrailOpen);
-  }, [navrailOpen]);
   return (
     <nav className={`${variants.navbar}`}>
       <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>

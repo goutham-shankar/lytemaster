@@ -57,15 +57,16 @@ const footerLinks = [
 
 const FooterSection = ({ section, links, index }) => {
   return (
-    <div key={index}>
+    <div key={index} className="w-max">
       <div className="relative inline-block">
         <h4 className="text-sm">{section}</h4>
         <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
       </div>
       <ul className="py-2 flex flex-col gap-1">
         {links.map(({ name, link }, index) => (
-          <li key={index} className="text-xs">
+          <li key={index} className="text-xs group">
             <Link href={link}>{name}</Link>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-[0.05rem] bg-white"></span>
           </li>
         ))}
       </ul>
