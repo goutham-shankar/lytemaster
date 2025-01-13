@@ -96,7 +96,7 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-80 pl-16 pr-24 flex justify-between items-center bg-black text-white">
+    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80">
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4">
@@ -104,7 +104,7 @@ export default function Footer() {
           <Socials />
         </div>
       </div>
-      <div className="flex gap-16">
+      <div className="flex gap-8 sm:gap-16">
         {footerLinks.map(({ section, links }, index) => (
           <FooterSection key={index} section={section} links={links} />
         ))}
