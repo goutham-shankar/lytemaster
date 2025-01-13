@@ -22,17 +22,17 @@ const SectionDescription = ({ description }) => {
   return <p className="text-xs text-center">{description}</p>;
 };
 
-const CtaButton = ({ name, href, className = "" }) => {
+const CtaButton = ({ name, href, className = "text-black border-black" }) => {
   return (
-    <button className={className}>
-      <Link href={href} className="px-8 py-2 border rounded-full">
+    <button className={`${className} px-8 py-2 text-xs border rounded-full`}>
+      <Link href={href} className="w-full h-full">
         {name}
       </Link>
     </button>
   );
 };
 
-const ProductCard = ({ title, ctaText, ctaHref, thumbnail }) => {
+const ProductCard = ({ title, cta, thumbnail }) => {
   return (
     <div className="relative h-full flex-1 flex flex-col items-center gap-2">
       <Image
@@ -42,7 +42,7 @@ const ProductCard = ({ title, ctaText, ctaHref, thumbnail }) => {
       />
       <div className="absolute top-0 left-0 w-full py-6 flex flex-col gap-4 justify-center items-center">
         <h1 className="text-lg text-white text-center">{title}</h1>
-        <CtaButton name={ctaText} href={ctaHref} className="text-white" />
+        <CtaButton name={cta.text} href={cta.href} className="text-white" />
       </div>
     </div>
   );
@@ -52,13 +52,13 @@ const ProductCard = ({ title, ctaText, ctaHref, thumbnail }) => {
 
 // TODO: Update hero placeholder image with a background video
 // Hero section
-const Hero = () => {
+const Hero = ({ title, cta }) => {
   return (
     <section className="h-[30rem] flex flex-col justify-center items-center gap-4 bg-[url('../assets/landing/hero-placeholder.jpeg')] bg-cover bg-center text-white">
       <h1 className="w-2/3 text-5xl font-bebasNeue uppercase text-center">
-        World class range of lighting solutions
+        {title}
       </h1>
-      <CtaButton name="View More" href="#" />
+      <CtaButton name={cta.name} href={cta.href} className="border-white" />
     </section>
   );
 };
@@ -100,8 +100,7 @@ const ProductsSection = ({ title, products }) => {
           <ProductCard
             key={index}
             title={product.title}
-            ctaText={product.ctaText}
-            ctaHref={product.ctaHref}
+            cta={product.cta}
             thumbnail={product.thumbnail}
           />
         ))}
@@ -142,31 +141,49 @@ const ContactSection = ({ title, description, cta }) => {
         <SectionTitle title={title} />
         <p className="text-xs">{description}</p>
       </div>
-      <CtaButton name={cta.text} href={cta.href} />
+      <CtaButton
+        name={cta.text}
+        href={cta.href}
+        className="text-white border-white"
+      />
     </section>
   );
 };
 
 /* data */
+const heroSectionData = {
+  title: "World class range of lighting solutions",
+  cta: {
+    name: "View More",
+    href: "#", // TODO: Update this link
+  },
+};
+
 const productsSectionData = {
   title: "Our Products",
   products: [
     {
       title: "Commercial Lighting",
-      ctaText: "See More",
-      ctaHref: "#",
+      cta: {
+        text: "See More",
+        href: "/products/commercial-lighting",
+      },
       thumbnail: commercialLightingThumbnail,
     },
     {
       title: "Industrial Lighting",
-      ctaText: "See More",
-      ctaHref: "#",
+      cta: {
+        text: "See More",
+        href: "/products/industrial-lighting",
+      },
       thumbnail: industrialLightingThumbnail,
     },
     {
       title: "Landscape Lighting",
-      ctaText: "See More",
-      ctaHref: "#",
+      cta: {
+        text: "See More",
+        href: "/products/landscape-lighting",
+      },
       thumbnail: landscapeLightingThumbnail,
     },
   ],
@@ -213,7 +230,7 @@ const contactSectionData = {
 export default function Landing() {
   return (
     <>
-      <Hero />
+      <Hero {...heroSectionData} />
       <AboutSection {...aboutSectionData} />
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
