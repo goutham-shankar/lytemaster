@@ -171,7 +171,7 @@ const productsSectionData = {
       title: "Commercial Lighting",
       cta: {
         text: "See More",
-        href: "/products/commercial-lighting",
+        href: "/products/commercial",
       },
       thumbnail: commercialLightingThumbnail,
     },
@@ -179,7 +179,7 @@ const productsSectionData = {
       title: "Industrial Lighting",
       cta: {
         text: "See More",
-        href: "/products/industrial-lighting",
+        href: "/products/industrial",
       },
       thumbnail: industrialLightingThumbnail,
     },
@@ -187,7 +187,7 @@ const productsSectionData = {
       title: "Landscape Lighting",
       cta: {
         text: "See More",
-        href: "/products/landscape-lighting",
+        href: "/products/landscape",
       },
       thumbnail: landscapeLightingThumbnail,
     },
@@ -200,7 +200,7 @@ const aboutSectionData = {
     "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
   cta: {
     text: "About us",
-    href: "#",
+    href: "/about-us",
   },
   images: [gmbhPlaceholder],
 };
@@ -217,7 +217,7 @@ const industriesSectionData = {
   ],
   cta: {
     text: "See More",
-    href: "#",
+    href: "#", // TODO: Update this link
   },
 };
 
@@ -227,7 +227,7 @@ const contactSectionData = {
     "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting.",
   cta: {
     text: "Contact Us",
-    href: "#",
+    href: "/contact",
   },
 };
 
