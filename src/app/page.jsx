@@ -15,7 +15,9 @@ import industriesPlaceholder1 from "@assets/landing/industry-placeholder-1.jpeg"
 
 /* helper components */
 const SectionTitle = ({ title }) => {
-  return <h1 className="text-5xl font-bebasNeue uppercase">{title}</h1>;
+  return (
+    <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">{title}</h1>
+  );
 };
 
 const SectionDescription = ({ description }) => {
@@ -34,7 +36,7 @@ const CtaButton = ({ name, href, className = "text-black border-black" }) => {
 
 const ProductCard = ({ title, cta, thumbnail }) => {
   return (
-    <div className="relative h-full flex-1 flex flex-col items-center gap-2">
+    <div className="relative h-72 flex flex-col items-center gap-2 sm:h-80 sm:flex-1 lg:h-96">
       <Image
         src={thumbnail}
         alt={title}
@@ -54,8 +56,8 @@ const ProductCard = ({ title, cta, thumbnail }) => {
 // Hero section
 const Hero = ({ title, cta }) => {
   return (
-    <section className="h-[30rem] flex flex-col justify-center items-center gap-4 bg-[url('../assets/landing/hero-placeholder.jpeg')] bg-cover bg-center text-white">
-      <h1 className="w-2/3 text-5xl font-bebasNeue uppercase text-center">
+    <section className="h-max px-12 py-16 flex flex-col justify-center items-center gap-4 bg-[url('../assets/landing/hero-placeholder.jpeg')] bg-cover bg-center text-white before:bg-black sm:px-48 sm:py-32 xl:py-72">
+      <h1 className="text-3xl font-bebasNeue uppercase text-center sm:text-5xl">
         {title}
       </h1>
       <CtaButton name={cta.name} href={cta.href} className="border-white" />
@@ -69,10 +71,10 @@ const AboutSection = ({ title, description, cta, images }) => {
   return (
     <section
       id="about"
-      className="h-[50rem] flex flex-col justify-center items-center gap-6 bg-white text-black"
+      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
-      <div className="w-2/3 flex flex-col items-center gap-2">
-        <h2 className="text-center text-2xl ">Welcome to</h2>
+      <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
+        <h2 className="text-center text-xl sm:text-2xl">Welcome to</h2>
         <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
@@ -80,7 +82,7 @@ const AboutSection = ({ title, description, cta, images }) => {
       <Image
         src={images[0]}
         alt="LyteMaster GMBH"
-        className="w-4/5 h-96 rounded-lg object-cover"
+        className="h-72 rounded-lg object-cover sm:h-96"
       />
     </section>
   );
@@ -90,12 +92,12 @@ const ProductsSection = ({ title, products }) => {
   return (
     <section
       id="products"
-      className="h-96 flex flex-col justify-center items-center gap-6 bg-white text-black"
+      className="h-max px-12 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16"
     >
-      <div className="w-2/3 flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2">
         <SectionTitle title={title} />
       </div>
-      <div className="w-4/5 h-80 flex items-center gap-5">
+      <div className="h-max flex flex-col items-center gap-4 sm:flex-row">
         {products.map((product, index) => (
           <ProductCard
             key={index}
@@ -113,19 +115,19 @@ const IndustriesSection = ({ title, description, images, cta }) => {
   return (
     <section
       id="industries"
-      className="h-[34rem] flex flex-col justify-center items-center gap-6 bg-white text-black"
+      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
-      <div className="w-2/3 flex flex-col items-center gap-2">
+      <div className="px-2 flex flex-col items-center gap-2 text-center sm:px-16 lg:px-32">
         <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex flex-col justify-center items-center gap-2 sm:flex-row">
         {images.map((industry, index) => (
           <Image
             key={index}
             src={industry}
             alt="Industries"
-            className="w-48 aspect-square rounded-lg object-cover"
+            className="aspect-square rounded-lg object-cover flex-1 sm:w-1/12"
           />
         ))}
       </div>
@@ -136,8 +138,11 @@ const IndustriesSection = ({ title, description, images, cta }) => {
 
 const ContactSection = ({ title, description, cta }) => {
   return (
-    <section className="h-80 px-24 flex flex-col justify-center items-start gap-6 bg-[url('../assets/landing/commercial-lighting-thumbnail.jpeg')] bg-cover bg-center text-white">
-      <div className="w-80 flex flex-col justify-center items-start gap-2">
+    <section
+      id="contact"
+      className="h-max px-12 py-16 flex flex-col justify-center items-start gap-6 bg-[url('../assets/landing/commercial-lighting-thumbnail.jpeg')] bg-cover bg-center text-white sm:px-24 sm:py-20"
+    >
+      <div className="w-52 flex flex-col justify-center items-start gap-2 sm:w-80">
         <SectionTitle title={title} />
         <p className="text-xs">{description}</p>
       </div>

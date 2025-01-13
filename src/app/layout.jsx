@@ -34,10 +34,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`min-h-screen flex flex-col ${dmSerifDisplay.variable} ${bebasNeue.variable} ${satoshiVariable.variable} antialiased font-satoshiVariable`}
+        className={`border border-red-600 w-full h-full flex-col ${dmSerifDisplay.variable} ${bebasNeue.variable} ${satoshiVariable.variable} antialiased font-satoshiVariable overscroll-none scroll-smooth`}
       >
         <common.Nav />
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="border border-black w-full flex-1 flex flex-col scroll-smooth">
+          {children}
+        </main>
         <common.Footer />
       </body>
     </html>
