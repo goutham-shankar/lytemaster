@@ -56,11 +56,18 @@ const ProductCard = ({ title, cta, thumbnail }) => {
 // Hero section
 const Hero = ({ title, cta }) => {
   return (
-    <section className="h-max px-12 py-16 flex flex-col justify-center items-center gap-4 bg-[url('../assets/landing/hero-placeholder.jpeg')] bg-cover bg-center text-white before:bg-black sm:px-48 sm:py-32 xl:py-72">
-      <h1 className="text-3xl font-bebasNeue uppercase text-center sm:text-5xl">
-        {title}
-      </h1>
-      <CtaButton name={cta.name} href={cta.href} className="border-white" />
+    <section className="relative text-white text-center">
+      <Image
+        src={heroPlaceholder}
+        alt="hero placeholder"
+        className="w-full object-cover object-bottom brightness-75"
+      />
+      <div className="absolute inset-0 px-12 py-16 flex flex-col gap-6 items-center justify-center sm:px-48 sm:py-32 xl:py-72">
+        <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">
+          {title}
+        </h1>
+        <CtaButton name={cta.name} href={cta.href} className="border-white" />
+      </div>
     </section>
   );
 };
@@ -138,19 +145,23 @@ const IndustriesSection = ({ title, description, images, cta }) => {
 
 const ContactSection = ({ title, description, cta }) => {
   return (
-    <section
-      id="contact"
-      className="h-max px-12 py-16 flex flex-col justify-center items-start gap-6 bg-[url('../assets/landing/commercial-lighting-thumbnail.jpeg')] bg-cover bg-center text-white sm:px-24 sm:py-20"
-    >
-      <div className="w-52 flex flex-col justify-center items-start gap-2 sm:w-80">
-        <SectionTitle title={title} />
-        <p className="text-xs">{description}</p>
-      </div>
-      <CtaButton
-        name={cta.text}
-        href={cta.href}
-        className="text-white border-white"
+    <section id="contact" className="relative h-64 text-white lg:h-96">
+      <Image
+        src={commercialLightingThumbnail}
+        alt="commercial lighting"
+        className="w-full h-full object-cover object-center brightness-[65%]"
       />
+      <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
+        <div className="w-52 flex flex-col justify-center items-start gap-2 sm:w-80">
+          <SectionTitle title={title} />
+          <p className="text-xs">{description}</p>
+        </div>
+        <CtaButton
+          name={cta.text}
+          href={cta.href}
+          className="text-white border-white"
+        />
+      </div>
     </section>
   );
 };
