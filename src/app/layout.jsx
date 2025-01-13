@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         className={`w-full h-full flex-col ${dmSerifDisplay.variable} ${bebasNeue.variable} ${satoshiVariable.variable} antialiased font-satoshiVariable overscroll-none scroll-smooth`}
       >
         <common.Nav />
-        <main className="w-full flex-1 flex flex-col scroll-smooth">
+        <main className="z-1 w-full flex-1 flex flex-col scroll-smooth">
           {children}
         </main>
         <common.Footer />
