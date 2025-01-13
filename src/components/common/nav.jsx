@@ -12,7 +12,8 @@ const navItems = [
 ];
 
 const variants = {
-  navbar: "w-full h-20 px-12 flex justify-between items-center bg-white",
+  navbar:
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12 sm:py-0",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
@@ -44,16 +45,18 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
-    <div className="z-10 absolute top-0 right-0 w-screen h-screen flex flex-col justify-center items-center gap-3 text-sm bg-white/25 backdrop-blur-md no-doc-scroll">
-      <MenuButton
-        navrailOpen={navrailOpen}
-        setNavrailOpen={setNavrailOpen}
-        className="absolute top-0 right-0 mx-12 my-7"
-      />
-      <ul className="flex flex-col justify-center items-center gap-3 text-sm">
+    <div className="z-10 absolute top-0 right-0 pl-4 pr-8 py-6 w-screen h-screen flex flex-col justify-center items-center gap-2 text-sm bg-white/25 backdrop-blur-md no-doc-scroll">
+      <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
+        <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+        <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
+      </div>
+      <ul className="w-full h-full flex flex-col justify-start items-start gap-5 text-sm">
         {navItems.map((item, index) => (
-          <li key={index} className="mx-2">
-            <Link href={item.href} className="flex items-center gap-1 text-lg">
+          <li key={index}>
+            <Link
+              href={item.href}
+              className="flex justify-center items-center gap-2 text-2xl"
+            >
               {item.name}
               {item.dropdown && <ChevronDown size={16} />}
             </Link>
