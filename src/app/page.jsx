@@ -14,9 +14,11 @@ import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
 import industriesPlaceholder1 from "@assets/landing/industry-placeholder-1.jpeg";
 
 /* helper components */
-const SectionTitle = ({ title }) => {
+const SectionTitle = ({ title, className = "" }) => {
   return (
-    <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl xl:text-7xl">
+    <h1
+      className={`${className} text-3xl font-bebasNeue uppercase sm:text-5xl xl:text-7xl`}
+    >
       {title}
     </h1>
   );
@@ -78,8 +80,8 @@ const Hero = ({ title, cta }) => {
         alt="hero placeholder"
         className="w-full object-cover object-bottom brightness-75"
       />
-      <div className="absolute inset-0 px-12 py-16 flex flex-col gap-6 items-center justify-center sm:px-48 sm:py-32 xl:px-64 xl:py-72">
-        <SectionTitle title={title} />
+      <div className="absolute inset-0 py-16 flex flex-col gap-6 items-center justify-center sm:py-32 xl:py-72">
+        <SectionTitle title={title} className="text-nowrap" />
         <CtaButton
           name={cta.name}
           href={cta.href}
@@ -189,7 +191,11 @@ const ContactSection = ({ title, description, cta }) => {
 
 /* data */
 const heroSectionData = {
-  title: "World class range of lighting solutions",
+  title: (
+    <>
+      World class range of lighting <br /> solutions
+    </>
+  ),
   cta: {
     name: "View More",
     href: "#", // TODO: Update this link

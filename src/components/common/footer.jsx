@@ -99,7 +99,7 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80">
+    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80 xl:gap-96">
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4">
