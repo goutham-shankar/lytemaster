@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { Mail, ArrowRight, BellRing } from "lucide-react";
+import { useState } from "react";
 
 /* gmbh placeholder image */
 import gmbhPlaceholder from "@assets/landing/gmbh-placeholder.jpeg";
@@ -163,6 +167,75 @@ const IndustriesSection = ({ title, description, images, cta }) => {
   );
 };
 
+const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: send email to backend
+    setEmail("");
+  };
+
+  return (
+    <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16">
+      <SectionTitle title={title} />
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Left Content */}
+              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r">
+                <BellRing className="w-12 h-12 mb-6 mx-auto text-black sm:mx-0" />
+                <h2 className="text-xl font-bold mb-4 sm:text-3xl">
+                  {caption}
+                </h2>
+                <div className="w-16 h-0.5 bg-black mb-6"></div>
+                <p className="text-sm text-gray-600 sm:text-md">
+                  {description}
+                </p>
+              </div>
+
+              {/* Right Form */}
+              <div className="p-8 bg-white">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
+                        className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:ring-0"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center group"
+                  >
+                    {cta.text}
+                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <p className="text-xs text-gray-500 text-center">
+                    {disclaimer}
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const ContactSection = ({ title, description, cta }) => {
   return (
     <section
@@ -259,6 +332,19 @@ const industriesSectionData = {
   },
 };
 
+const newsletterSectionData = {
+  title: "Newsletter",
+  caption: "Stay Illuminated",
+  description:
+    "Join our newsletter and stay updated with the latest news and insights.",
+  cta: {
+    text: "Subscribe",
+    href: "/newsletter",
+  },
+  disclaimer:
+    "By subscribing, you agree to receive our newsletter. You can unsubscribe at any time.",
+};
+
 const contactSectionData = {
   title: "Would you like to discuss a project?",
   description:
@@ -277,6 +363,7 @@ export default function Landing() {
       <AboutSection {...aboutSectionData} />
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
+      <Newsletter {...newsletterSectionData} />
       <ContactSection {...contactSectionData} />
     </>
   );
