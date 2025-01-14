@@ -129,28 +129,55 @@ const breakpoints = {
 
 // TODO: Add global search functionality
 export default function Nav() {
-  const [width, setWidth] = useState(window.innerWidth);
+  // const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [navrailOpen, setNavrailOpen] = useState(false);
 
-  const handleResize = () => {
-    setWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // const handleResize = () => {
+  //   setWidth(window.innerWidth);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (width <= breakpoints.md) {
+  //     setIsMobile(true);
+  //   } else {
+  //     setIsMobile(false);
+  //     setNavrailOpen(false);
+  //   }
+  // }, [width]);
+
 
   useEffect(() => {
-    if (width <= breakpoints.md) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-      setNavrailOpen(false);
-    }
-  }, [width]);
+    // Update width on mount and window resize
+    const updateWidth = () => {
+      const newWidth = window.innerWidth;
+      setWidth(newWidth);
+      setIsMobile(newWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    updateWidth(); // Set initial width
+
+    // Add event listener
+    window.addEventListener("resize", updateWidth);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []); // Run effect only once on mount
+
+
+
+
+
+
   return (
     <nav className={`${variants.navbar} z-50`}>
       <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
