@@ -129,7 +129,7 @@ const breakpoints = {
 
 // TODO: Add global search functionality
 export default function Nav() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [navrailOpen, setNavrailOpen] = useState(false);
 
@@ -137,6 +137,7 @@ export default function Nav() {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
+    setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
