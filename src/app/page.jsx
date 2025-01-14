@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { Mail, ArrowRight, BellRing } from "lucide-react";
+import { useState } from "react";
 
 /* gmbh placeholder image */
 import gmbhPlaceholder from "@assets/landing/gmbh-placeholder.jpeg";
@@ -14,14 +18,22 @@ import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
 import industriesPlaceholder1 from "@assets/landing/industry-placeholder-1.jpeg";
 
 /* helper components */
-const SectionTitle = ({ title }) => {
+const SectionTitle = ({ title, className = "" }) => {
   return (
-    <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">{title}</h1>
+    <h1
+      className={`${className} text-3xl font-bebasNeue uppercase sm:text-5xl xl:text-7xl`}
+    >
+      {title}
+    </h1>
   );
 };
 
-const SectionDescription = ({ description }) => {
-  return <p className="text-xs text-center">{description}</p>;
+const SectionDescription = ({ description, className = "text-center" }) => {
+  return (
+    <p className={`${className} text-xs lg:text-lg xl:text-2xl`}>
+      {description}
+    </p>
+  );
 };
 
 const CtaButton = ({
@@ -31,7 +43,7 @@ const CtaButton = ({
 }) => {
   return (
     <button
-      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105`}
+      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105 lg:text-lg xl:text-2xl`}
     >
       <Link href={href} className="w-full h-full">
         {name}
@@ -72,10 +84,8 @@ const Hero = ({ title, cta }) => {
         alt="hero placeholder"
         className="w-full object-cover object-bottom brightness-75"
       />
-      <div className="absolute inset-0 px-12 py-16 flex flex-col gap-6 items-center justify-center sm:px-48 sm:py-32 xl:py-72">
-        <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">
-          {title}
-        </h1>
+      <div className="absolute inset-0 py-16 flex flex-col gap-6 items-center justify-center sm:py-32 xl:py-72">
+        <SectionTitle title={title} className="text-nowrap" />
         <CtaButton
           name={cta.name}
           href={cta.href}
@@ -95,7 +105,7 @@ const AboutSection = ({ title, description, cta, images }) => {
       className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
-        <h2 className="text-center text-xl sm:text-2xl">Welcome to</h2>
+        <SectionDescription description={"Welcome to"} />
         <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
@@ -103,7 +113,7 @@ const AboutSection = ({ title, description, cta, images }) => {
       <Image
         src={images[0]}
         alt="LyteMaster GMBH"
-        className="h-72 rounded-lg object-cover sm:h-96"
+        className="w-full h-72 rounded-lg object-cover sm:h-96"
       />
     </section>
   );
@@ -157,18 +167,90 @@ const IndustriesSection = ({ title, description, images, cta }) => {
   );
 };
 
+const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: send email to backend
+    setEmail("");
+  };
+
+  return (
+    <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16">
+      <SectionTitle title={title} />
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Left Content */}
+              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r">
+                <BellRing className="w-12 h-12 mb-6 mx-auto text-black sm:mx-0" />
+                <h2 className="text-xl font-bold mb-4 sm:text-3xl">
+                  {caption}
+                </h2>
+                <div className="w-16 h-0.5 bg-black mb-6"></div>
+                <p className="text-sm text-gray-600 sm:text-md">
+                  {description}
+                </p>
+              </div>
+
+              {/* Right Form */}
+              <div className="p-8 bg-white">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
+                        className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:ring-0"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center group"
+                  >
+                    {cta.text}
+                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <p className="text-xs text-gray-500 text-center">
+                    {disclaimer}
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const ContactSection = ({ title, description, cta }) => {
   return (
-    <section id="contact" className="relative h-64 text-white lg:h-96">
+    <section
+      id="contact"
+      className="relative h-64 text-white lg:h-96 xl:h-[30rem] transition-transform duration-500"
+    >
       <Image
         src={commercialLightingThumbnail}
         alt="commercial lighting"
         className="w-full h-full object-cover object-center brightness-[65%]"
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
-        <div className="w-52 flex flex-col justify-center items-start gap-2 sm:w-80">
+        <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-2/3 lg:w-1/2">
           <SectionTitle title={title} />
-          <p className="text-xs">{description}</p>
+          <SectionDescription description={description} className="text-left" />
         </div>
         <CtaButton
           name={cta.text}
@@ -182,7 +264,11 @@ const ContactSection = ({ title, description, cta }) => {
 
 /* data */
 const heroSectionData = {
-  title: "World class range of lighting solutions",
+  title: (
+    <>
+      World class range of lighting <br /> solutions
+    </>
+  ),
   cta: {
     name: "View More",
     href: "#", // TODO: Update this link
@@ -246,6 +332,19 @@ const industriesSectionData = {
   },
 };
 
+const newsletterSectionData = {
+  title: "Newsletter",
+  caption: "Stay Illuminated",
+  description:
+    "Join our newsletter and stay updated with the latest news and insights.",
+  cta: {
+    text: "Subscribe",
+    href: "/newsletter",
+  },
+  disclaimer:
+    "By subscribing, you agree to receive our newsletter. You can unsubscribe at any time.",
+};
+
 const contactSectionData = {
   title: "Would you like to discuss a project?",
   description:
@@ -264,6 +363,7 @@ export default function Landing() {
       <AboutSection {...aboutSectionData} />
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
+      <Newsletter {...newsletterSectionData} />
       <ContactSection {...contactSectionData} />
     </>
   );

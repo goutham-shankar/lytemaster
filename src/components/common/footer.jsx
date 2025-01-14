@@ -59,13 +59,15 @@ const FooterSection = ({ section, links, index }) => {
   return (
     <div key={index} className="w-max">
       <div className="relative inline-block">
-        <h4 className="text-sm">{section}</h4>
+        <h4 className="text-sm lg:text-md xl:text-xl">{section}</h4>
         <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
       </div>
       <ul className="py-2 flex flex-col gap-1">
         {links.map(({ name, link }, index) => (
-          <li key={index} className="text-xs group">
-            <Link href={link}>{name}</Link>
+          <li key={index} className="w-min text-xs group lg:text-sm xl:text-lg">
+            <Link href={link} className="text-nowrap">
+              {name}
+            </Link>
             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-[0.05rem] bg-white"></span>
           </li>
         ))}
@@ -97,7 +99,7 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80">
+    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80 xl:gap-96">
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4">
