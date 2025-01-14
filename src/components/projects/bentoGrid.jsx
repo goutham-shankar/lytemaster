@@ -2,9 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const bento = {
-  lg: { item: "col-span-2 row-span-2", location: "text-sm", name: "text-xl" },
+  lg: {
+    item: "col-span-2 row-span-2 sm:col-span-2 sm:row-span-2",
+    location: "text-sm",
+    name: "text-xl",
+  },
   md: {
-    item: "col-span-2 ",
+    item: "col-span-1 row-span-2 sm:col-span-2 sm:row-span-1",
     location: "text-sm",
     name: "text-xl",
   },
@@ -17,7 +21,7 @@ export const bento = {
 
 export default function BentoGrid({ items }) {
   return (
-    <div className="w-full h-[32rem] grid grid-cols-4 grid-rows-3 gap-3 text-white">
+    <div className="w-full h-[32rem] grid grid-cols-2 grid-rows-4 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3">
       {items.map((item, index) => (
         <div
           key={index}
