@@ -12,7 +12,7 @@ const filters = ["Commercial", "Industrial", "Landscape"];
 const SectionTitle = ({ title }) => {
   return (
     <div className="w-full flex flex-col justify-center items-start gap-2">
-      <h1 className="w-min text-4xl text-left font-bold text-nowrap">
+      <h1 className="w-min text-2xl text-left font-bold text-nowrap sm:text-4xl">
         {title}
         <span className="block w-1/3 h-0.5 mt-1 bg-black"></span>
       </h1>
@@ -22,7 +22,7 @@ const SectionTitle = ({ title }) => {
 
 const OverviewSection = ({ title, description }) => {
   return (
-    <section className="w-full h-max px-12 py-8 flex flex-col justify-center items-center gap-4 bg-white text-black ">
+    <section className="w-full h-max px-4 py-8 flex flex-col justify-center items-center gap-4 bg-white text-black sm:px-12">
       <h1 className="w-full text-4xl text-left font-bold">{title}</h1>
       <p className="">{description}</p>
       <Filters filters={filters} />
@@ -32,7 +32,7 @@ const OverviewSection = ({ title, description }) => {
 
 const ProjectSection = ({ title, cta, projects }) => {
   return (
-    <section className="w-full h-max px-12 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black">
+    <section className="w-full h-max px-4 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-12">
       <SectionTitle title={title} />
       <BentoGrid items={projects} />
       <CtaButton name={cta.name} href={cta.href} />
