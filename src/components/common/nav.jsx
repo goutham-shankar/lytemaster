@@ -110,7 +110,6 @@ const Navrail = ({ navrailOpen, setNavrailOpen }) => {
               className="flex justify-center items-center gap-2 text-2xl "
             >
               {item.name}
-              {item.dropdown && <ChevronDown size={16} />}
             </Link>
             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
