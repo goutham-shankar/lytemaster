@@ -16,12 +16,18 @@ import industriesPlaceholder1 from "@assets/landing/industry-placeholder-1.jpeg"
 /* helper components */
 const SectionTitle = ({ title }) => {
   return (
-    <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">{title}</h1>
+    <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl xl:text-7xl">
+      {title}
+    </h1>
   );
 };
 
-const SectionDescription = ({ description }) => {
-  return <p className="text-xs text-center">{description}</p>;
+const SectionDescription = ({ description, className = "text-center" }) => {
+  return (
+    <p className={`${className} text-xs lg:text-lg xl:text-2xl`}>
+      {description}
+    </p>
+  );
 };
 
 const CtaButton = ({
@@ -31,7 +37,7 @@ const CtaButton = ({
 }) => {
   return (
     <button
-      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105`}
+      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105 lg:text-lg xl:text-2xl`}
     >
       <Link href={href} className="w-full h-full">
         {name}
@@ -72,10 +78,8 @@ const Hero = ({ title, cta }) => {
         alt="hero placeholder"
         className="w-full object-cover object-bottom brightness-75"
       />
-      <div className="absolute inset-0 px-12 py-16 flex flex-col gap-6 items-center justify-center sm:px-48 sm:py-32 xl:py-72">
-        <h1 className="text-3xl font-bebasNeue uppercase sm:text-5xl">
-          {title}
-        </h1>
+      <div className="absolute inset-0 px-12 py-16 flex flex-col gap-6 items-center justify-center sm:px-48 sm:py-32 xl:px-64 xl:py-72">
+        <SectionTitle title={title} />
         <CtaButton
           name={cta.name}
           href={cta.href}
@@ -95,7 +99,7 @@ const AboutSection = ({ title, description, cta, images }) => {
       className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
-        <h2 className="text-center text-xl sm:text-2xl">Welcome to</h2>
+        <SectionDescription description={"Welcome to"} />
         <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
@@ -103,7 +107,7 @@ const AboutSection = ({ title, description, cta, images }) => {
       <Image
         src={images[0]}
         alt="LyteMaster GMBH"
-        className="h-72 rounded-lg object-cover sm:h-96"
+        className="w-full h-72 rounded-lg object-cover sm:h-96"
       />
     </section>
   );
@@ -159,16 +163,19 @@ const IndustriesSection = ({ title, description, images, cta }) => {
 
 const ContactSection = ({ title, description, cta }) => {
   return (
-    <section id="contact" className="relative h-64 text-white lg:h-96">
+    <section
+      id="contact"
+      className="relative h-64 text-white lg:h-96 xl:h-[30rem] transition-transform duration-500"
+    >
       <Image
         src={commercialLightingThumbnail}
         alt="commercial lighting"
         className="w-full h-full object-cover object-center brightness-[65%]"
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
-        <div className="w-52 flex flex-col justify-center items-start gap-2 sm:w-80">
+        <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-2/3 lg:w-1/2">
           <SectionTitle title={title} />
-          <p className="text-xs">{description}</p>
+          <SectionDescription description={description} className="text-left" />
         </div>
         <CtaButton
           name={cta.text}
