@@ -5,18 +5,18 @@ import Image from "next/image";
 export const bento = {
   lg: {
     item: "sm:col-span-2 sm:row-span-2",
-    location: "text-sm",
-    name: "text-xl",
+    location: "text-sm lg:text-md",
+    name: "text-md sm:text-xl lg:text-2xl",
   },
   md: {
     item: "sm:col-span-2 sm:row-span-1",
-    location: "text-sm",
-    name: "text-xl",
+    location: "text-sm lg:text-md",
+    name: "text-md sm:text-lg lg:text-xl",
   },
   sm: {
     item: "col-span-1 row-span-1",
-    location: "text-[0.65rem]",
-    name: "text-xs",
+    location: "text-sm sm:text-[0.65rem] lg:text-[.9rem]",
+    name: "text-md sm:text-sm lg:text-lg",
   },
 };
 
