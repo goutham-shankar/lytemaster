@@ -21,7 +21,7 @@ const navItems = [
 
 const variants = {
   navbar:
-    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12",
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12 text-black",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
@@ -154,7 +154,9 @@ export default function Nav() {
   }, [width]);
   return (
     <nav className={`${variants.navbar} z-50`}>
-      <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+      <Link href={"/"}>
+        <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+      </Link>
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       )}
