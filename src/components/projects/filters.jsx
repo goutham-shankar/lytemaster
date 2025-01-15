@@ -26,8 +26,8 @@ export default function Filters({ filters }) {
   return (
     <div className="w-full flex flex-col gap-2 justify-start items-start text-nowrap text-sm sm:flex-row sm:items-center sm:gap-8">
       <h1>Filters:</h1>
-      <div className="flex gap-8 items-center">
-        <ul className="flex gap-8 justify-center items-center">
+      <div className="flex gap-4 items-center">
+        <ul className="flex gap-4 justify-center items-center">
           {filters.map((filter, index) => (
             <li
               key={index}
