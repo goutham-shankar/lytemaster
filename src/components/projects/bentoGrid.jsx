@@ -1,14 +1,15 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export const bento = {
   lg: {
-    item: "col-span-2 row-span-2 sm:col-span-2 sm:row-span-2",
+    item: "sm:col-span-2 sm:row-span-2",
     location: "text-sm",
     name: "text-xl",
   },
   md: {
-    item: "col-span-1 row-span-2 sm:col-span-2 sm:row-span-1",
+    item: "sm:col-span-2 sm:row-span-1",
     location: "text-sm",
     name: "text-xl",
   },
@@ -19,10 +20,38 @@ export const bento = {
   },
 };
 
+const breakpoints = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+};
+
 export default function BentoGrid({ items }) {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (width <= breakpoints.sm) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [width]);
+
   return (
-    <div className="w-full h-[32rem] grid grid-cols-2 grid-rows-4 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3">
-      {items.map((item, index) => (
+    <div className="w-full h-[32rem] grid grid-cols-1 grid-rows-3 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3">
+      {(isMobile ? items.slice(0, 3) : items).map((item, index) => (
         <div
           key={index}
           className={`w-full h-full relative flex flex-col justify-end items-start overflow-hidden rounded-xl group ${item.className.item}`}
