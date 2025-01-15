@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, ArrowRight, BellRing } from "lucide-react";
 import { useState } from "react";
+import CtaButton from "@components/common/ctaButton";
 
 /* gmbh placeholder image */
 import gmbhPlaceholder from "@assets/landing/gmbh-placeholder.jpeg";
@@ -33,22 +34,6 @@ const SectionDescription = ({ description, className = "text-center" }) => {
     <p className={`${className} text-xs lg:text-lg xl:text-2xl`}>
       {description}
     </p>
-  );
-};
-
-const CtaButton = ({
-  name,
-  href,
-  className = "text-black border-black hover:bg-black hover:text-white",
-}) => {
-  return (
-    <button
-      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105 lg:text-lg xl:text-2xl`}
-    >
-      <Link href={href} className="w-full h-full">
-        {name}
-      </Link>
-    </button>
   );
 };
 
