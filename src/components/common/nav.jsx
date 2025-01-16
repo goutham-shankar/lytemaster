@@ -3,21 +3,39 @@ import Link from "next/link";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
+// const navItems = [
+//   {
+//     name: "Products",
+//     href: "/products",
+//     dropdown: [
+//       { name: "Product 1", href: "/products/product-1" },
+//       { name: "Product 2", href: "/products/product-2" },
+//       { name: "Product 3", href: "/products/product-3" },
+//     ],
+//   },
+//   { name: "Projects", href: "/projects", dropdown: null },
+//   { name: "About us", href: "/about-us", dropdown: null },
+//   { name: "News", href: "/news", dropdown: null },
+//   { name: "Contact", href: "/contact", dropdown: false },
+// ];
+
 const navItems = [
   {
     name: "Products",
     href: "/products",
     dropdown: [
-      { name: "Product 1", href: "/products/product-1" },
-      { name: "Product 2", href: "/products/product-2" },
-      { name: "Product 3", href: "/products/product-3" },
+      { name: "Product 1", href: "#" },
+      { name: "Product 2", href: "#" },
+      { name: "Product 3", href: "#" },
     ],
   },
-  { name: "Projects", href: "/projects", dropdown: null },
-  { name: "About us", href: "/about-us", dropdown: null },
-  { name: "News", href: "/news", dropdown: null },
-  { name: "Contact", href: "/contact", dropdown: false },
+  { name: "Projects", href: "#", dropdown: null },
+  { name: "About us", href: "#", dropdown: null },
+  { name: "News", href: "#", dropdown: null },
+  { name: "Contact", href: "#", dropdown: false },
 ];
+
+
 
 const variants = {
   navbar:
