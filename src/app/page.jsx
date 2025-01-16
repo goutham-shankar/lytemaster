@@ -109,7 +109,8 @@ const AboutSection = ({ title, description, cta, images }) => {
         <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
-      <CtaButton name={cta.text} href={cta.href} />
+      {/* <CtaButton name={cta.text} href={cta.href} /> */}
+      <CtaButton name={cta.text} href="#" />
       <Image
         src={images[0]}
         alt="LyteMaster GMBH"
@@ -162,7 +163,8 @@ const IndustriesSection = ({ title, description, images, cta }) => {
           />
         ))}
       </div>
-      <CtaButton name={cta.text} href={cta.href} />
+      {/* <CtaButton name={cta.text} href={cta.href} /> */}
+      <CtaButton name={cta.text} href="#"/>
     </section>
   );
 };
@@ -254,7 +256,8 @@ const ContactSection = ({ title, description, cta }) => {
         </div>
         <CtaButton
           name={cta.text}
-          href={cta.href}
+          // href={cta.href}
+          href="#"
           className="text-white border-white hover:bg-white hover:text-black"
         />
       </div>
