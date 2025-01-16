@@ -106,7 +106,7 @@ const AboutSection = ({ title, description, cta, images }) => {
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
         <SectionDescription description={"Welcome to"} />
-        <SectionTitle title={title} />
+        <SectionTitle title={title} />     
         <SectionDescription description={description} />
       </div>
       {/* <CtaButton name={cta.text} href={cta.href} /> */}
