@@ -363,7 +363,7 @@ export default function Landing() {
   return (
     <>
       <Hero {...heroSectionData} />
-      <AboutSection {...aboutSectionData} />
+      <AboutSection {...aboutSectionData} />  
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
       <Newsletter {...newsletterSectionData} />
