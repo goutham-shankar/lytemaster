@@ -198,7 +198,8 @@ export default function Nav() {
 
   return (
     <nav className={`${variants.navbar} z-50`}>
-      <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+      {/* <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1> */}
+      <img  className="h-[100%]" src="/logo.svg" alt="" />
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       )}
