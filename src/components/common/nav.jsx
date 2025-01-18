@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -170,8 +171,14 @@ export default function Nav() {
   }, [width]);
   return (
     <nav className={`${variants.navbar} z-50`}>
-      <Link href={"/"}>
-        <img className="h-[100%]" src="/logo.svg" alt="" />
+      <Link href={"/"} className="w-36 sm:w-48">
+        <Image
+          src="/logo.svg"
+          alt="LyteMaster Logo"
+          width={100}
+          height={100}
+          className="w-full"
+        />
       </Link>
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
