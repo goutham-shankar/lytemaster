@@ -91,7 +91,7 @@ const AboutSection = ({ title, description, cta, images }) => {
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
         <SectionDescription description={"Welcome to"} />
-        <SectionTitle title={title} />     
+        <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
       {/* <CtaButton name={cta.text} href={cta.href} /> */}
@@ -149,7 +149,7 @@ const IndustriesSection = ({ title, description, images, cta }) => {
         ))}
       </div>
       {/* <CtaButton name={cta.text} href={cta.href} /> */}
-      <CtaButton name={cta.text} href="#"/>
+      <CtaButton name={cta.text} href="#" />
     </section>
   );
 };
@@ -168,10 +168,10 @@ const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
       <SectionTitle title={title} />
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+          <div className="bg-white rounded-lg overflow-hidden">
             <div className="grid md:grid-cols-2 gap-0">
               {/* Left Content */}
-              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r">
+              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r sm:border-b-0">
                 <BellRing className="w-12 h-12 mb-6 mx-auto text-black sm:mx-0" />
                 <h2 className="text-xl font-bold mb-4 sm:text-3xl">
                   {caption}
@@ -348,7 +348,7 @@ export default function Landing() {
   return (
     <>
       <Hero {...heroSectionData} />
-      <AboutSection {...aboutSectionData} />  
+      <AboutSection {...aboutSectionData} />
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
       <Newsletter {...newsletterSectionData} />
