@@ -91,10 +91,11 @@ const AboutSection = ({ title, description, cta, images }) => {
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
         <SectionDescription description={"Welcome to"} />
-        <SectionTitle title={title} />
+        <SectionTitle title={title} />     
         <SectionDescription description={description} />
       </div>
-      <CtaButton name={cta.text} href={cta.href} />
+      {/* <CtaButton name={cta.text} href={cta.href} /> */}
+      <CtaButton name={cta.text} href="#" />
       <Image
         src={images[0]}
         alt="LyteMaster GMBH"
@@ -147,7 +148,8 @@ const IndustriesSection = ({ title, description, images, cta }) => {
           />
         ))}
       </div>
-      <CtaButton name={cta.text} href={cta.href} />
+      {/* <CtaButton name={cta.text} href={cta.href} /> */}
+      <CtaButton name={cta.text} href="#"/>
     </section>
   );
 };
@@ -239,7 +241,8 @@ const ContactSection = ({ title, description, cta }) => {
         </div>
         <CtaButton
           name={cta.text}
-          href={cta.href}
+          // href={cta.href}
+          href="#"
           className="text-white border-white hover:bg-white hover:text-black"
         />
       </div>
@@ -345,7 +348,7 @@ export default function Landing() {
   return (
     <>
       <Hero {...heroSectionData} />
-      <AboutSection {...aboutSectionData} />
+      <AboutSection {...aboutSectionData} />  
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
       <Newsletter {...newsletterSectionData} />
