@@ -166,7 +166,7 @@ const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
   return (
     <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16">
       <SectionTitle title={title} />
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 shadow-lg">
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg overflow-hidden">
             <div className="grid md:grid-cols-2 gap-0">
