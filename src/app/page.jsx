@@ -46,7 +46,7 @@ const ProductCard = ({ title, cta, thumbnail }) => {
         className="h-full rounded-lg object-cover"
       />
       <div className="absolute top-0 left-0 w-full py-6 flex flex-col gap-4 justify-center items-center">
-        <h1 className="text-lg text-white text-center">{title}</h1>
+        <h1 className="text-lg text-white text-center xl:text-2xl">{title}</h1>
         <CtaButton
           name={cta.text}
           href={cta.href}
