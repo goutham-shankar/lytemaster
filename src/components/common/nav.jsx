@@ -39,7 +39,7 @@ const navItems = [
 
 const variants = {
   navbar:
-    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12 text-black",
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white text-black sm:px-12 xl:h-24 2xl:h-28",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
@@ -68,7 +68,7 @@ const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
-      className="relative mx-2 group"
+      className="relative mx-2 group lg:text-base xl:text-xl 2xl:text-3xl"
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
