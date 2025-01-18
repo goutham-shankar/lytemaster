@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import Branding from "@/components/common/branding";
 
 // const navItems = [
 //   {
@@ -112,14 +113,14 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
     <div
-      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.37rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12"
+      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[.67rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12 sm:py-[.067rem]"
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
-        <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+        <Branding />
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       </div>
-      <ul className="w-full h-full flex flex-col justify-start items-start gap-2 text-sm">
+      <ul className="w-full h-full pl-4 flex flex-col justify-start items-start gap-2 text-sm">
         {navItems.map((item, index) => (
           <li key={index} className="group">
             <Link
@@ -171,15 +172,7 @@ export default function Nav() {
   }, [width]);
   return (
     <nav className={`${variants.navbar} z-50`}>
-      <Link href={"/"} className="w-36 sm:w-48">
-        <Image
-          src="/logo.svg"
-          alt="LyteMaster Logo"
-          width={100}
-          height={100}
-          className="w-full"
-        />
-      </Link>
+      <Branding />
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       )}
