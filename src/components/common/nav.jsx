@@ -24,14 +24,14 @@ import Branding from "@/components/common/branding";
 const navItems = [
   {
     name: "Products",
-    href: "/products",
+    href: "/#",
     dropdown: [
       { name: "Product 1", href: "#" },
       { name: "Product 2", href: "#" },
       { name: "Product 3", href: "#" },
     ],
   },
-  { name: "Projects", href: "#", dropdown: null },
+  { name: "Projects", href: "/projects", dropdown: null },
   { name: "About us", href: "#", dropdown: null },
   { name: "News", href: "#", dropdown: null },
   { name: "Contact", href: "#", dropdown: false },
@@ -68,7 +68,7 @@ const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
-      className="relative mx-2 group lg:text-base xl:text-xl 2xl:text-3xl"
+      className="relative mx-2 group lg:text-sm xl:text-xl 2xl:text-3xl"
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
