@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import Branding from "@/components/common/branding";
 
 // const navItems = [
 //   {
@@ -35,11 +37,9 @@ const navItems = [
   { name: "Contact", href: "#", dropdown: false },
 ];
 
-
-
 const variants = {
   navbar:
-    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white sm:px-12",
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white text-black sm:px-12 xl:h-24 2xl:h-28",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
 };
 
@@ -68,7 +68,7 @@ const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
-      className="relative mx-2 group"
+      className="relative mx-2 group lg:text-base xl:text-xl 2xl:text-3xl"
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
@@ -113,14 +113,14 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
     <div
-      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.37rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12"
+      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[.67rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12 sm:py-[.067rem]"
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
-        <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1>
+        <Branding />
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       </div>
-      <ul className="w-full h-full flex flex-col justify-start items-start gap-2 text-sm">
+      <ul className="w-full h-full pl-4 flex flex-col justify-start items-start gap-2 text-sm">
         {navItems.map((item, index) => (
           <li key={index} className="group">
             <Link
@@ -147,59 +147,32 @@ const breakpoints = {
 
 // TODO: Add global search functionality
 export default function Nav() {
-  // const [width, setWidth] = useState(window.innerWidth);
   const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [navrailOpen, setNavrailOpen] = useState(false);
 
-  // const handleResize = () => {
-  //   setWidth(window.innerWidth);
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (width <= breakpoints.md) {
-  //     setIsMobile(true);
-  //   } else {
-  //     setIsMobile(false);
-  //     setNavrailOpen(false);
-  //   }
-  // }, [width]);
-
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
-    // Update width on mount and window resize
-    const updateWidth = () => {
-      const newWidth = window.innerWidth;
-      setWidth(newWidth);
-      setIsMobile(newWidth <= 768); // Adjust the breakpoint as needed
-    };
-
-    updateWidth(); // Set initial width
-
-    // Add event listener
-    window.addEventListener("resize", updateWidth);
-
-    // Cleanup event listener on unmount
-    return () => {
-      window.removeEventListener("resize", updateWidth);
-    };
-  }, []); // Run effect only once on mount
-
-
-
-
-
-
+    if (width <= breakpoints.md) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+      setNavrailOpen(false);
+    }
+  }, [width]);
   return (
     <nav className={`${variants.navbar} z-50`}>
-      {/* <h1 className="text-center text-3xl font-dmSerifDisplay">LyteMaster</h1> */}
-      <img  className="h-[100%]" src="/logo.svg" alt="" />
+      <Branding />
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
       )}
