@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, ArrowRight, BellRing } from "lucide-react";
 import { useState } from "react";
+import CtaButton from "@components/common/ctaButton";
 
 /* gmbh placeholder image */
 import gmbhPlaceholder from "@assets/landing/gmbh-placeholder.jpeg";
@@ -36,22 +37,6 @@ const SectionDescription = ({ description, className = "text-center" }) => {
   );
 };
 
-const CtaButton = ({
-  name,
-  href,
-  className = "text-black border-black hover:bg-black hover:text-white",
-}) => {
-  return (
-    <button
-      className={`${className} px-8 py-2 text-xs border rounded-full transition-all duration-500 hover:scale-105 lg:text-lg xl:text-2xl`}
-    >
-      <Link href={href} className="w-full h-full">
-        {name}
-      </Link>
-    </button>
-  );
-};
-
 const ProductCard = ({ title, cta, thumbnail }) => {
   return (
     <div className="relative h-72 flex flex-col items-center gap-2 sm:h-80 sm:flex-1 lg:h-96">
@@ -61,7 +46,7 @@ const ProductCard = ({ title, cta, thumbnail }) => {
         className="h-full rounded-lg object-cover"
       />
       <div className="absolute top-0 left-0 w-full py-6 flex flex-col gap-4 justify-center items-center">
-        <h1 className="text-lg text-white text-center">{title}</h1>
+        <h1 className="text-lg text-white text-center xl:text-2xl">{title}</h1>
         <CtaButton
           name={cta.text}
           href={cta.href}
@@ -106,7 +91,7 @@ const AboutSection = ({ title, description, cta, images }) => {
     >
       <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
         <SectionDescription description={"Welcome to"} />
-        <SectionTitle title={title} />     
+        <SectionTitle title={title} />
         <SectionDescription description={description} />
       </div>
       {/* <CtaButton name={cta.text} href={cta.href} /> */}
@@ -164,7 +149,7 @@ const IndustriesSection = ({ title, description, images, cta }) => {
         ))}
       </div>
       {/* <CtaButton name={cta.text} href={cta.href} /> */}
-      <CtaButton name={cta.text} href="#"/>
+      <CtaButton name={cta.text} href="#" />
     </section>
   );
 };
@@ -181,12 +166,12 @@ const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
   return (
     <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16">
       <SectionTitle title={title} />
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 shadow-lg">
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+          <div className="bg-white rounded-lg overflow-hidden">
             <div className="grid md:grid-cols-2 gap-0">
               {/* Left Content */}
-              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r">
+              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r sm:border-b-0">
                 <BellRing className="w-12 h-12 mb-6 mx-auto text-black sm:mx-0" />
                 <h2 className="text-xl font-bold mb-4 sm:text-3xl">
                   {caption}
@@ -363,7 +348,7 @@ export default function Landing() {
   return (
     <>
       <Hero {...heroSectionData} />
-      <AboutSection {...aboutSectionData} />  
+      <AboutSection {...aboutSectionData} />
       <ProductsSection {...productsSectionData} />
       <IndustriesSection {...industriesSectionData} />
       <Newsletter {...newsletterSectionData} />
