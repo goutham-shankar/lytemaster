@@ -68,12 +68,12 @@ const ProductCard = ({
       <div className="absolute top-0 left-0 w-full h-full p-6 flex flex-col gap-4 justify-between items-start">
         <div className="flex flex-col items-start gap-4">
           <div className="w-full flex justify-between items-center gap-2">
-            <h1 className="text-2xl text-white text-center xl:text-2xl">
+            <h1 className="text-lg text-white sm:text-2xl xl:text-2xl">
               {title}
             </h1>
             {highlight && (
               <Link href={highlight.href}>
-                <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-black rounded-full sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" />
+                <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" />
               </Link>
             )}
           </div>
@@ -181,7 +181,7 @@ const ProductsSection = ({ title, description, products, productsScroll }) => {
   return (
     <section
       id="products"
-      className="h-max px-12 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
+      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
     >
       <div className="flex flex-col items-start gap-2">
         <SectionTitle title={title} />
@@ -190,7 +190,7 @@ const ProductsSection = ({ title, description, products, productsScroll }) => {
           className="text-left w-2/3"
         />
       </div>
-      <div className="border w-full h-72 flex flex-col items-center gap-4 sm:flex-row sm:h-80 lg:h-96">
+      <div className="border w-full flex flex-col items-center gap-4 sm:flex-row sm:h-80 lg:h-96">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
