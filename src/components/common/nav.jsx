@@ -34,13 +34,18 @@ const navItems = [
   { name: "Projects", href: "/projects", dropdown: null },
   { name: "About us", href: "#", dropdown: null },
   { name: "News", href: "#", dropdown: null },
-  { name: "Contact", href: "#", dropdown: false },
+  { name: "Contact", href: "#", dropdown: false, cta: true },
 ];
 
 const variants = {
   navbar:
-    "w-full h-20 pl-4 pr-8 flex justify-between items-center bg-white text-black sm:px-12 xl:h-24 2xl:h-28",
+    "w-full h-20 pl-4 pr-8 flex justify-between items-center text-white sm:px-12 xl:h-24 2xl:h-28",
   navrail: "flex flex-col justify-center items-center gap-3 text-sm",
+};
+
+const navItemVariants = {
+  base: "relative mx-2 group lg:text-sm xl:text-xl 2xl:text-3xl",
+  cta: "px-8 py-2 rounded-full bg-white text-black hover:bg-black hover:text-white hover:scale-105 transition duration-500",
 };
 
 const Dropdown = ({ items, isOpen, setIsOpen }) => {
@@ -68,11 +73,16 @@ const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
-      className="relative mx-2 group lg:text-sm xl:text-xl 2xl:text-3xl"
+      className={`${navItemVariants.base}`}
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
-      <Link href={item.href} className="flex items-center gap-2">
+      <Link
+        href={item.href}
+        className={`${
+          item.cta ? navItemVariants.cta : ""
+        } flex items-center gap-2`}
+      >
         {item.name}
         {item.dropdown &&
           (isOpen ? (
@@ -81,7 +91,9 @@ const NavItem = ({ item }) => {
             <ChevronDown size={16} className="" />
           ))}
       </Link>
-      <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+      {!item.cta && (
+        <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+      )}
       {item.dropdown && isOpen && (
         <Dropdown items={item.dropdown} isOpen={isOpen} setIsOpen={setIsOpen} />
       )}
@@ -113,7 +125,7 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
 const Navrail = ({ navrailOpen, setNavrailOpen }) => {
   return (
     <div
-      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[.67rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-white/25 backdrop-blur-md no-doc-scroll sm:px-12 sm:py-[.067rem]"
+      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[.67rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-black/25 backdrop-blur-md no-doc-scroll sm:px-12 sm:py-[.067rem]"
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
@@ -171,7 +183,7 @@ export default function Nav() {
     }
   }, [width]);
   return (
-    <nav className={`${variants.navbar} z-50`}>
+    <nav className={`${variants.navbar} z-50 absolute`}>
       <Branding />
       {isMobile && !navrailOpen && (
         <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
