@@ -2,28 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, ArrowRight, BellRing } from "lucide-react";
 import { useState } from "react";
 import CtaButton from "@components/common/ctaButton";
+import { MdOutlineArrowOutward } from "react-icons/md";
+import { VscCircleLargeFilled } from "react-icons/vsc";
+import BentoGrid from "@components/projects/bentoGrid";
 
-/* gmbh placeholder image */
-import gmbhPlaceholder from "@assets/landing/gmbh-placeholder.jpeg";
-
-/* Product thumbnails */
-import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
-import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
-import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
-
-/* Industries placeholder images */
-import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
-import industriesPlaceholder1 from "@assets/landing/industry-placeholder-1.jpeg";
+import { placeholderImages, landingData } from "@assets/placeholders";
 
 /* helper components */
 const SectionTitle = ({ title, className = "" }) => {
   return (
-    <h1
-      className={`${className} text-3xl font-bebasNeue uppercase sm:text-5xl xl:text-7xl`}
-    >
+    <h1 className={`${className} text-xl sm:text-3xl lg:text-5xl xl:text-7xl`}>
       {title}
     </h1>
   );
@@ -31,26 +21,115 @@ const SectionTitle = ({ title, className = "" }) => {
 
 const SectionDescription = ({ description, className = "text-center" }) => {
   return (
-    <p className={`${className} text-xs lg:text-lg xl:text-2xl`}>
+    <p className={`${className} text-xs lg:text-lg xl:text-2xl text-wrap`}>
       {description}
     </p>
   );
 };
 
-const ProductCard = ({ title, cta, thumbnail }) => {
+const ProductsButton = ({ number_of_products, cta }) => {
   return (
-    <div className="relative h-72 flex flex-col items-center gap-2 sm:h-80 sm:flex-1 lg:h-96">
+    <Link
+      href={cta.href}
+      className="px-2 flex items-center gap-2 text-sm text-white rounded-full backdrop-blur-md shadow-md bg-white/10 border border-white/10"
+    >
+      <Image
+        src={"/lightbulb.svg"}
+        alt="lightbulb"
+        width={24}
+        height={24}
+        className="w-12 p-2 inline-block invert"
+      />
+      {number_of_products} {number_of_products > 1 ? "Products" : "Product"}
+    </Link>
+  );
+};
+
+const ProductCard = ({
+  product: {
+    title,
+    description,
+    cta,
+    thumbnail,
+    className,
+    number_of_products,
+    highlight,
+  },
+}) => {
+  return (
+    <div
+      className={`${className} relative w-full h-full flex flex-col items-center gap-2`}
+    >
       <Image
         src={thumbnail}
         alt={title}
-        className="h-full rounded-lg object-cover"
+        className="w-full h-full rounded-lg object-cover brightness-75"
       />
-      <div className="absolute top-0 left-0 w-full py-6 flex flex-col gap-4 justify-center items-center">
-        <h1 className="text-lg text-white text-center xl:text-2xl">{title}</h1>
-        <CtaButton
-          name={cta.text}
-          href={cta.href}
-          className="text-white hover:bg-white hover:text-black"
+      <div className="absolute top-0 left-0 w-full h-full p-6 flex flex-col gap-4 justify-between items-start">
+        <div className="flex flex-col items-start gap-4">
+          <div className="w-full flex justify-between items-center gap-2">
+            <h1 className="text-2xl text-white text-center xl:text-2xl">
+              {title}
+            </h1>
+            {highlight && (
+              <Link href={highlight.href}>
+                <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-black rounded-full sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" />
+              </Link>
+            )}
+          </div>
+          <p className="text-sm text-white xl:text-lg">{description}</p>
+        </div>
+        <ProductsButton number_of_products={number_of_products} cta={cta} />
+      </div>
+    </div>
+  );
+};
+
+const ProductsScroll = ({ products }) => {
+  return (
+    <ul className="w-full flex gap-6 text-2xl overflow-x-auto scrollbar-hide">
+      {products.map((product, index) => (
+        <li key={index} className="flex justify-between items-center gap-6">
+          <VscCircleLargeFilled size={16} className="text-yellow-400" />
+          <span className="text-nowrap">{product.text}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const HighlightCard = ({ index, highlight }) => {
+  return (
+    <li className="flex justify-between items-start gap-4 lg:text-xl xl:text-2xl">
+      <span className="text-gray-400">0{index + 1} </span>
+      <p>{highlight.text}</p>
+    </li>
+  );
+};
+
+const AboutImages = ({ images }) => {
+  return (
+    <div className="w-full flex flex-row gap-6">
+      {/* Column with two stacked images */}
+      <div className="w-1/2 flex flex-col gap-6">
+        <Image
+          src={images[0]}
+          alt="LyteMaster GMBH"
+          className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
+        />
+        <Image
+          src={images[1]}
+          alt="LyteMaster GMBH"
+          className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
+        />
+      </div>
+
+      {/* Column with a single smaller image */}
+      <div className="w-1/2 flex items-center">
+        <Image
+          src={images[2]}
+          alt="LyteMaster GMBH"
+          className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
       </div>
     </div>
@@ -65,12 +144,12 @@ const Hero = ({ title, cta }) => {
   return (
     <section className="relative text-white text-center">
       <Image
-        src={heroPlaceholder}
+        src={placeholderImages.hero}
         alt="hero placeholder"
         className="w-full object-cover object-bottom brightness-75"
       />
-      <div className="absolute inset-0 py-16 flex flex-col gap-6 items-center justify-center sm:py-32 xl:py-72">
-        <SectionTitle title={title} className="text-nowrap" />
+      <div className="absolute inset-0 px-8 py-16 flex flex-col gap-6 items-start justify-center sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
+        <SectionTitle title={title} className="text-start text-nowrap" />
         <CtaButton
           name={cta.name}
           href={cta.href}
@@ -81,80 +160,81 @@ const Hero = ({ title, cta }) => {
   );
 };
 
-// LyteMaster GMBH section
-// TODO: Update LyteMaster GMBH placeholder image with a video
+// About section
 const AboutSection = ({ title, description, cta, images }) => {
   return (
     <section
       id="about"
-      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
+      className="h-max px-8 py-8 flex flex-col justify-between items-start gap-8 bg-white text-black sm:px-16 sm:py-16 sm:flex-row"
     >
-      <div className="flex flex-col items-center gap-2 sm:px-16 lg:px-32">
-        <SectionDescription description={"Welcome to"} />
+      <div className="w-full h-full flex flex-col flex-shrink-0 gap-6 sm:w-2/3 sm:gap-8 xl:gap-12">
         <SectionTitle title={title} />
-        <SectionDescription description={description} />
+        <SectionDescription description={description} className="" />
+        <CtaButton name={cta.text} href={cta.href} />
       </div>
-      {/* <CtaButton name={cta.text} href={cta.href} /> */}
-      <CtaButton name={cta.text} href="#" />
-      <Image
-        src={images[0]}
-        alt="LyteMaster GMBH"
-        className="w-full h-72 rounded-lg object-cover sm:h-96"
-      />
+      <AboutImages images={images} />
     </section>
   );
 };
 
-const ProductsSection = ({ title, products }) => {
+const ProductsSection = ({ title, description, products, productsScroll }) => {
   return (
     <section
       id="products"
-      className="h-max px-12 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16"
+      className="h-max px-12 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
     >
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-start gap-2">
         <SectionTitle title={title} />
+        <SectionDescription
+          description={description}
+          className="text-left w-2/3"
+        />
       </div>
-      <div className="h-max flex flex-col items-center gap-4 sm:flex-row">
+      <div className="border w-full h-72 flex flex-col items-center gap-4 sm:flex-row sm:h-80 lg:h-96">
         {products.map((product, index) => (
-          <ProductCard
-            key={index}
-            title={product.title}
-            cta={product.cta}
-            thumbnail={product.thumbnail}
-          />
+          <ProductCard key={index} product={product} />
         ))}
+      </div>
+      <ProductsScroll products={productsScroll} />
+    </section>
+  );
+};
+
+const HowWeWorkSection = ({ title, description, cta, highlights }) => {
+  return (
+    <section
+      id="how-we-work"
+      className="h-max px-8 py-8 flex flex-col justify-between items-start gap-24 bg-white text-black sm:flex-row sm:px-16 sm:py-16 lg:gap-32"
+    >
+      <div className="flex flex-col items-start gap-2 text-center">
+        <h3 className="text-sm uppercase text-gray-500">{title}</h3>
+        <h1 className="text-3xl text-black text-left">{description}</h1>
+      </div>
+      <div className="flex flex-col items-start gap-8">
+        <ul className="flex flex-col justify-center items-center gap-2">
+          {highlights.map((highlight, index) => (
+            <HighlightCard key={index} index={index} highlight={highlight} />
+          ))}
+        </ul>
+        <CtaButton name={cta.text} href={cta.href} />
       </div>
     </section>
   );
 };
 
-const IndustriesSection = ({ title, description, images, cta }) => {
+const RecentWorksSection = ({ title, projects }) => {
   return (
     <section
       id="industries"
-      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-16 sm:py-16"
+      className="h-max px-8 py-8 flex flex-col justify-center items-start gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
-      <div className="px-2 flex flex-col items-center gap-2 text-center sm:px-16 lg:px-32">
-        <SectionTitle title={title} />
-        <SectionDescription description={description} />
-      </div>
-      <div className="flex flex-col justify-center items-center gap-2 sm:flex-row">
-        {images.map((industry, index) => (
-          <Image
-            key={index}
-            src={industry}
-            alt="Industries"
-            className="aspect-square rounded-lg object-cover flex-1 sm:w-1/12"
-          />
-        ))}
-      </div>
-      {/* <CtaButton name={cta.text} href={cta.href} /> */}
-      <CtaButton name={cta.text} href="#" />
+      <SectionTitle title={title} />
+      <BentoGrid items={projects} />
     </section>
   );
 };
 
-const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
+const Newsletter = ({ title, cta }) => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
@@ -164,59 +244,23 @@ const Newsletter = ({ title, caption, description, cta, disclaimer }) => {
   };
 
   return (
-    <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16">
-      <SectionTitle title={title} />
-      <div className="container mx-auto px-4 shadow-lg">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-lg overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Left Content */}
-              <div className="bg-white p-8 text-black flex flex-col justify-center border-b sm:border-r sm:border-b-0">
-                <BellRing className="w-12 h-12 mb-6 mx-auto text-black sm:mx-0" />
-                <h2 className="text-xl font-bold mb-4 sm:text-3xl">
-                  {caption}
-                </h2>
-                <div className="w-16 h-0.5 bg-black mb-6"></div>
-                <p className="text-sm text-gray-600 sm:text-md">
-                  {description}
-                </p>
-              </div>
-
-              {/* Right Form */}
-              <div className="p-8 bg-white">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:ring-0"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center group"
-                  >
-                    {cta.text}
-                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-
-                  <p className="text-xs text-gray-500 text-center">
-                    {disclaimer}
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
+    <section className="h-max py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16 lg:gap-12">
+      <div className="w-full p-12 flex flex-col gap-12 bg-amber-300 rounded-2xl">
+        <h1 className="w-2/3 text-2xl font-bold text-black sm:text-3xl">
+          {title}
+        </h1>
+        <div className="w-2/3 flex flex-col justify-start items-end sm:flex-row">
+          <input
+            type="email"
+            placeholder="example@example.com"
+            className="flex-[2] px-4 py-2 border-b-2 border-black bg-transparent"
+          />
+          <button
+            type="submit"
+            className="flex-1 bg-black text-white px-6 py-3 font-medium hover:bg-gray-900 transition-colors duration-200 flex items-center justify-center group"
+          >
+            {cta.text}
+          </button>
         </div>
       </div>
     </section>
@@ -230,129 +274,40 @@ const ContactSection = ({ title, description, cta }) => {
       className="relative h-64 text-white lg:h-96 xl:h-[30rem] transition-transform duration-500"
     >
       <Image
-        src={commercialLightingThumbnail}
+        src={placeholderImages.commercial}
         alt="commercial lighting"
-        className="w-full h-full object-cover object-center brightness-[65%]"
+        className="w-full h-full object-cover object-center brightness-[35%]"
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
-        <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-2/3 lg:w-1/2">
+        <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-3/5 lg:w-2/3">
           <SectionTitle title={title} />
-          <SectionDescription description={description} className="text-left" />
+          <SectionDescription
+            description={description}
+            className="text-left text-gray-300"
+          />
         </div>
-        <CtaButton
-          name={cta.text}
-          // href={cta.href}
-          href="#"
-          className="text-white border-white hover:bg-white hover:text-black"
-        />
+        <Link
+          href={cta.href}
+          className="px-8 py-2 text-white border border-white rounded-full hover:bg-white hover:text-black xl:text-2xl xl:px-12 xl:py-3"
+        >
+          {cta.text}
+        </Link>
       </div>
     </section>
   );
-};
-
-/* data */
-const heroSectionData = {
-  title: (
-    <>
-      World class range of lighting <br /> solutions
-    </>
-  ),
-  cta: {
-    name: "View More",
-    href: "#", // TODO: Update this link
-  },
-};
-
-const productsSectionData = {
-  title: "Our Products",
-  products: [
-    {
-      title: "Commercial Lighting",
-      cta: {
-        text: "See More",
-        href: "/products/commercial",
-      },
-      thumbnail: commercialLightingThumbnail,
-    },
-    {
-      title: "Industrial Lighting",
-      cta: {
-        text: "See More",
-        href: "/products/industrial",
-      },
-      thumbnail: industrialLightingThumbnail,
-    },
-    {
-      title: "Landscape Lighting",
-      cta: {
-        text: "See More",
-        href: "/products/landscape",
-      },
-      thumbnail: landscapeLightingThumbnail,
-    },
-  ],
-};
-
-const aboutSectionData = {
-  title: "Lyte Master GMBH",
-  description:
-    "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
-  cta: {
-    text: "About us",
-    href: "/about-us",
-  },
-  images: [gmbhPlaceholder],
-};
-
-const industriesSectionData = {
-  title: "Industries we serve",
-  description:
-    "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
-  images: [
-    gmbhPlaceholder,
-    heroPlaceholder,
-    landscapeLightingThumbnail,
-    industriesPlaceholder1,
-  ],
-  cta: {
-    text: "See More",
-    href: "#", // TODO: Update this link
-  },
-};
-
-const newsletterSectionData = {
-  title: "Newsletter",
-  caption: "Stay Illuminated",
-  description:
-    "Join our newsletter and stay updated with the latest news and insights.",
-  cta: {
-    text: "Subscribe",
-    href: "/newsletter",
-  },
-  disclaimer:
-    "By subscribing, you agree to receive our newsletter. You can unsubscribe at any time.",
-};
-
-const contactSectionData = {
-  title: "Would you like to discuss a project?",
-  description:
-    "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting.",
-  cta: {
-    text: "Contact Us",
-    href: "/contact",
-  },
 };
 
 /* landing page */
 export default function Landing() {
   return (
     <>
-      <Hero {...heroSectionData} />
-      <AboutSection {...aboutSectionData} />
-      <ProductsSection {...productsSectionData} />
-      <IndustriesSection {...industriesSectionData} />
-      <Newsletter {...newsletterSectionData} />
-      <ContactSection {...contactSectionData} />
+      <Hero {...landingData.heroSection} />
+      <AboutSection {...landingData.aboutSection} />
+      <ProductsSection {...landingData.productsSection} />
+      <HowWeWorkSection {...landingData.howWeWorkSection} />
+      <RecentWorksSection {...landingData.recentWorksSection} />
+      <Newsletter {...landingData.newsletterSection} />
+      <ContactSection {...landingData.contactSection} />
     </>
   );
 }
