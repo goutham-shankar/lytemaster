@@ -59,12 +59,15 @@ const FooterSection = ({ section, links, index }) => {
   return (
     <div key={index} className="w-max">
       <div className="relative inline-block">
-        <h4 className="text-sm lg:text-md xl:text-xl">{section}</h4>
+        <h4 className="text-sm lg:text-base xl:text-xl">{section}</h4>
         <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
       </div>
       <ul className="py-2 flex flex-col gap-1 text-gray-300">
         {links.map(({ name, link }, index) => (
-          <li key={index} className="w-min text-xs group lg:text-sm xl:text-lg">
+          <li
+            key={index}
+            className="w-min text-xs group lg:text-sm xl:text-base"
+          >
             <Link href={link} className="text-nowrap">
               {name}
             </Link>
@@ -79,8 +82,13 @@ const FooterSection = ({ section, links, index }) => {
 const Branding = () => {
   return (
     <div className="flex items-center gap-4">
-      <Image src={logo} alt="LyteMaster Logo" width={50} />
-      <h1 className="text-3xl font-dmSerifDisplay">LyteMaster</h1>
+      <Image
+        src={logo}
+        alt="LyteMaster Logo"
+        width={50}
+        className="w-12 lg:w-16"
+      />
+      <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">LyteMaster</h1>
     </div>
   );
 };
@@ -103,11 +111,13 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4 text-gray-300">
-          <p className="text-xs whitespace-pre-wrap">{address}</p>
+          <p className="text-xs whitespace-pre-wrap lg:text-sm xl:text-base">
+            {address}
+          </p>
           <Socials />
         </div>
       </div>
-      <div className="flex gap-8 sm:gap-16">
+      <div className="py-8 flex gap-8 sm:gap-16">
         {footerLinks.map(({ section, links }, index) => (
           <FooterSection key={index} section={section} links={links} />
         ))}
