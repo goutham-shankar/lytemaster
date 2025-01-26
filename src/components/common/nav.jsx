@@ -45,13 +45,13 @@ const variants = {
 
 const navItemVariants = {
   base: "relative mx-2 group lg:text-sm xl:text-xl 2xl:text-3xl",
-  cta: "px-8 py-2 rounded-full bg-white text-black hover:bg-black hover:text-white hover:scale-105 transition duration-500",
+  cta: "px-8 py-2 rounded-full bg-[#E6E6FA] text-black hover:bg-black hover:text-white hover:scale-105 transition duration-500",
 };
 
 const Dropdown = ({ items, isOpen, setIsOpen }) => {
   return (
     <ul
-      className={`z-10 absolute left-0 w-36 h-max px-3 py-2 flex flex-col justify-evenly items-start gap-2 bg-white/10 rounded-lg shadow-lg backdrop-blur-md transform transition-all duration-300 ease-in-out origin-top ${
+      className={`z-10 absolute left-0 w-36 h-max px-3 py-2 flex flex-col justify-evenly items-start gap-2 bg-white/10 rounded-lg shadow-lg backdrop-blur-md border border-white/10 transform transition-all duration-300 ease-in-out origin-top ${
         isOpen
           ? "opacity-100 translate-y-0 visible"
           : "opacity-0 -translate-y-2 invisible"
@@ -73,7 +73,7 @@ const NavItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
-      className={`${navItemVariants.base}`}
+      className={`${navItemVariants.base} uppercase`}
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
@@ -186,7 +186,11 @@ export default function Nav() {
     <nav className={`${variants.navbar} z-50 absolute`}>
       <Branding />
       {isMobile && !navrailOpen && (
-        <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
+        <MenuButton
+          navrailOpen={navrailOpen}
+          setNavrailOpen={setNavrailOpen}
+          // className="p-2 rounded-full shadow-md backdrop-blur-md border bg-black/80 border-white/10"
+        />
       )}
       {isMobile && navrailOpen && (
         <Navrail navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />

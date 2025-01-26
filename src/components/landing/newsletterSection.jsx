@@ -10,8 +10,8 @@ export default function Newsletter({ title, cta }) {
   };
 
   return (
-    <section className="h-max px-4 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-24 sm:py-16 lg:gap-12">
-      <div className="w-full p-12 flex flex-col gap-12 bg-amber-300 rounded-2xl">
+    <section className="h-max px-4 py-8 flex flex-col justify-center items-center gap-6 text-black sm:px-24 sm:py-16 lg:gap-12">
+      <div className="w-full p-12 flex flex-col gap-12 bg-[#E4B661] rounded-2xl">
         <h1 className="w-full text-2xl font-bold text-black sm:text-3xl sm:w-2/3">
           {title}
         </h1>
@@ -19,7 +19,7 @@ export default function Newsletter({ title, cta }) {
           <input
             type="email"
             placeholder="example@example.com"
-            className="flex-[2] px-4 py-2 border-b-2 border-black bg-transparent text-sm"
+            className="flex-[2] px-4 py-2 border-b-2 border-black bg-transparent text-sm placeholder:text-gray-600 focus:outline-none"
           />
           <button
             type="submit"
