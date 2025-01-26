@@ -28,13 +28,14 @@ const breakpoints = {
 };
 
 export default function BentoGrid({ items }) {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState();
   const [isMobile, setIsMobile] = useState(false);
 
   const handleResize = () => {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
+    setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
