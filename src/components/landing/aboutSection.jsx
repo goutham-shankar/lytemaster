@@ -1,6 +1,7 @@
 import CtaButton from "@components/common/ctaButton";
 import Image from "next/image";
 import { Heading, Paragraph } from "@components/common/text";
+import LightBulb from "@components/common/svgs/lightbulb";
 const AboutImages = ({ images }) => {
   return (
     <div className="w-full flex flex-row gap-6">
@@ -38,7 +39,13 @@ export default function AboutSection({ title, description, cta, images }) {
       className="h-max px-8 py-8 flex flex-col justify-between items-start gap-8 bg-white text-black sm:px-16 sm:py-16 sm:flex-row"
     >
       <div className="w-full h-full flex flex-col flex-shrink-0 gap-6 sm:w-2/3 sm:gap-8 xl:gap-12">
-        <Heading title={title} />
+        <div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <LightBulb className="flex-shrink-0 inline-block w-7 h-7 text-yellow-500" />
+            <Heading title={title[0]} />
+          </div>
+          <Heading title={title[1]} />
+        </div>
         <Paragraph description={description} className="" />
         <CtaButton name={cta.text} href={cta.href} />
       </div>

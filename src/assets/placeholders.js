@@ -241,13 +241,7 @@ export const landingData = {
   },
 
   aboutSection: {
-    title: (
-      <span>
-        Innovative technologies
-        <br />
-        with care for people
-      </span>
-    ),
+    title: ["Innovative technologies", "with care for people"],
     description:
       "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
     cta: {
