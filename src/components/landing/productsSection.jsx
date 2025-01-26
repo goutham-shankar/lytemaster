@@ -67,7 +67,7 @@ const ProductCard = ({
 };
 const ProductsScroll = ({ products }) => {
   return (
-    <ul className="w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl">
+    <ul className="w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl xl:text-3xl">
       {products.map((product, index) => (
         <li key={index} className="flex justify-between items-center gap-6">
           <VscCircleLargeFilled size={16} className="text-yellow-400" />
@@ -87,13 +87,13 @@ export default function ProductsSection({
   return (
     <section
       id="products"
-      className="h-max p-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
+      className="h-max p-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
     >
-      <div className="flex flex-col items-start gap-2 sm:px-6">
+      <div className="flex flex-col items-start gap-2">
         <Heading title={title} variant="2xl" />
         <Paragraph description={description} className="text-left sm:w-2/3" />
       </div>
-      <div className="w-full flex flex-col justify-between items-center gap-4 sm:h-80 sm:flex-row sm:gap-2 lg:h-96 lg:gap-4">
+      <div className="w-full flex flex-col justify-between items-center gap-4 sm:h-80 sm:flex-row sm:gap-2 lg:h-96 lg:gap-4 xl:h-[32rem]">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} isFirst={index === 0} />
         ))}

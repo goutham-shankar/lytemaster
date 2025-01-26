@@ -14,7 +14,7 @@ export default function Hero({ title, cta }) {
         alt="hero placeholder"
         width={1920}
         height={1080}
-        className="w-full h-[50vh] object-cover object-bottom brightness-50 sm:h-max"
+        className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max"
       />
       <div className="absolute inset-0 px-8 py-32 flex flex-col gap-6 items-start justify-start sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
         <Heading
