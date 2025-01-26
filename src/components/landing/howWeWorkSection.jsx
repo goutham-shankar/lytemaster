@@ -18,7 +18,7 @@ export default function HowWeWorkSection({
   return (
     <section
       id="how-we-work"
-      className="h-max px-8 py-8 flex flex-col justify-between items-start gap-24 bg-white text-black sm:flex-row sm:px-16 sm:py-16 lg:gap-32"
+      className="h-max px-8 py-8 flex flex-col justify-between items-start gap-8 bg-white text-black sm:flex-row sm:px-16 sm:py-16 sm:gap-24 lg:gap-32"
     >
       <div className="flex flex-col items-start gap-2 text-center">
         <h3 className="text-sm uppercase text-gray-500">{title}</h3>
