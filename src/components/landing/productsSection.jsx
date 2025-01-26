@@ -89,7 +89,7 @@ export default function ProductsSection({
       id="products"
       className="h-max p-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
     >
-      <div className="flex flex-col items-start gap-2">
+      <div className="w-full flex flex-col items-start gap-2">
         <Heading title={title} variant="2xl" />
         <Paragraph description={description} className="text-left sm:w-2/3" />
       </div>

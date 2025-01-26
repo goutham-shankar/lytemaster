@@ -24,7 +24,7 @@ import Branding from "@/components/common/branding";
 const navItems = [
   {
     name: "Products",
-    href: "/#",
+    href: "#",
     dropdown: [
       { name: "Product 1", href: "#" },
       { name: "Product 2", href: "#" },
@@ -44,7 +44,7 @@ const variants = {
 };
 
 const navItemVariants = {
-  base: "relative mx-2 group lg:text-sm xl:text-xl 2xl:text-3xl",
+  base: "relative mx-2 group lg:text-xs xl:text-lg",
   cta: "px-8 py-2 rounded-full bg-[#E6E6FA] text-black hover:bg-black hover:text-white hover:scale-105 transition duration-500",
 };
 
