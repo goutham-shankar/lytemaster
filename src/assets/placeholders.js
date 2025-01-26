@@ -280,10 +280,9 @@ export const landingData = {
           href: "/products/commercial",
         },
         thumbnail: placeholderImages.commercial,
-        className: "flex-1 sm:flex-[2]",
         number_of_products: 23,
         highlight: {
-          href: "/products/commercial",
+          href: "#",
           text: "See More",
         },
       },
@@ -296,7 +295,6 @@ export const landingData = {
           href: "/products/industrial",
         },
         thumbnail: placeholderImages.industrial,
-        className: "flex-1",
         number_of_products: 15,
       },
       {
@@ -308,7 +306,6 @@ export const landingData = {
           href: "/products/landscape",
         },
         thumbnail: placeholderImages.landscape,
-        className: "flex-1",
         number_of_products: 14,
       },
     ],
