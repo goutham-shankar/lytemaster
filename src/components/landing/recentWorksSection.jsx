@@ -4,7 +4,7 @@ export default function RecentWorksSection({ title, projects }) {
   return (
     <section
       id="industries"
-      className="h-max px-8 py-8 flex flex-col justify-center items-start gap-6 bg-white text-black sm:px-16 sm:py-16"
+      className="h-max p-8 flex flex-col justify-center items-start gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
     >
       <Heading title={title} variant="2xl" />
       <BentoGrid items={projects} />
