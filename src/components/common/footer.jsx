@@ -30,27 +30,27 @@ const footerLinks = [
   {
     section: "Products",
     links: [
-      { name: "Commercial", link: "/products/commercial" },
-      { name: "Industrial", link: "/products/industrial" },
-      { name: "Landscape", link: "/products/landscape" },
+      { name: "Commercial", link: "#" },
+      { name: "Industrial", link: "#" },
+      { name: "Landscape", link: "#" },
     ],
   },
   {
     section: "About",
     links: [
-      { name: "About us", link: "/about-us" },
-      { name: "News", link: "/news" },
-      { name: "Press", link: "/press" },
-      { name: "Awards", link: "/awards" },
+      { name: "About us", link: "#" },
+      { name: "News", link: "#" },
+      { name: "Press", link: "#" },
+      { name: "Awards", link: "#" },
     ],
   },
   {
     section: "Contacts",
     links: [
-      { name: "Legal Disclaimer", link: "/contacts/legal" },
-      { name: "Privacy Policy", link: "/contacts/privacy" },
-      { name: "Terms of Use", link: "/contacts/terms" },
-      { name: "General", link: "/contact" },
+      { name: "Legal Disclaimer", link: "#" },
+      { name: "Privacy Policy", link: "#" },
+      { name: "Terms of Use", link: "#" },
+      { name: "General", link: "#" },
     ],
   },
 ];
