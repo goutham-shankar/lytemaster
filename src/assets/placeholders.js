@@ -36,7 +36,7 @@ export const projectsData = {
       title: "Commercial Projects",
       cta: {
         name: "Load More",
-        href: "/projects/commercial",
+        href: "#",
       },
       projects: [
         {
@@ -46,7 +46,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/forum-showroom",
+          href: "#",
           className: bento.lg,
         },
         {
@@ -56,7 +56,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/beach-bar-restaurant",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -66,7 +66,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "New York, USA",
           },
-          href: "/projects/cafe-capuchino",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -76,7 +76,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "London, UK",
           },
-          href: "/projects/glicerin-bay-office",
+          href: "#",
           className: bento.lg,
         },
         {
@@ -86,7 +86,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/dune-conference-hall",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -96,7 +96,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Tokyo, Japan",
           },
-          href: "/projects/sea-restaurant",
+          href: "#",
           className: bento.sm,
         },
       ],
@@ -107,7 +107,7 @@ export const projectsData = {
       title: "Industrial Projects",
       cta: {
         name: "Load More",
-        href: "/projects/industrial",
+        href: "#",
       },
       projects: [
         {
@@ -117,7 +117,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/forum-showroom",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -127,7 +127,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/beach-bar-restaurant",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -137,7 +137,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "New York, USA",
           },
-          href: "/projects/cafe-capuchino",
+          href: "#",
           className: bento.lg,
         },
         {
@@ -147,7 +147,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "London, UK",
           },
-          href: "/projects/glicerin-bay-office",
+          href: "#",
           className: bento.lg,
         },
         {
@@ -157,7 +157,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/dune-conference-hall",
+          href: "#",
           className: bento.md,
         },
       ],
@@ -168,7 +168,7 @@ export const projectsData = {
       title: "Landscape Projects",
       cta: {
         name: "Load More",
-        href: "/projects/landscape",
+        href: "#",
       },
       projects: [
         {
@@ -178,7 +178,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/forum-showroom",
+          href: "#",
           className: bento.lg,
         },
         {
@@ -188,7 +188,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/beach-bar-restaurant",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -198,7 +198,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "New York, USA",
           },
-          href: "/projects/cafe-capuchino",
+          href: "#",
           className: bento.sm,
         },
         {
@@ -208,7 +208,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "London, UK",
           },
-          href: "/projects/glicerin-bay-office",
+          href: "#",
           className: bento.lg,
         },
 
@@ -219,7 +219,7 @@ export const projectsData = {
             src: placeholderImages.bento,
             alt: "Dubai, UAE",
           },
-          href: "/projects/dune-conference-hall",
+          href: "#",
           className: bento.md,
         },
       ],
@@ -246,7 +246,7 @@ export const landingData = {
       "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
     cta: {
       text: "About us",
-      href: "/about-us",
+      href: "#",
     },
     images: [
       placeholderImages.about,
@@ -266,7 +266,7 @@ export const landingData = {
           "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
         cta: {
           text: "See More",
-          href: "/products/commercial",
+          href: "#",
         },
         thumbnail: placeholderImages.commercial,
         number_of_products: 23,
@@ -281,7 +281,7 @@ export const landingData = {
           "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
         cta: {
           text: "See More",
-          href: "/products/industrial",
+          href: "#",
         },
         thumbnail: placeholderImages.industrial,
         number_of_products: 15,
@@ -292,7 +292,7 @@ export const landingData = {
           "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
         cta: {
           text: "See More",
-          href: "/products/landscape",
+          href: "#",
         },
         thumbnail: placeholderImages.landscape,
         number_of_products: 14,
@@ -313,7 +313,7 @@ export const landingData = {
       "We work with absolute professionalism to deliver you lights with the perfect quality",
     cta: {
       text: "Order now",
-      href: "/products/commercial",
+      href: "#",
     },
     highlights: [
       {
@@ -352,7 +352,7 @@ export const landingData = {
       "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting.",
     cta: {
       text: "Contact Us",
-      href: "/contact",
+      href: "#",
     },
   },
 };
