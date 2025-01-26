@@ -8,7 +8,7 @@ const ProductsButton = ({ number_of_products, cta }) => {
   return (
     <Link
       href={cta.href}
-      className="px-2 flex items-center gap-2 text-sm text-white rounded-full backdrop-blur-md shadow-md bg-white/10 border border-white/10"
+      className="min-w-min px-2 flex items-center gap-2 text-sm text-white text-nowrap rounded-full backdrop-blur-md shadow-md bg-white/10 border border-white/10"
     >
       <Image
         src={"/lightbulb.svg"}
