@@ -42,7 +42,7 @@ export default function AboutSection({ title, description, cta, images }) {
         <div>
           <div className="flex items-center gap-2 sm:gap-4">
             <LightBulb className="flex-shrink-0 inline-block w-7 h-7 text-yellow-500" />
-            <Heading title={title[0]} />
+            <Heading title={title[0]} className="text-nowrap" />
           </div>
           <Heading title={title[1]} />
         </div>

@@ -15,7 +15,7 @@ export default function ContactSection({ title, description, cta }) {
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
         <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-3/5 lg:w-2/3">
-          <Heading title={title} />
+          <Heading title={title} variant="xl" />
           <Paragraph
             description={description}
             className="text-left text-gray-300"
