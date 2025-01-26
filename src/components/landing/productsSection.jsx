@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { VscCircleLargeFilled } from "react-icons/vsc";
-import Title from "@components/common/title";
-import Description from "@components/common/description";
+import { Heading, Paragraph } from "@components/common/text";
 
 const ProductsButton = ({ number_of_products, cta }) => {
   return (
@@ -91,10 +90,10 @@ export default function ProductsSection({
       className="h-max p-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
     >
       <div className="flex flex-col items-start gap-2 sm:px-6">
-        <Title title={title} />
-        <Description description={description} className="text-left w-2/3" />
+        <Heading title={title} />
+        <Paragraph description={description} className="text-left w-2/3" />
       </div>
-      <div className="w-full flex flex-col justify-between items-center gap-2 sm:h-80 sm:flex-row lg:h-96 lg:gap-4">
+      <div className="w-full flex flex-col justify-between items-center gap-4 sm:h-80 sm:flex-row sm:gap-2 lg:h-96 lg:gap-4">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} isFirst={index === 0} />
         ))}
