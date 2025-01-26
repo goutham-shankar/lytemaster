@@ -304,6 +304,9 @@ export const landingData = {
       { text: "Lighting Solutions" },
       { text: "Lighting Solutions" },
       { text: "Lighting Solutions" },
+      { text: "Lighting Solutions" },
+      { text: "Lighting Solutions" },
+      { text: "Lighting Solutions" },
     ],
   },
 

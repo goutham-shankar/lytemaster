@@ -51,7 +51,7 @@ export default function BentoGrid({ items }) {
   }, [width]);
 
   return (
-    <div className="w-full h-[32rem] grid grid-cols-1 grid-rows-3 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3">
+    <div className="w-full h-[32rem] grid grid-cols-1 grid-rows-3 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3 lg:h-[40rem] xl:h-[48rem]">
       {(isMobile ? items.slice(0, 3) : items).map((item, index) => (
         <div
           key={index}
