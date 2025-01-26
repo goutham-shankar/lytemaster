@@ -242,15 +242,10 @@ export const landingData = {
 
   aboutSection: {
     title: (
-      <span className="">
-        <Image
-          src="/lightbulb.svg"
-          alt="lightbulb"
-          width={48}
-          height={48}
-          className="w-8 p-1 inline-block sm:w-14 sm:p-2 lg:w-16 xl:w-20"
-        />
-        Innovative technologies with care for people
+      <span>
+        Innovative technologies
+        <br />
+        with care for people
       </span>
     ),
     description:
