@@ -4,99 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CtaButton from "@components/common/ctaButton";
-import { MdOutlineArrowOutward } from "react-icons/md";
-import { VscCircleLargeFilled } from "react-icons/vsc";
 import BentoGrid from "@components/projects/bentoGrid";
+import ProductsSection from "@components/landing/productsSection";
+import Title from "@components/common/title";
+import Description from "@components/common/description";
 
 import { placeholderImages, landingData } from "@assets/placeholders";
 
 /* helper components */
-const SectionTitle = ({ title, className = "" }) => {
-  return (
-    <h1 className={`${className} text-xl sm:text-3xl lg:text-5xl xl:text-7xl`}>
-      {title}
-    </h1>
-  );
-};
-
-const SectionDescription = ({ description, className = "text-center" }) => {
-  return (
-    <p className={`${className} text-xs lg:text-lg xl:text-2xl text-wrap`}>
-      {description}
-    </p>
-  );
-};
-
-const ProductsButton = ({ number_of_products, cta }) => {
-  return (
-    <Link
-      href={cta.href}
-      className="px-2 flex items-center gap-2 text-sm text-white rounded-full backdrop-blur-md shadow-md bg-white/10 border border-white/10"
-    >
-      <Image
-        src={"/lightbulb.svg"}
-        alt="lightbulb"
-        width={24}
-        height={24}
-        className="w-12 p-2 inline-block invert"
-      />
-      {number_of_products} {number_of_products > 1 ? "Products" : "Product"}
-    </Link>
-  );
-};
-
-const ProductCard = ({
-  product: {
-    title,
-    description,
-    cta,
-    thumbnail,
-    className,
-    number_of_products,
-    highlight,
-  },
-}) => {
-  return (
-    <div
-      className={`${className} relative w-full h-full flex flex-col items-center gap-2`}
-    >
-      <Image
-        src={thumbnail}
-        alt={title}
-        className="w-full h-full rounded-lg object-cover brightness-75"
-      />
-      <div className="absolute top-0 left-0 w-full h-full p-6 flex flex-col gap-4 justify-between items-start">
-        <div className="flex flex-col items-start gap-4">
-          <div className="w-full flex justify-between items-center gap-2">
-            <h1 className="text-lg text-white sm:text-2xl xl:text-2xl">
-              {title}
-            </h1>
-            {highlight && (
-              <Link href={highlight.href}>
-                <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" />
-              </Link>
-            )}
-          </div>
-          <p className="text-sm text-white xl:text-lg">{description}</p>
-        </div>
-        <ProductsButton number_of_products={number_of_products} cta={cta} />
-      </div>
-    </div>
-  );
-};
-
-const ProductsScroll = ({ products }) => {
-  return (
-    <ul className="w-full flex gap-6 text-2xl overflow-x-auto scrollbar-hide">
-      {products.map((product, index) => (
-        <li key={index} className="flex justify-between items-center gap-6">
-          <VscCircleLargeFilled size={16} className="text-yellow-400" />
-          <span className="text-nowrap">{product.text}</span>
-        </li>
-      ))}
-    </ul>
-  );
-};
 
 const HighlightCard = ({ index, highlight }) => {
   return (
@@ -149,7 +64,7 @@ const Hero = ({ title, cta }) => {
         className="w-full object-cover object-bottom brightness-75"
       />
       <div className="absolute inset-0 px-8 py-16 flex flex-col gap-6 items-start justify-center sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
-        <SectionTitle title={title} className="text-start text-nowrap" />
+        <Title title={title} className="text-start text-nowrap" />
         <CtaButton
           name={cta.name}
           href={cta.href}
@@ -168,34 +83,11 @@ const AboutSection = ({ title, description, cta, images }) => {
       className="h-max px-8 py-8 flex flex-col justify-between items-start gap-8 bg-white text-black sm:px-16 sm:py-16 sm:flex-row"
     >
       <div className="w-full h-full flex flex-col flex-shrink-0 gap-6 sm:w-2/3 sm:gap-8 xl:gap-12">
-        <SectionTitle title={title} />
-        <SectionDescription description={description} className="" />
+        <Title title={title} />
+        <Description description={description} className="" />
         <CtaButton name={cta.text} href={cta.href} />
       </div>
       <AboutImages images={images} />
-    </section>
-  );
-};
-
-const ProductsSection = ({ title, description, products, productsScroll }) => {
-  return (
-    <section
-      id="products"
-      className="h-max px-8 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:py-16"
-    >
-      <div className="flex flex-col items-start gap-2">
-        <SectionTitle title={title} />
-        <SectionDescription
-          description={description}
-          className="text-left w-2/3"
-        />
-      </div>
-      <div className="border w-full flex flex-col items-center gap-4 sm:flex-row sm:h-80 lg:h-96">
-        {products.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-      </div>
-      <ProductsScroll products={productsScroll} />
     </section>
   );
 };
@@ -228,7 +120,7 @@ const RecentWorksSection = ({ title, projects }) => {
       id="industries"
       className="h-max px-8 py-8 flex flex-col justify-center items-start gap-6 bg-white text-black sm:px-16 sm:py-16"
     >
-      <SectionTitle title={title} />
+      <Title title={title} />
       <BentoGrid items={projects} />
     </section>
   );
@@ -280,8 +172,8 @@ const ContactSection = ({ title, description, cta }) => {
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
         <div className="w-full flex flex-col justify-center items-start gap-2 sm:w-3/5 lg:w-2/3">
-          <SectionTitle title={title} />
-          <SectionDescription
+          <Title title={title} />
+          <Description
             description={description}
             className="text-left text-gray-300"
           />
