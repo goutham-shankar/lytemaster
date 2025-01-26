@@ -10,8 +10,8 @@ export default function Newsletter({ title, cta }) {
   };
 
   return (
-    <section className="h-max px-4 py-8 flex flex-col justify-center items-center gap-6 text-black sm:px-24 sm:py-16 lg:gap-12">
-      <div className="w-full p-12 flex flex-col gap-12 bg-[#E4B661] rounded-2xl">
+    <section className="min-h-max px-4 py-8 flex flex-col justify-center items-center gap-6 text-black sm:px-24 sm:py-16 lg:gap-12">
+      <div className="h-80 w-full p-12 flex flex-col justify-center gap-12 bg-[#E4B661] rounded-2xl xl:h-[28rem]">
         <h1 className="w-full text-2xl font-bold text-black sm:text-3xl sm:w-2/3">
           {title}
         </h1>
