@@ -19,7 +19,7 @@ export const placeholderImages = {
   commercial: commercialLightingThumbnail,
   industrial: industrialLightingThumbnail,
   landscape: landscapeLightingThumbnail,
-  hero: heroPlaceholder,
+  hero: "https://s3-alpha-sig.figma.com/img/10db/3c57/428de29a05785ed5cfad3479dbea94c8?Expires=1738540800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lsKruhpVCSansftppflScKqH4GzB5q914r5moWzpflPot6DOKdTY8cYWoaDRAoZyp6bReTdCMYDTJcci--c6L0M1Bp-kYAYBJjMkg7KrY9NJRqPAIyCpTHSLVGDddcplOsa~tJlaIf14Gr5wnZ8cC5B6ZlgNkSt5abb9OWFxcXlM~hZXRzFrY41GQFKRkepsI75YtP5zHuI5Vr11Ow67fmBe6zGHkqHmh7Vgyiaep7AzbDGIQBfeDwQl6DkA6WvE-p6rXE8-TS502O3bgWnTOLLH1miEpoNcaEg26L1E-eNlsp6dVopgg5A5sogAJv9IHG6pMdASx4Mg6yIyvrWxMQ__",
 };
 
 /* data */
