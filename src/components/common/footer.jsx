@@ -30,27 +30,27 @@ const footerLinks = [
   {
     section: "Products",
     links: [
-      { name: "Commercial", link: "/products/commercial" },
-      { name: "Industrial", link: "/products/industrial" },
-      { name: "Landscape", link: "/products/landscape" },
+      { name: "Commercial", link: "#" },
+      { name: "Industrial", link: "#" },
+      { name: "Landscape", link: "#" },
     ],
   },
   {
     section: "About",
     links: [
-      { name: "About us", link: "/about-us" },
-      { name: "News", link: "/news" },
-      { name: "Press", link: "/press" },
-      { name: "Awards", link: "/awards" },
+      { name: "About us", link: "#" },
+      { name: "News", link: "#" },
+      { name: "Press", link: "#" },
+      { name: "Awards", link: "#" },
     ],
   },
   {
     section: "Contacts",
     links: [
-      { name: "Legal Disclaimer", link: "/contacts/legal" },
-      { name: "Privacy Policy", link: "/contacts/privacy" },
-      { name: "Terms of Use", link: "/contacts/terms" },
-      { name: "General", link: "/contact" },
+      { name: "Legal Disclaimer", link: "#" },
+      { name: "Privacy Policy", link: "#" },
+      { name: "Terms of Use", link: "#" },
+      { name: "General", link: "#" },
     ],
   },
 ];
@@ -107,7 +107,7 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:items-start sm:gap-32 lg:gap-80 xl:gap-96">
+    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:justify-between sm:items-start sm:gap-32 lg:gap-80 xl:gap-[36rem]">
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4 text-gray-300">
