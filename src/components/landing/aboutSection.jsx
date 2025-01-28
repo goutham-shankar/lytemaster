@@ -10,11 +10,15 @@ const AboutImages = ({ images }) => {
         <Image
           src={images[0]}
           alt="LyteMaster GMBH"
+          width="auto"
+          height="auto"
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
         <Image
           src={images[1]}
           alt="LyteMaster GMBH"
+          width="auto"
+          height="auto"
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
       </div>
@@ -24,6 +28,8 @@ const AboutImages = ({ images }) => {
         <Image
           src={images[2]}
           alt="LyteMaster GMBH"
+          width="auto"
+          height="auto"
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
       </div>
