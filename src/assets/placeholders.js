@@ -7,13 +7,13 @@ import { bento } from "@components/projects/bentoGrid";
 import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
 import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
 import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
+import bentoThumbnail from "@assets/landing/bento-thumbnail.jpeg";
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
 
 export const placeholderImages = {
-  bento:
-    "https://s3-alpha-sig.figma.com/img/4f46/c426/f5ad01f044078edd99945e8bab0f2acc?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XqFXumeLs3RblOTDKJQqAx5yalwXwlVARkkik798K0f~DmrgHfmlf5A0t2ArVdI1yU3snpbByB6v8GUcVXhHrkkircKtl3Z96ZgFXb3jqy~GYL3UrrENPTT1Ee529GN4~sEdWFMS25qGKgvXTv4R0aA97ETAQbxAX4e9cDVQof1wNr94ohEd3Ewy73ky-geukoU1fDtn7-rYJM~MDkIkjPKomGJt50uMJAIk-C3XLHHTHNCdrHW0bzHfIYbTJdouvATOTi5837lJz82Y-8b~RDgc6yJcd2uHJrrfpDxSxIYueIO7Dx05BSBw7tjX35XBMK9hRpIMJD8Z9g~4zoKYeQ__",
+  bento: bentoThumbnail.src,
   about: gmbhPlaceholder,
   industries: heroPlaceholder,
   commercial: commercialLightingThumbnail,
