@@ -7,13 +7,46 @@ import { bento } from "@components/projects/bentoGrid";
 import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
 import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
 import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
-import bentoThumbnail from "@assets/landing/bento-thumbnail.jpeg";
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
 
+/* bento placeholder images */
+
+import bentoThumbnail1 from "@assets/bento_thumbnail_1.jpeg";
+import bentoThumbnail2 from "@assets/bento_thumbnail_2.jpeg";
+import bentoThumbnail3 from "@assets/bento_thumbnail_3.jpeg";
+import bentoThumbnail4 from "@assets/landing/bento-thumbnail.jpeg";
+import bentoThumbnail5 from "@assets/bento_thumbnail_5.jpeg";
+import bentoThumbnail6 from "@assets/bento_thumbnail_6.jpeg";
+import bentoThumbnail7 from "@assets/bento_thumbnail_7.jpeg";
+import bentoThumbnail8 from "@assets/bento_thumbnail_8.jpeg";
+import bentoThumbnail9 from "@assets/bento_thumbnail_9.jpeg";
+import bentoThumbnail10 from "@assets/bento_thumbnail_10.jpeg";
+import bentoThumbnail11 from "@assets/bento_thumbnail_11.jpeg";
+import bentoThumbnail12 from "@assets/bento_thumbnail_12.jpeg";
+import bentoThumbnail13 from "@assets/bento_thumbnail_13.jpeg";
+import bentoThumbnail14 from "@assets/bento_thumbnail_14.jpeg";
+
 export const placeholderImages = {
-  bento: bentoThumbnail.src,
+  bento: [
+    bentoThumbnail1,
+    bentoThumbnail2,
+    bentoThumbnail3,
+    bentoThumbnail4,
+    commercialLightingThumbnail,
+    industrialLightingThumbnail,
+    bentoThumbnail5,
+    bentoThumbnail6,
+    bentoThumbnail7,
+    bentoThumbnail8,
+    bentoThumbnail9,
+    bentoThumbnail10,
+    bentoThumbnail11,
+    bentoThumbnail12,
+    bentoThumbnail13,
+    bentoThumbnail14,
+  ],
   about: gmbhPlaceholder,
   industries: heroPlaceholder,
   commercial: commercialLightingThumbnail,
@@ -27,7 +60,7 @@ export const projectsData = {
   overviewSection: {
     title: "Projects",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.",
+      "Lorem ipsum dolor sit amet consectetur. Pretium aliquet dictumst viverra id imperdiet turpis nulla libero netus. Amet in mattis adipiscing pulvinar sed tincidunt. Eget neque blandit feugiat risus vestibulum proin at augue. Malesuada adipiscing consequat vel tortor hac suspendisse ac dictum.",
   },
 
   projects: [
@@ -43,7 +76,7 @@ export const projectsData = {
           name: "Forum Showroom",
           location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[3],
             alt: "Dubai, UAE",
           },
           href: "#",
@@ -53,7 +86,7 @@ export const projectsData = {
           name: "Beach Bar Restaurant",
           location: "Jumeirah, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[1],
             alt: "Dubai, UAE",
           },
           href: "#",
@@ -63,7 +96,7 @@ export const projectsData = {
           name: "Cafe Capuchino",
           location: "New York, USA",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[4],
             alt: "New York, USA",
           },
           href: "#",
@@ -73,7 +106,7 @@ export const projectsData = {
           name: "Glicerin Bay Office",
           location: "London, UK",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[0],
             alt: "London, UK",
           },
           href: "#",
@@ -83,7 +116,7 @@ export const projectsData = {
           name: "Dune Conference Hall",
           location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[5],
             alt: "Dubai, UAE",
           },
           href: "#",
@@ -93,7 +126,7 @@ export const projectsData = {
           name: "Sea Restaurant",
           location: "Tokyo, Japan",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[2],
             alt: "Tokyo, Japan",
           },
           href: "#",
@@ -111,30 +144,30 @@ export const projectsData = {
       },
       projects: [
         {
+          name: "Car Showroom",
+          location: "SZR-DUBAI, UAE ",
+          image: {
+            src: placeholderImages.bento[6],
+            alt: "Dubai, UAE",
+          },
+          href: "#",
+          className: bento.sm,
+        },
+        {
+          name: "Car Showroom",
+          location: "SZR-DUBAI, UAE ",
+          image: {
+            src: placeholderImages.bento[7],
+            alt: "Dubai, UAE",
+          },
+          href: "#",
+          className: bento.sm,
+        },
+        {
           name: "Forum Showroom",
           location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
-            alt: "Dubai, UAE",
-          },
-          href: "#",
-          className: bento.sm,
-        },
-        {
-          name: "Beach Bar Restaurant",
-          location: "Jumeirah, UAE",
-          image: {
-            src: placeholderImages.bento,
-            alt: "Dubai, UAE",
-          },
-          href: "#",
-          className: bento.sm,
-        },
-        {
-          name: "Cafe Capuchino",
-          location: "New York, USA",
-          image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[8],
             alt: "New York, USA",
           },
           href: "#",
@@ -144,17 +177,17 @@ export const projectsData = {
           name: "Glicerin Bay Office",
           location: "London, UK",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[9],
             alt: "London, UK",
           },
           href: "#",
           className: bento.lg,
         },
         {
-          name: "Dune Conference Hall",
-          location: "Dubai, UAE",
+          name: "Car Showroom",
+          location: "SZR-DUBAI, UAE ",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[10],
             alt: "Dubai, UAE",
           },
           href: "#",
@@ -172,10 +205,10 @@ export const projectsData = {
       },
       projects: [
         {
-          name: "Forum Showroom",
+          name: "DIAC Housing Facility",
           location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[11],
             alt: "Dubai, UAE",
           },
           href: "#",
@@ -183,29 +216,29 @@ export const projectsData = {
         },
         {
           name: "Beach Bar Restaurant",
-          location: "Jumeirah, UAE",
+          location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[12],
             alt: "Dubai, UAE",
           },
           href: "#",
           className: bento.sm,
         },
         {
-          name: "Cafe Capuchino",
-          location: "New York, USA",
+          name: "Office Space",
+          location: "Riyadh, KSA",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[13],
             alt: "New York, USA",
           },
           href: "#",
           className: bento.sm,
         },
         {
-          name: "Glicerin Bay Office",
-          location: "London, UK",
+          name: "DIAC Housing Facility",
+          location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[14],
             alt: "London, UK",
           },
           href: "#",
@@ -213,10 +246,10 @@ export const projectsData = {
         },
 
         {
-          name: "Dune Conference Hall",
+          name: "Seven Luxury Car Rental",
           location: "Dubai, UAE",
           image: {
-            src: placeholderImages.bento,
+            src: placeholderImages.bento[15],
             alt: "Dubai, UAE",
           },
           href: "#",

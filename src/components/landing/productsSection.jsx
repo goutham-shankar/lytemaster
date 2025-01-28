@@ -42,8 +42,8 @@ const ProductCard = ({
       <Image
         src={thumbnail}
         alt={title}
-        width={512}
-        height={512}
+        width="auto"
+        height="auto"
         className="w-full h-full rounded-lg object-cover brightness-75"
       />
       <div className="absolute top-0 left-0 w-full h-full p-6 flex flex-col gap-4 justify-between items-start">
