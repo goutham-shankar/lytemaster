@@ -62,7 +62,7 @@ const FooterSection = ({ section, links, index }) => {
         <h4 className="text-sm lg:text-md xl:text-xl">{section}</h4>
         <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
       </div>
-      <ul className="py-2 flex flex-col gap-1">
+      <ul className="py-2 flex flex-col gap-1 text-gray-300">
         {links.map(({ name, link }, index) => (
           <li key={index} className="w-min text-xs group lg:text-sm xl:text-lg">
             <Link href={link} className="text-nowrap">
@@ -99,10 +99,10 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:flex-row sm:gap-32 lg:gap-80 xl:gap-96">
+    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:items-start sm:gap-32 lg:gap-80 xl:gap-96">
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-gray-300">
           <p className="text-xs whitespace-pre-wrap">{address}</p>
           <Socials />
         </div>
