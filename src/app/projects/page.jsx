@@ -23,7 +23,7 @@ const SectionTitle = ({ title }) => {
 
 const OverviewSection = ({ title, description }) => {
   return (
-    <section className="w-full h-max mt-12 px-4 py-8 flex flex-col justify-center items-center gap-4 bg-white text-black sm:px-12">
+    <section className="w-full h-max mt-12 px-8 py-8 flex flex-col justify-center items-center gap-4 text-black sm:px-16 sm:mt-16 md:mt-20 lg:mt-28">
       <h1 className="w-full text-4xl text-left font-bold">{title}</h1>
       <p className="">{description}</p>
       <Filters filters={filters} />
@@ -33,7 +33,7 @@ const OverviewSection = ({ title, description }) => {
 
 const ProjectSection = ({ title, cta, projects }) => {
   return (
-    <section className="w-full h-max px-4 py-8 flex flex-col justify-center items-center gap-6 bg-white text-black sm:px-12">
+    <section className="w-full h-max px-8 py-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16">
       <SectionTitle title={title} />
       <BentoGrid items={projects} />
       <CtaButton name={cta.name} href={cta.href} />
