@@ -320,16 +320,16 @@ export const landingData = {
     },
     highlights: [
       {
-        text: "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit",
+        text: "Lorem ipsum dolor sit amet consectetur",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit",
+        text: "Lorem ipsum dolor sit amet consectetur",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit",
+        text: "Lorem ipsum dolor sit amet consectetur",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit",
+        text: "Lorem ipsum dolor sit amet consectetur",
       },
     ],
   },
