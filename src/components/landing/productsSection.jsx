@@ -67,7 +67,7 @@ const ProductCard = ({
 };
 const ProductsScroll = ({ products }) => {
   return (
-    <ul className="absolute -bottom-4 w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl xl:text-3xl">
+    <ul className="absolute -bottom-4 w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl md:-bottom-6 xl:-bottom-14  xl:text-3xl">
       {products.map((product, index) => (
         <li key={index} className="flex justify-between items-center gap-6">
           <VscCircleLargeFilled size={16} className="text-yellow-400" />
