@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import Branding from "@/components/common/branding";
 
-const lightBgPaths = ["/projects"];
+const lightBgPaths = ["/projects","/products"];
 // const navItems = [
 //   {
 //     name: "Products",
@@ -26,7 +26,7 @@ const lightBgPaths = ["/projects"];
 const navItems = [
   {
     name: "Products",
-    href: "#",
+    href: "/products",
     dropdown: [
       { name: "Product 1", href: "#" },
       { name: "Product 2", href: "#" },
