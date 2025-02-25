@@ -15,7 +15,7 @@ const lightingProducts = [
   { name: 'AMBER RD', image: '/amber-rd.png' },
 ];
 
-export default function Category() {
+export default function Objects() {
   const [filters, setFilters] = useState({});
 
   return (
