@@ -85,9 +85,9 @@ export default function Item() {
       </div>
 
       {/* Parameters Table */}
-      <div className="mt-8">
+      <div className="mt-8 ">
         <h2 className="text-2xl font-bold">Parameters</h2>
-        <div className="overflow-x-auto mt-4">
+        <div className="overflow-x-auto mt-4 overflow-x-hidden">
           <table className="min-w-full  border-gray-200 rounded-lg">
             <thead>
               <tr className="">
@@ -101,11 +101,11 @@ export default function Item() {
             <tbody>
               {parameters.map((item, index) => (
                 <tr key={index} className="border-b border-black">
-                  <td className="py-4 px-4 ">{item.model}</td>
-                  <td className="py-4 px-4 ">{item.dimension}</td>
-                  <td className="py-4 px-4 ">{item.cutout}</td>
-                  <td className="py-4 px-4 ">{item.power}</td>
-                  <td className="py-4 px-4 ">{item.flux}</td>
+                  <td className="py-4 ">{item.model}</td>
+                  <td className="py-4 ">{item.dimension}</td>
+                  <td className="py-4 ">{item.cutout}</td>
+                  <td className="py-4 ">{item.power}</td>
+                  <td className="py-4 ">{item.flux}</td>
                   <hr></hr>
                 </tr>
               ))}
