@@ -87,7 +87,7 @@ export default function Item() {
       {/* Parameters Table */}
       <div className="mt-8 ">
         <h2 className="text-2xl font-bold">Parameters</h2>
-        <div className="overflow-x-auto mt-4 overflow-x-hidden">
+        <div className="mt-4 overflow-x-hidden">
           <table className="min-w-full  border-gray-200 rounded-lg">
             <thead>
               <tr className="">
