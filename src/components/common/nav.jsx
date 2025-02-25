@@ -111,7 +111,7 @@ const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
   const pathname = usePathname();
   return (
     <button
-      className={`${className} flex items-center gap-2 text-sm ${lightBgPaths.includes(pathname) ? "text-black" : "text-white"}`}
+      className={`${className} flex items-center gap-2 text-sm ${lightBgPaths.includes(pathname) ? "text-white" : "text-black"}`}
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
       {navrailOpen ? <X size={24} /> : <Menu size={24} />}
