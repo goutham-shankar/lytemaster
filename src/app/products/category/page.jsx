@@ -3,13 +3,13 @@
 import { useState } from 'react';
 
 const lightingProducts = [
-  { name: 'Spot Down Series', image: '/spot-down.png' },
-  { name: 'Tracks System', image: '/tracks-system.png' },
-  { name: 'Modular Series', image: '/modular-series.png' },
-  { name: 'Panel & General Lighting', image: '/panel-general.png' },
-  { name: 'Pendant Series', image: '/pendant-series.png' },
-  { name: 'Ceiling Surface Series', image: '/ceiling-surface.png' },
-  { name: 'Profile Series', image: '/profile-series.png' },
+  { name: 'Spot Down Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Tracks System', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Modular Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Panel & General Lighting', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Pendant Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Ceiling Surface Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Profile Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
 ];
 
 export default function Category() {
@@ -54,11 +54,11 @@ export default function Category() {
       {/* Lighting Products Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects/">
-            <div key={index} className="p-4">
-              <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
+            <a href="/products/category/objects/" key={index}>
+            <div  className="p-4">
+              <img src={product.image} alt={product.name} className="w-40 h-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
               <h3 className="text-lg font-medium">{product.name}</h3>
             </div>
             </a>

@@ -3,16 +3,16 @@
 import { useState } from 'react';
 
 const lightingProducts = [
-  { name: 'BEAM', image: '/beam.png' },
-  { name: 'BEAM SQ', image: '/beam-sq.png' },
-  { name: 'DAZZLE', image: '/dazzle.png' },
-  { name: 'GLOSS', image: '/gloss.png' },
-  { name: 'GLAZE', image: '/glaze.png' },
-  { name: 'APOLLO', image: '/apollo.png' },
-  { name: 'SAPPHIRE', image: '/sapphire.png' },
-  { name: 'AURA', image: '/aura.png' },
-  { name: 'TITAN', image: '/titan.png' },
-  { name: 'AMBER RD', image: '/amber-rd.png' },
+  { name: 'BEAM', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'BEAM SQ', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'DAZZLE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'GLOSS', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'GLAZE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'APOLLO', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'SAPPHIRE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'AURA', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'TITAN', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'AMBER RD', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
 ];
 
 export default function Objects() {
@@ -57,11 +57,11 @@ export default function Objects() {
       <main className="w-full md:w-3/4 p-4 mt-8">
 
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
           {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects/item">
-            <div key={index} className=" p-4  ">
-              <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
+            <a href="/products/category/objects/item" key={index}>
+            <div  className=" p-4 ">
+              <img src={product.image} alt={product.name} className="h-40 w-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
               <h3 className="text-lg font-medium">{product.name}</h3>
             </div>
             </a>
