@@ -68,19 +68,19 @@ export default function Item() {
       <div className="mt-8 ml-32">
         <button
           onClick={() => setStandardOpen(!standardOpen)}
-          className="w-full text-left text-lg font-semibold py-2 px-4   mb-2  border-b border-black"
+          className="w-full text-left text-lg font-semibold py-2 px-4    border-b border-black"
         >
           Standard Configuration {standardOpen ? '▲' : '▼'}
         </button>
-        {standardOpen && <p className="p-4 border rounded-md">Details about standard configuration.</p>}
+        {standardOpen && <p className="p-4  rounded-md">Details about standard configuration.</p>}
 
         <button
           onClick={() => setExtendedOpen(!extendedOpen)}
-          className="w-full text-left text-lg font-semibold py-2 px-4    border-b border-black"
+          className="w-full text-left text-lg font-semibold py-2 px-4   border-b border-black"
         >
           Extended Configuration {extendedOpen ? '▲' : '▼'}
         </button>
-        {extendedOpen && <p className="p-4 border rounded-md">Details about extended configuration.</p>}
+        {extendedOpen && <p className="p-4 rounded-md">Details about extended configuration.</p>}
       </div>
       </div>
 
