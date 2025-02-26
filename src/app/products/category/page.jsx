@@ -56,10 +56,12 @@ export default function Category() {
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {lightingProducts.map((product, index) => (
+            <a href="/products/category/objects/">
             <div key={index} className="p-4">
               <img src={product.image} alt={product.name} className="w-full h-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
               <h3 className="text-lg font-medium">{product.name}</h3>
             </div>
+            </a>
           ))}
         </div>
       </main>

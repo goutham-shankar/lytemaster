@@ -40,6 +40,7 @@ export default function ProductsPage() {
         
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           {products.map((product) => (
+            <a href="/products/category" key={product.title}>
             <div 
               key={product.title} 
               className="h-auto rounded-2xl shadow-md overflow-hidden flex flex-col justify-between" 
@@ -56,6 +57,7 @@ export default function ProductsPage() {
                 {product.count} Products
               </div>
             </div>
+            </a>
           ))}
         </div>
       </main>
