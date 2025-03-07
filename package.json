@@ -13,11 +13,7 @@
     "@headlessui/react": "^2.2.0",
     "autoprefixer": "^10.4.20",
     "lucide-react": "^0.471.0",
-<<<<<<< HEAD
-    "next": "15.1.4",   
-=======
     "next": "^15.1.4",
->>>>>>> 25ae7d300b93aa7eaa0857769a9d02ca32ddf052
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
