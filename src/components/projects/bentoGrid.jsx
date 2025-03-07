@@ -5,18 +5,18 @@ import Image from "next/image";
 export const bento = {
   lg: {
     item: "sm:col-span-2 sm:row-span-2",
-    location: "text-sm lg:text-md",
-    name: "text-md sm:text-xl lg:text-2xl",
+    location: "text-sm lg:text-md xl:text-lg",
+    name: "text-md sm:text-xl lg:text-2xl xl:text-3xl",
   },
   md: {
     item: "sm:col-span-2 sm:row-span-1",
-    location: "text-sm lg:text-md",
-    name: "text-md sm:text-lg lg:text-xl",
+    location: "text-sm lg:text-md xl:text-lg",
+    name: "text-md sm:text-lg lg:text-xl xl:text-2xl",
   },
   sm: {
     item: "col-span-1 row-span-1",
-    location: "text-sm sm:text-[0.65rem] lg:text-[.9rem]",
-    name: "text-md sm:text-sm lg:text-lg",
+    location: "text-sm sm:text-[0.65rem] lg:text-[.9rem] xl:text-base",
+    name: "text-md sm:text-sm lg:text-lg xl:text-xl",
   },
 };
 
@@ -51,16 +51,18 @@ export default function BentoGrid({ items }) {
   }, [width]);
 
   return (
-    <div className="w-full h-[32rem] grid grid-cols-1 grid-rows-3 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3">
+    <div className="w-full h-[32rem] grid grid-cols-1 grid-rows-3 gap-3 text-white sm:grid-cols-4 sm:grid-rows-3 lg:h-[40rem] xl:h-[64rem]">
       {(isMobile ? items.slice(0, 3) : items).map((item, index) => (
         <div
           key={index}
           className={`w-full h-full relative flex flex-col justify-end items-start overflow-hidden rounded-xl group ${item.className.item}`}
         >
-          <img
+          <Image
             src={item.image.src}
             alt={item.image.alt}
-            className="absolute object-cover w-full h-full brightness-75 transition duration-300 group-hover:scale-105 group-hover:brightness-50"
+            width={1024}
+            height={1024}
+            className="absolute object-cover w-full h-full brightness-75 object-top transition duration-300 group-hover:scale-105 group-hover:brightness-50"
           />
           <Link
             href={item.href}

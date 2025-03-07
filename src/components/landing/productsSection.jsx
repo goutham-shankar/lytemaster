@@ -42,8 +42,8 @@ const ProductCard = ({
       <Image
         src={thumbnail}
         alt={title}
-        width={512}
-        height={512}
+        width="auto"
+        height="auto"
         className="w-full h-full rounded-lg object-cover brightness-75"
       />
       <div className="absolute top-0 left-0 w-full h-full p-6 flex flex-col gap-4 justify-between items-start">
@@ -67,7 +67,7 @@ const ProductCard = ({
 };
 const ProductsScroll = ({ products }) => {
   return (
-    <ul className="w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl xl:text-3xl">
+    <ul className="absolute -bottom-4 w-full flex gap-6 text-lg overflow-x-auto scrollbar-hide sm:text-2xl md:-bottom-6 xl:-bottom-14  xl:text-3xl">
       {products.map((product, index) => (
         <li key={index} className="flex justify-between items-center gap-6">
           <VscCircleLargeFilled size={16} className="text-yellow-400" />
@@ -87,7 +87,7 @@ export default function ProductsSection({
   return (
     <section
       id="products"
-      className="h-max p-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
+      className="relative h-max p-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
     >
       <div className="w-full flex flex-col items-start gap-2">
         <Heading title={title} variant="2xl" />

@@ -11,6 +11,8 @@ export default function ContactSection({ title, description, cta }) {
       <Image
         src={placeholderImages.commercial}
         alt="commercial lighting"
+        width="auto"
+        height="auto"
         className="w-full h-full object-cover object-center brightness-[35%]"
       />
       <div className="absolute inset-0 w-full h-full px-12 py-16 flex flex-col justify-center items-start gap-6 sm:px-24 sm:py-20">
@@ -23,7 +25,7 @@ export default function ContactSection({ title, description, cta }) {
         </div>
         <Link
           href={cta.href}
-          className="px-8 py-2 text-white border border-white rounded-full hover:bg-white hover:text-black xl:text-2xl xl:px-12 xl:py-3"
+          className="px-8 py-2 text-white border border-white rounded-full hover:bg-white hover:text-black xl:text-2xl xl:px-12 xl:py-3 duration-500 transition ease-in-out hover:scale-105"
         >
           {cta.text}
         </Link>
