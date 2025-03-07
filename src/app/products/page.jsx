@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image';
 import CommercialImage from '@/assets/landing/commercial-lighting-thumbnail.jpeg'; // Adjust the path
 import IndustrialImage from '@/assets/landing/industrial-lighting-thumbnail.jpeg'; // Adjust the path
 import LandscapeImage from '@/assets/landing/hero-placeholder.jpeg'; // Adjust the path
