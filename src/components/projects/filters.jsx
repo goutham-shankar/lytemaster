@@ -25,14 +25,14 @@ export default function Filters({ filters }) {
 
   return (
     <div className="w-full flex flex-col gap-2 justify-start items-start text-nowrap text-sm sm:flex-row sm:items-center sm:gap-8">
-      <h1>Filters:</h1>
+      <h1 className="sm:text-lg xl:text-2xl">Filters:</h1>
       <div className="flex gap-4 items-center">
         <ul className="flex gap-4 justify-center items-center">
           {filters.map((filter, index) => (
             <li
               key={index}
               onClick={() => handleFilterSelection(filter)}
-              className={`${isFilterSelected(filter) ? "text-black" : "text-gray-300"} relative group hover:cursor-pointer transition-colors duration-500`}
+              className={`${isFilterSelected(filter) ? "text-black" : "text-gray-300"} relative group hover:cursor-pointer transition-colors duration-500 xl:text-lg`}
             >
               {filter}
               <span
