@@ -16,14 +16,14 @@ export default function Category() {
   const [filters, setFilters] = useState({});
 
   return (
-    <div className="flex flex-col md:flex-row p-8 min-h-screen mt-32 relative">
+    <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
 
-        <div className="p-4 text-sm absolute -top-12 left-10">
+        <div className="p-4 text-sm absolute -top-12 left-10 ">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY</div>
       </div>
 
       {/* Sidebar Filters */}
-      <aside className="w-full md:w-1/4 p-4 rounded-lg mt-8">
+      <aside className="w-full md:w-1/4 p-4 rounded-lg mt-16">
         <h2 className="text-xl font-semibold mb-4">Mounting type</h2>
         {['Ceiling recessed', 'Recessed Suspended', 'Surface Mounted', 'Suspended', 'Surface Suspended Recessed'].map((item) => (
           <label key={item} className="block text-gray-700">
@@ -47,7 +47,7 @@ export default function Category() {
       </aside>
 
    
-      <h1 className="absolute top-0 left-10 lg:left-48 text-4xl font-bold">Commercial Lighting</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 text-5xl font-bold">Commercial Lighting</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8">
       </div>
 
@@ -58,7 +58,7 @@ export default function Category() {
           {lightingProducts.map((product, index) => (
             <a href="/products/category/objects/" key={index}>
             <div  className="p-4">
-              <img src={product.image} alt={product.name} className="w-40 h-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
+              <img src={product.image} alt={product.name} className="aspect-square h-52 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
               <h3 className="text-lg font-medium">{product.name}</h3>
             </div>
             </a>
