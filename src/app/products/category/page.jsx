@@ -18,7 +18,7 @@ export default function Category() {
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
 
-        <div className="p-4 text-sm absolute -top-12 left-10 ">
+        <div className="p-4 text-sm absolute -top-12 left-20 ">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY</div>
       </div>
 
