@@ -26,7 +26,7 @@ export default function Objects() {
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY / OBJECTS</div>
       </div>
 
-      <aside className="w-full md:w-1/4 p-4 mt-12">
+      <aside className="w-full md:w-72 p-4 mt-12">
         
 
         <h2 className="text-xl font-semibold mb-2">Mounting type</h2>
