@@ -27,9 +27,15 @@ const NewsCard = ({ thumbnail, title, description, date, href }) => {
         height={200}
         className="w-full h-36 rounded-xl sm:h-56 2xl:h-96"
       />
-      <h2 className="mt-3 text-xl font-bold 2xl:text-4xl">{title}</h2>
-      <p className="text-sm text-gray-700 2xl:text-2xl">{description}</p>
-      <p className="mt-2 text-sm text-gray-700 2xl:text-2xl">{date}</p>
+      <h2 className="mt-3 text-lg font-bold lg:text-xl xl:text-3xl 2xl:text-4xl">
+        {title}
+      </h2>
+      <p className="text-sm text-gray-700 lg:text-base xl:text-xl 2xl:text-2xl">
+        {description}
+      </p>
+      <p className="mt-2 text-sm text-gray-700 lg:text-base xl:text-xl 2xl:text-2xl">
+        {date}
+      </p>
     </a>
   );
 };
@@ -58,13 +64,13 @@ const FeaturedNewsCard = ({ thumbnail, title, description, href }) => {
         <div className="px-6 text-sm bg-white rounded-full flex items-center justify-center sm:text-base 2xl:px-10 2xl:text-3xl">
           FEATURED
         </div>
-        <h2 className="text-2xl text-white font-bold sm:text-3xl lg:text-4xl 2xl:text-7xl">
+        <h2 className="text-2xl text-white font-bold sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
           {title}{" "}
           <a href={href} className="mx-2 text-white font-bold">
             <HiOutlineArrowRight size={26} className="inline-block" />
           </a>
         </h2>
-        <p className="w-10/12 text-sm text-gray-100 sm:text-base 2xl:text-3xl">
+        <p className="w-10/12 text-sm text-gray-100 sm:text-base lg:text-lg xl:text-2xl 2xl:text-3xl">
           {description}
         </p>
       </div>
