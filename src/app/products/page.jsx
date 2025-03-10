@@ -17,7 +17,7 @@ export default function ProductsPage() {
     <div className="min-h-screen flex flex-col mt-28">
       {/* Breadcrumb */}
       <div className="p-4 text-sm">
-        <div className="max-w-6xl mx-auto">HOME / PRODUCTS</div>
+        <div className="max-w-6xl mx-auto lg:mx-28">HOME / PRODUCTS</div>
       </div>
 
       {/* Main Content */}
@@ -28,7 +28,7 @@ export default function ProductsPage() {
           <a href={`/products/category?categoryId=${product.slug}`} key={product.slug}>
 
               <div 
-                className="h-[430px] rounded-2xl shadow-md overflow-hidden flex flex-col justify-between" 
+                className="h-[460px] rounded-2xl shadow-md overflow-hidden flex flex-col justify-between" 
                 style={{ backgroundImage: `url(${product.image})`, backgroundSize: "cover", backgroundPosition: "center" }}
               >
                 <div className="py-12 p-6 bg-gradient-to-b from-black via-transparent to-transparent">
@@ -37,8 +37,8 @@ export default function ProductsPage() {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-evenly gap-2 text-lg font-medium text-white bg-blur rounded-full mx-12 p-4 text-center shadow-md shadow-black backdrop-blur-md m-4">
-                  <Image src="/assets/products/light_bulb_products.png" width={24} height={24} alt="Bulb" />
+                <div className="flex items-center justify-evenly gap-2 text-lg font-medium text-white bg-blur rounded-full mx-14 p-2 text-center shadow-md shadow-black backdrop-blur-md m-4">
+                  <Image src="/assets/products/light_bulb_products.png" width={20} height={20} alt="Bulb" />
                   {product.count} Products
                 </div>
               </div>
