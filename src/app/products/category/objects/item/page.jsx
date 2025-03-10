@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Parameters from '@/components/products/parameters';
+import Download from '@/components/products/download';
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
   const [extendedOpen, setExtendedOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [showDownloads, setShowDownloads] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -19,17 +21,19 @@ export default function Item() {
     <div className="container mx-auto p-6 md:p-12 mt-32 overflow-hidden">
       {/* Breadcrumb */}
       <div className="p-4 text-sm absolute top-32 left-5 md:left-20">
-        <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY / OBJECTS / ITEM</div>
+        <div className="max-w-6xl mx-auto">
+          HOME / PRODUCTS / CATEGORY / OBJECTS / ITEM
+        </div>
       </div>
 
       {/* Title */}
-      <div className='mx-12'>
+      <div className="mx-12">
         <h1 className="text-5xl font-bold my-4">Dazzle</h1>
         <p className="text-gray-500">LM-022-DLZ3L | Spot Down Series</p>
       </div>
 
       {/* Images Section */}
-      <div className="flex flex-col items-center justify-center w-full ">
+      <div className="flex flex-col items-center justify-center w-full">
         <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full max-w-6xl px-10">
           <img
             src="https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png"
@@ -81,7 +85,7 @@ export default function Item() {
         {/* Expandable Configurations */}
         <div className="mt-8 lg:ml-12 w-full">
           {/* Standard Configuration */}
-          <div className='border-b w-96 border-black'>
+          <div className="border-b w-96 border-black">
             <button
               onClick={() => setStandardOpen(!standardOpen)}
               className="w-full text-left text-lg font-semibold py-2 px-4"
@@ -91,23 +95,66 @@ export default function Item() {
             {standardOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: standardOpen ? 'auto' : 0, opacity: standardOpen ? 1 : 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="overflow-hidden"
               >
-                <div className="p-4 rounded-md">
-                  <p><strong>COLOUR TEMPERATURE:</strong> 3000K, 4000K, 6000K</p>
-                  <p><strong>CONTROL:</strong> NON-DIM</p>
-                  <p><strong>OPTICAL:</strong> 15°/24°/38°/60°</p>
-                  <p><strong>COLOUR (Housing):</strong> White, Black</p>
-                  <p><strong>COLOUR (Reflector):</strong> Aluminium</p>
-                </div>
+                {showDownloads ? (
+                  // Optical Checkboxes for Standard Configuration
+                  <div className="mb-4 mx-5">
+                    <p className="font-semibold">Color Temperature</p>
+                    {['3000K', '4000K','6000K'].map((temp) => (
+                      <div key={temp} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`ext-temp-${temp}`}
+                          name="ext-temp"
+                          value={temp}
+                        />
+                        <label htmlFor={`ext-temp-${temp}`}>{temp}</label>
+                      </div>
+                    ))}
+                    <p className="font-semibold">Optical</p>
+                    {['15°', '24°', '38°', '60°'].map((angle) => (
+                      <div key={angle} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`std-optical-${angle}`}
+                          name="std-optical"
+                          value={angle}
+                        />
+                        <label htmlFor={`std-optical-${angle}`}>
+                          {angle}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  // Initial static values for Standard Configuration
+                  <div className="p-4 rounded-md">
+                    <p>
+                      <strong>COLOUR TEMPERATURE:</strong> 3000K, 4000K, 6000K
+                    </p>
+                    <p>
+                      <strong>CONTROL:</strong> NON-DIM
+                    </p>
+                    <p>
+                      <strong>OPTICAL:</strong> 15°/24°/38°/60°
+                    </p>
+                    <p>
+                      <strong>COLOUR (Housing):</strong> White, Black
+                    </p>
+                    <p>
+                      <strong>COLOUR (Reflector):</strong> Aluminium
+                    </p>
+                  </div>
+                )}
               </motion.div>
             )}
           </div>
 
           {/* Extended Configuration */}
-          <div className='border-b w-96 border-black'>
+          <div className="border-b w-96 border-black">
             <button
               onClick={() => setExtendedOpen(!extendedOpen)}
               className="w-full text-left text-lg font-semibold py-2 px-4 mt-4"
@@ -117,21 +164,49 @@ export default function Item() {
             {extendedOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: extendedOpen ? 'auto' : 0, opacity: extendedOpen ? 1 : 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="overflow-hidden my-4"
               >
-                <div className="p-4 rounded-md">
-                  <p><strong>COLOUR TEMPERATURE:</strong> 2700K, 5000K</p>
-                  <p><strong>CONTROL:</strong> DALI, PHASE, 1-10V</p>
-                </div>
+                {showDownloads ? (
+                  // Color Temperature Checkboxes for Extended Configuration
+                  <div className="mb-4 mx-4">
+                    <p className="font-semibold">Color Temperature</p>
+                    {['2700K', '5000K'].map((temp) => (
+                      <div key={temp} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`ext-temp-${temp}`}
+                          name="ext-temp"
+                          value={temp}
+                        />
+                        <label htmlFor={`ext-temp-${temp}`}>{temp}</label>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  // Initial static values for Extended Configuration
+                  <div className="p-4 rounded-md">
+                    <p>
+                      <strong>COLOUR TEMPERATURE:</strong> 2700K, 5000K
+                    </p>
+                    <p>
+                      <strong>CONTROL:</strong> DALI, PHASE, 1-10V
+                    </p>
+                  </div>
+                )}
               </motion.div>
             )}
           </div>
         </div>
       </div>
 
-      <Parameters />
+      {/* Conditionally render Parameters or Downloads */}
+      {!showDownloads ? (
+        <Parameters onRowClick={() => setShowDownloads(true)} />
+      ) : (
+        <Download />
+      )}
     </div>
   );
 }
