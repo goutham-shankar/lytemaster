@@ -19,17 +19,17 @@ export default function Objects() {
   const [filters, setFilters] = useState({});
 
   return (
-    <div className="flex flex-col md:flex-row p-8  min-h-screen mt-32">
+    <div className="flex flex-col md:flex-row p-8  min-h-screen mt-48">
       {/* Sidebar Filters */}
       {/* Breadcrumb */}
-      <div className="p-4 text-sm absolute top-20 left-10">
+      <div className="p-4 text-sm absolute top-32 left-20">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY / OBJECTS</div>
       </div>
 
-      <aside className="w-full md:w-1/4 p-4 mt-8">
+      <aside className="w-full md:w-1/4 p-4 mt-12">
         
 
-        <h2 className="text-xl font-semibold mb-2">Mounting Type</h2>
+        <h2 className="text-xl font-semibold mb-2">Mounting type</h2>
         {['Ceiling recessed', 'Recessed Suspended', 'Surface Mounted', 'Suspended', 'Surface Suspended Recessed'].map((item) => (
           <label key={item} className="block text-gray-700">
             <input type="checkbox" className="mr-2" /> {item}
@@ -50,7 +50,7 @@ export default function Objects() {
           </label>
         ))}
       </aside>
-      <h1 className="absolute top-32 left-10 lg:left-48 text-4xl font-bold">SPOT DOWN SERIES</h1>
+      <h1 className="absolute top-44 left-10 lg:left-24 text-5xl font-bold">SPOT DOWN SERIES</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8">
       </div>
       {/* Lighting Products Grid */}
@@ -60,8 +60,8 @@ export default function Objects() {
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
           {lightingProducts.map((product, index) => (
             <a href="/products/category/objects/item" key={index}>
-            <div  className=" p-4 ">
-              <img src={product.image} alt={product.name} className="h-40 w-40 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
+            <div  className="p-1 ">
+              <img src={product.image} alt={product.name} className="w-50 h-52 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg" />
               <h3 className="text-lg font-medium">{product.name}</h3>
             </div>
             </a>
