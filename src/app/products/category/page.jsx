@@ -23,7 +23,7 @@ export default function Category() {
       </div>
 
       {/* Sidebar Filters */}
-      <aside className="w-full md:w-1/4 p-4 rounded-lg mt-16">
+      <aside className="w-full md:w-72 p-4 rounded-lg mt-16">
         <h2 className="text-xl font-semibold mb-4">Mounting type</h2>
         {['Ceiling recessed', 'Recessed Suspended', 'Surface Mounted', 'Suspended', 'Surface Suspended Recessed'].map((item) => (
           <label key={item} className="block text-gray-700">
@@ -47,7 +47,7 @@ export default function Category() {
       </aside>
 
    
-      <h1 className="absolute top-0 left-10 lg:left-24 text-5xl font-bold">Commercial Lighting</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 text-5xl font-bold">COMMERCIAL LIGHTING</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8">
       </div>
 
