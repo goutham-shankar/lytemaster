@@ -22,11 +22,11 @@ export default function Objects() {
     <div className="flex flex-col md:flex-row p-8  min-h-screen mt-48">
       {/* Sidebar Filters */}
       {/* Breadcrumb */}
-      <div className="p-4 text-sm absolute top-32 left-20">
+      <div className="p-4 text-sm absolute top-32 lg:left-20">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY / OBJECTS</div>
       </div>
 
-      <aside className="w-full md:w-72 p-4 mt-12">
+      <aside className="w-full md:w-72 p-4 mt-12 lg:ml-16">
         
 
         <h2 className="text-xl font-semibold mb-2">Mounting type</h2>
