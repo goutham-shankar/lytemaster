@@ -27,28 +27,28 @@ export default function Item() {
       </div>
 
       {/* Title */}
-      <div className="mx-12">
+      <div className="md:mx-12 mx-3">
         <h1 className="text-5xl font-bold my-4">Dazzle</h1>
         <p className="text-gray-500">LM-022-DLZ3L | Spot Down Series</p>
       </div>
 
       {/* Images Section */}
       <div className="flex flex-col items-center justify-center w-full">
-        <div className="flex flex-col lg:flex-row gap-6 mt-6 w-full max-w-6xl px-10">
+        <div className="flex flex-col md:flex-row lg:gap-6 gap-6 mt-6  md:px-10 px-0 justify-center items-center">
           <img
-            src="https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png"
+            src='/assets/products/sample_bulb.png'
             alt="Dazzle Light"
-            className="lg:flex-[0.4] w-full max-w-sm rounded-2xl border-2 border-black"
+            className="md:w-96 w-80  aspect-square  rounded-2xl border-2 border-black"
           />
           <img
-            src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-cartoon-illustration-free-light-bulb-image_1179369.jpg"
+            src='/assets/products/sample_bulb_cutout.png'
             alt="Cutout Diagram"
-            className="lg:flex-[0.4] w-full max-w-sm rounded-2xl border-2 border-black"
+            className="md:w-96 w-80 aspect-square  rounded-2xl border-2 border-black"
           />
           <img
-            src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-cartoon-illustration-free-light-bulb-image_1179369.jpg"
+            src='/assets/products/sample_bulb_watt.png'
             alt="Cutout Diagram"
-            className="lg:flex-[0.2] w-full max-w-sm rounded-2xl border-2 border-black"
+            className="md:h-96 w-full lg:w-auto  rounded-2xl border-2 border-black"
           />
         </div>
       </div>

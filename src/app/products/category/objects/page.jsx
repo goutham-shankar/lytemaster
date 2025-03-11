@@ -5,16 +5,16 @@ import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 
 const lightingProducts = [
-  { name: 'BEAM', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'BEAM SQ', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'DAZZLE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'GLOSS', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'GLAZE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'APOLLO', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'SAPPHIRE', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'AURA', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'TITAN', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'AMBER RD', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'BEAM', image: '/assets/products/sample_bulb.png' },
+  { name: 'BEAM SQ', image: '/assets/products/sample_bulb.png' },
+  { name: 'DAZZLE', image: '/assets/products/sample_bulb.png' },
+  { name: 'GLOSS', image: '/assets/products/sample_bulb.png' },
+  { name: 'GLAZE', image: '/assets/products/sample_bulb.png' },
+  { name: 'APOLLO', image: '/assets/products/sample_bulb.png' },
+  { name: 'SAPPHIRE', image: '/assets/products/sample_bulb.png' },
+  { name: 'AURA', image: '/assets/products/sample_bulb.png' },
+  { name: 'TITAN', image: '/assets/products/sample_bulb.png' },
+  { name: 'AMBER RD', image: '/assets/products/sample_bulb.png' },
 ];
 
 export default function Objects() {
@@ -33,7 +33,7 @@ export default function Objects() {
       {/* Filter Icon for Mobile */}
       <button
         onClick={toggleFilters}
-        className="lg:hidden absolute top-16 right-14 z-50 p-2 bg-white rounded shadow border border-black"
+        className="lg:hidden absolute top-[4.5rem] right-14 z-50 p-2 bg-white rounded shadow border border-black"
       >
         <FiFilter size={24} />
       </button>
@@ -91,20 +91,20 @@ export default function Objects() {
         ))}
       </aside>
 
-      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl text-4xl font-bold">SPOT DOWN SERIES</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">SPOT DOWN SERIES</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
       {/* Lighting Products Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {lightingProducts.map((product, index) => (
             <a href="/products/category/objects/item" key={index}>
               <div className="p-1">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-50 h-52 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
+                  className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
                 <h3 className="text-lg font-medium">{product.name}</h3>
               </div>
