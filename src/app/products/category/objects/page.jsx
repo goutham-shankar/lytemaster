@@ -24,7 +24,7 @@ export default function Objects() {
   const toggleFilters = () => setShowFilters(prev => !prev);
 
   return (
-    <div className="flex flex-col md:flex-row p-8 min-h-screen mt-48 relative">
+    <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
       {/* Breadcrumb */}
       <div className="p-4 text-sm absolute -top-12 lg:left-20">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY / OBJECTS</div>
