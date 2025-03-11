@@ -22,7 +22,7 @@ export default function Download() {
   );
 
   return (
-    <div className="p-4  ml-44 ">
+    <div className="p-4  lg:ml-44 ">
       {/* Heading */}
       <h2 className="text-xl font-black mb-4 mx-5"></h2>
 
