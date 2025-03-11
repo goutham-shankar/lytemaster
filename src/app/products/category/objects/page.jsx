@@ -33,7 +33,7 @@ export default function Objects() {
       {/* Filter Icon for Mobile */}
       <button
         onClick={toggleFilters}
-        className="lg:hidden absolute top-10 right-4 z-50 p-2 bg-white rounded shadow"
+        className="lg:hidden absolute top-16 right-14 z-50 p-2 bg-white rounded shadow border border-black"
       >
         <FiFilter size={24} />
       </button>
