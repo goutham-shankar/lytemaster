@@ -5,13 +5,13 @@ import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 
 const lightingProducts = [
-  { name: 'Spot Down Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Tracks System', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Modular Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Panel & General Lighting', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Pendant Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Ceiling Surface Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
-  { name: 'Profile Series', image: 'https://png.pngtree.com/element_pic/16/12/06/5d79b5dd066400e188713f7dd417a3f4.png' },
+  { name: 'Spot Down Series', image: '/assets/products/sample_bulb.png' },
+  { name: 'Tracks System', image: '/assets/products/sample_bulb.png' },
+  { name: 'Modular Series', image: '/assets/products/sample_bulb.png' },
+  { name: 'Panel & General Lighting', image: '/assets/products/sample_bulb.png' },
+  { name: 'Pendant Series', image: '/assets/products/sample_bulb.png' },
+  { name: 'Ceiling Surface Series', image: '/assets/products/sample_bulb.png' },
+  { name: 'Profile Series', image: '/assets/products/sample_bulb.png' },
 ];
 
 export default function Category() {
@@ -22,14 +22,14 @@ export default function Category() {
 
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
-      <div className="p-4 text-sm absolute -top-12 lg:left-20">
+      <div className="p-4 text-sm absolute -top-12 left-2 lg:left-20">
         <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY</div>
       </div>
 
       {/* Filter Icon for Mobile */}
       <button
         onClick={toggleFilters}
-        className="lg:hidden absolute top-10 right-4 z-50 p-2 bg-white rounded shadow"
+        className="lg:hidden absolute top-[4.5rem] right-14 z-50 p-2 bg-white rounded shadow border border-black"
       >
         <FiFilter size={24} />
       </button>
@@ -87,20 +87,20 @@ export default function Category() {
         ))}
       </aside>
 
-      <h1 className="absolute top-0 left-10 lg:left-24 md:text-5xl text-4xl font-bold">COMMERCIAL LIGHTING</h1>
+      <h1 className="absolute top-0 md:left-10 left-5 lg:left-24 md:text-5xl sm:text-4xl text-3xl font-bold">COMMERCIAL LIGHTING</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
       {/* Lighting Products Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {lightingProducts.map((product, index) => (
             <a href="/products/category/objects/" key={index}>
               <div className="p-1">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-50 h-52 object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
+                  className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
                 <h3 className="text-lg font-medium">{product.name}</h3>
               </div>
