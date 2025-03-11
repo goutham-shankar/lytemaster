@@ -21,11 +21,11 @@ const Breadcrumbs = () => {
 
 export default function AboutPage() {
   return (
-    <div className="h-max my-16 p-8 flex flex-col justify-center items-start gap-5 sm:my-20 sm:px-16 2xl:my-44 2xl:gap-12">
+    <div className="h-max my-16 p-8 flex flex-col justify-center items-start gap-5 sm:my-20 sm:px-16 2xl:px-36 2xl:my-44 2xl:gap-12">
       <Breadcrumbs />
       <h1 className="text-5xl font-bold 2xl:text-6xl">About Us</h1>
       <div className="flex flex-col justify-between items-start gap-12 sm:gap-16 lg:flex-row 2xl:gap-24">
-        <p className="whitespace-pre-wrap shrink-0 w-full lg:text-[0.75rem] xl:text-base lg:w-3/5 2xl:w-3/4 2xl:text-3xl">
+        <p className="whitespace-pre-wrap shrink-0 w-full lg:text-[0.7rem] xl:text-base lg:w-3/5 2xl:w-3/4 2xl:text-3xl">
           {aboutText}
         </p>
         <Image
