@@ -50,7 +50,7 @@ export default function AboutSection({ title, description, cta, images }) {
             <LightBulb className="flex-shrink-0 inline-block w-7 h-7 text-yellow-500 lg:w-10 lg:h-10 xl:w-14 xl:h-14" />
             <Heading title={title[0]} className="text-nowrap" />
           </div>
-          <Heading title={title[1]} />
+          <Heading title={title[1]} />   
         </div>
         <Paragraph description={description} className="" />
         <CtaButton name={cta.text} href={cta.href} />
