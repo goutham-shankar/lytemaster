@@ -1,6 +1,7 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function ProductsPage() {
@@ -17,7 +18,7 @@ export default function ProductsPage() {
     <div className="min-h-screen flex flex-col mt-28">
       {/* Breadcrumb */}
       <div className="p-4 text-sm">
-        <div className="max-w-6xl mx-auto lg:mx-28">HOME / PRODUCTS</div>
+        <div className="max-w-6xl mx-auto lg:mx-28"><Link href='/'>HOME</Link> / PRODUCTS</div>
       </div>
 
       {/* Main Content */}
