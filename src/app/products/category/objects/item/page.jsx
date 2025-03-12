@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Parameters from '@/components/products/parameters';
 import Download from '@/components/products/download';
+import Link from 'next/link';
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Item() {
       {/* Breadcrumb */}
       <div className="p-4 text-sm absolute top-32 left-5 md:left-20">
         <div className="max-w-6xl mx-auto">
-          HOME / PRODUCTS / CATEGORY / OBJECTS / ITEM
+        <Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / <Link href='/products/category'>CATEGORY</Link> / <Link href='/products/category/objects'>OBJECTS</Link> / ITEM
         </div>
       </div>
 

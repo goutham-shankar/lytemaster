@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
+import Link from 'next/link';
 
 const lightingProducts = [
   { name: 'Spot Down Series', image: '/assets/products/sample_bulb.png' },
@@ -23,7 +24,7 @@ export default function Category() {
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
       <div className="p-4 text-sm absolute -top-12 left-2 lg:left-20">
-        <div className="max-w-6xl mx-auto">HOME / PRODUCTS / CATEGORY</div>
+        <div className="max-w-6xl mx-auto"><Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / CATEGORY</div>
       </div>
 
       {/* Filter Icon for Mobile */}
