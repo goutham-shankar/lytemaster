@@ -56,6 +56,6 @@ export default function AboutSection({ title, description, cta, images }) {
         <CtaButton name={cta.text} href={cta.href} />
       </div>
       <AboutImages images={images} />
-    </section>
+    </section>   
   );
 }
