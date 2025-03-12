@@ -9,7 +9,7 @@ As a Lyte Master customer, you are assured the very best technology combined wit
 
 const Breadcrumbs = () => {
   return (
-    <div className="flex items-center text-black xl:text-xl 2xl:text-3xl">
+    <div className="flex items-center text-black xl:text-xl 2xl:text-2xl">
       <a href="/" className="hover:text-gray-500 mr-2">
         Home
       </a>
@@ -25,7 +25,7 @@ export default function AboutPage() {
       <Breadcrumbs />
       <h1 className="text-5xl font-bold 2xl:text-6xl">About Us</h1>
       <div className="flex flex-col justify-between items-start gap-12 sm:gap-16 lg:flex-row 2xl:gap-24">
-        <p className="whitespace-pre-wrap shrink-0 w-full lg:text-[0.7rem] xl:text-base lg:w-3/5 2xl:w-3/4 2xl:text-3xl">
+        <p className="whitespace-pre-wrap shrink-0 w-full text-sm lg:text-xs xl:text-sm 2xl:text-lg lg:w-3/5 2xl:w-[60%]">
           {aboutText}
         </p>
         <Image
