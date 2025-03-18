@@ -16,3 +16,8 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/*Tried Modifying overall bg color - no change*/
+html {
+  background-color: #F4F1ED;
+}
