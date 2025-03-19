@@ -10,7 +10,6 @@ import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumb
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
-
 /* bento placeholder images */
 
 import bentoThumbnail1 from "@assets/bento_thumbnail_1.jpeg";
@@ -278,7 +277,7 @@ export const landingData = {
     description:
       "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting market and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions.",
     cta: {
-      text: "About us",
+      text: "About Us",
       href: "#",
     },
     images: [

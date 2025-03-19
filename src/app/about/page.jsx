@@ -1,12 +1,8 @@
 import Image from "next/image";
 import aboutImage from "@assets/about.png";
 
-const aboutText = `Driven by the increasing demand for energy efficient lighting, since 2007 Lyte Master GmbH - Germany has been in the LED lighting and more recently taking advantage of the rapid developments in LED technology to bring you a world class range of LED Lighting Solutions. 
-
-The Brand is always been developed by knowledge of lighting and the profound understanding of its effects on people. Providing next generation LED Lighting Solutions, which are Energy-Efficient, EcoFriendly, Economical and Style Engineered, Lyte Master has proven its extensive portfolio of indoor and outdoor lighting. The Research and Development team is always curious and dedicated to address the needs of customers for the widest range for applications. 
-    
-As a Lyte Master customer, you are assured the very best technology combined with the highest level of service. Our dedicated Technical and customer support team offers full support on all our products. We believe that the best LED products should be complemented by the very best service and support. That’s why we strive to offer our customers, large and small, a level of service unequalled in the industry.`;
-
+const aboutText = `Lyte Master is all about manufacturing Industrial and Commercial LED Lights and its components by following all aspects of the environment Our company is dedicated to the development of sustainable semiconductor lighting products and solutions, we provide the next generation LED lighting solutions that are Energy- Efficient- Eco-friendly-Economical and at the same time; Stylish. Lyte Master is ISO certified manufacturer along with CE and Rohs and TUV Compliance, and targeting to be UL, and PSE Cerified. We stand way ahead in delivering quality products and solutions for different applications that meet and exceed our customers expectation, Having total commitment to quality and services, we are dedicated to build and maintain a long -term partnership with our valuable customers, and thereby make contribution to the environment by lighting up a new world`;
+const WhatWeDoText = `We are your one-stop Solutions for lighting for homes, hallways, classrooms, living area, gymnasiums, theatres, and more. We always deliver standard products that are sure to meet the expectations of the customers both in terms of performance and in terms of the design. Quality and innovation are those two things that we never compromise on and will never compromise on. We are the leading service provides for Interior and exterior lighting for warehouses, offices, godowns, storefronts, restaurants, and warehouses. Lyte Master means Quality and Innovation`;
 const Breadcrumbs = () => {
   return (
     <div className="flex items-center text-black xl:text-xl 2xl:text-2xl">
@@ -35,6 +31,13 @@ export default function AboutPage() {
           height={500}
           className="rounded-xl"
         />
+      </div>
+
+      <h1 className="text-5xl font-bold 2xl:text-6xl">What We Do</h1>
+      <div className="flex flex-col justify-between items-start gap-12 sm:gap-16 lg:flex-row 2xl:gap-24">
+        <p className="whitespace-pre-wrap shrink-0 w-full text-sm lg:text-xs xl:text-sm 2xl:text-lg lg:w-3/5 2xl:w-[60%]">
+          {WhatWeDoText}
+        </p>
       </div>
     </div>
   );
