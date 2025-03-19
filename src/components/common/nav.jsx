@@ -71,7 +71,7 @@ const NavItem = ({ item }) => {
 
   return (
     <li
-      className={`${navItemVariants.base} uppercase ${lightBgPaths.includes(pathname) ? "text-white" : "text-black"}`}
+      className={`${navItemVariants.base} uppercase ${(pathname == "/" || pathname == "/about") ? "text-white" : "text-black"}`}
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
