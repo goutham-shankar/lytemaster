@@ -9,7 +9,7 @@ export default function Branding() {
 
   return (
     <Link href="/" className="w-36 sm:w-48 xl:w-56 2xl:w-72 --bg-[red] items-center justify-center">
-      {pathname === "/" ? (
+      {(pathname === "/" || pathname == "/about") ? (
         <img src="/logo2.png" alt="" className="w-[85%]" />
       ) : (
         <Logo />
