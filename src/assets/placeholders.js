@@ -59,7 +59,7 @@ export const projectsData = {
   overviewSection: {
     title: "Projects",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pretium aliquet dictumst viverra id imperdiet turpis nulla libero netus. Amet in mattis adipiscing pulvinar sed tincidunt. Eget neque blandit feugiat risus vestibulum proin at augue. Malesuada adipiscing consequat vel tortor hac suspendisse ac dictum.",
+      "Browse through our recent projects below to gain insights into our capabilities. Each project showcases the passion and dedication we bring to the table. If you're looking for a reliable partner for your next venture, we're ready to turn your ideas into remarkable success stories.",
   },
 
   projects: [
