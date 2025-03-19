@@ -28,13 +28,13 @@ export default function Hero({ title, cta }) {
       <div className="absolute inset-0 px-8 py-32 flex flex-col gap-6 items-start justify-start sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
         <Heading
           title={title}
-          className="text-start text-nowrap"
+          className="text-start text-nowrap lg:hidden"
           variant="2xl"
         />
         <CtaButton
           name={cta.name}
           href={cta.href}
-          className="border-white hover:bg-white hover:text-black"
+          className="border-white hover:bg-white hover:text-black lg:hidden"
         />
       </div>
     </section>
