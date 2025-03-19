@@ -281,9 +281,12 @@ export const landingData = {
       href: "#",
     },
     images: [
-      placeholderImages.about,
-      placeholderImages.about,
-      placeholderImages.about,
+      // placeholderImages.about,
+      'landing_about1.png',
+      'landing_about2.png',
+      'landing_about3.png',
+      // placeholderImages.about,
+      // placeholderImages.about,
     ],
   },
 
