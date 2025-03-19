@@ -9,15 +9,15 @@ import CtaButton from "@components/common/ctaButton";
 export default function Hero({ title, cta }) {
   return (
     <section className="relative text-white text-center">
-      {/* <Image
+      <Image
         src={placeholderImages.hero}
         alt="hero placeholder"
         width={1920}
         height={1080}
-        className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max"
-      /> */}
+        className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max lg:hidden"
+      />
 {/* width="320" height="240" */}
-      <video autoPlay  loop muted className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max"  >
+      <video autoPlay  loop muted className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max  hidden lg:block"  >
         <source src={"/video.mp4" } type="video/mp4" />
         {/* <source src="movie.ogg" type="video/ogg"/> */}
         {/* Your browser does not support the video tag. */}
