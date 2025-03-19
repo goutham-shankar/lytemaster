@@ -31,8 +31,10 @@ const ProductCard = ({
     number_of_products,
     highlight,
   },
+  truncateLength = 500,
   isFirst,
 }) => {
+  isFirst = false;
   return (
     <div
       className={`w-full h-72 ${
@@ -52,13 +54,16 @@ const ProductCard = ({
             <h1 className="text-lg text-white sm:text-2xl xl:text-2xl">
               {title}
             </h1>
-            {highlight && (
-              <Link href={highlight.href}>
-                <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" />
-              </Link>
-            )}
+            {/* {highlight && ( */}
+            {/*   <Link href={highlight.href}> */}
+            {/*     <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" /> */}
+            {/*   </Link> */}
+            {/* )} */}
           </div>
-          <p className="text-sm text-white xl:text-lg">{description}</p>
+          <p className="h-24 text-sm text-white xl:text-lg overflow-hidden text-ellipsis lg:h-44 xl:h-64">
+            {description.substr(0, truncateLength)}{" "}
+            {description.length > truncateLength ? "..." : ""}
+          </p>
         </div>
         <ProductsButton number_of_products={number_of_products} cta={cta} />
       </div>
