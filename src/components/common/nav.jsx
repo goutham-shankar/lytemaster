@@ -27,8 +27,8 @@ const navItems = [
   { name: "Products", href: "/products", dropdown: null },
   { name: "Projects", href: "/projects", dropdown: null },
   { name: "About us", href: "/about", dropdown: null },
-  { name: "News", href: "/news", dropdown: null },
-  { name: "Contact", href: "#", dropdown: false, cta: true },
+  { name: "News", href: "#", dropdown: null },
+  { name: "Contact", href: "/contact", dropdown: false, cta: true },
 ];
 
 const variants = {
@@ -186,7 +186,7 @@ export default function Nav() {
     }
   }, [width]);
   return (
-    <nav className={`${variants.navbar} z-50 absolute`}>
+    <nav className={`${variants.navbar} z-50 absolute --bg-[black]`}>
       <Branding />
       {isMobile && !navrailOpen && (
         <MenuButton
