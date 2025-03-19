@@ -7,29 +7,30 @@ const AboutImages = ({ images }) => {
     <div className="w-full py-4 flex flex-row gap-6">
       {/* Column with two stacked images */}
       <div className="w-1/2 flex flex-col gap-6">
-        <Image
+        <img
           src={images[0]}
+
           alt="LyteMaster GMBH"
-          width="auto"
-          height="auto"
+          // width={"auto"}
+          // height={"auto"}
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
-        <Image
+        <img
           src={images[1]}
           alt="LyteMaster GMBH"
-          width="auto"
-          height="auto"
+          // width={"auto"}
+          // height={"auto"}
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
       </div>
 
       {/* Column with a single smaller image */}
       <div className="w-1/2 flex items-center">
-        <Image
+        <img
           src={images[2]}
           alt="LyteMaster GMBH"
-          width="auto"
-          height="auto"
+          // width={"auto"}
+          // height={"auto"}
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg"
         />
       </div>
