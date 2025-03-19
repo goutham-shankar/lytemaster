@@ -2,11 +2,11 @@ import CtaButton from "@components/common/ctaButton";
 
 const HighlightCard = ({ index, highlight }) => {
   return (
-    <li className="w-full flex justify-start items-start gap-4 sm:justify-end lg:text-xl xl:text-2xl">
+    <li className="w-full flex justify-start items-start gap-4 lg:text-xl xl:text-2xl">
       <span className="text-sm text-gray-400 lg:text-base xl:text-lg">
         0{index + 1}{" "}
       </span>
-      <p>{highlight.text}</p>
+      <p className="">{highlight.text}</p>
     </li>
   );
 };
