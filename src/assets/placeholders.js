@@ -290,12 +290,12 @@ export const landingData = {
   productsSection: {
     title: "What we offer",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
+      "We manufacture and provide only the highest quality lighting fixtures and components. Our products are selected for their durability, energy efficiency, and design. We offer a wide range of options to suit various tastes and applications.",
     products: [
       {
         title: "Commercial Lighting",
         description:
-          "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
+          "The world is a blend of light and shadow, warmth and brilliance. At the right moment, everything glows with a unique aura. Our lights do more than illuminate—they enhance spaces, highlighting their beauty. We design to merge light and space into a seamless harmony. In the darkness, let Lyte be your guiding beacon.",
         cta: {
           text: "See More",
           href: "#",
@@ -310,7 +310,7 @@ export const landingData = {
       {
         title: "Industrial Lighting",
         description:
-          "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
+          "Lyte Master Dunn Highbay luminaries designed to be durable, long life, easy installation and low maintenance with seamless body and has a faster heat dissipation. Made with premium grade aluminium die cast housing, high quality LED’s and stainless steel accessories.",
         cta: {
           text: "See More",
           href: "#",
@@ -321,7 +321,7 @@ export const landingData = {
       {
         title: "Landscape Lighting",
         description:
-          "Lorem ipsum dolor sit amet consectetur. Mi molestie amet sed eget nunc blandit. Convallis dui tincidunt venenatis aenean vitae dictum.",
+          "Lyte Master Dunn Highbay luminaires offer durability, easy installation, and low maintenance. With a seamless design for fast heat dissipation, they feature premium aluminum die-cast housing, high-quality LEDs, and stainless steel accessories.",
         cta: {
           text: "See More",
           href: "#",
@@ -352,16 +352,16 @@ export const landingData = {
     },
     highlights: [
       {
-        text: "Lorem ipsum dolor sit amet consectetur",
+        text: "Advancing energy-efficient lighting technology",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur",
+        text: "High-quality, long-lasting fixtures",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur",
+        text: "We prioritize eco-friendly LED solutions that reduce energy consumption",
       },
       {
-        text: "Lorem ipsum dolor sit amet consectetur",
+        text: "Seamless design and performance",
       },
     ],
   },
