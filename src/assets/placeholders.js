@@ -282,9 +282,9 @@ export const landingData = {
     },
     images: [
       // placeholderImages.about,
-      'landing_about1.png',
-      'landing_about2.png',
-      'landing_about3.png',
+      "landing_about1.png",
+      "landing_about2.png",
+      "landing_about3.png",
       // placeholderImages.about,
       // placeholderImages.about,
     ],
@@ -298,7 +298,7 @@ export const landingData = {
       {
         // Descriptions were removed but removing the attribute "description" causes page to break
         title: "Commercial Lighting",
-        description:"",
+        description: "",
         cta: {
           text: "See More",
           href: "#",
@@ -312,23 +312,31 @@ export const landingData = {
       },
       {
         title: "Industrial Lighting",
-        description:"",
+        description: "",
         cta: {
           text: "See More",
           href: "#",
         },
         thumbnail: placeholderImages.industrial,
         number_of_products: 15,
+        highlight: {
+          href: "#",
+          text: "See More",
+        },
       },
       {
         title: "Landscape Lighting",
-        description:"",
+        description: "",
         cta: {
           text: "See More",
           href: "#",
         },
         thumbnail: placeholderImages.landscape,
         number_of_products: 14,
+        highlight: {
+          href: "#",
+          text: "See More",
+        },
       },
     ],
     productsScroll: [
@@ -384,8 +392,7 @@ export const landingData = {
 
   contactSection: {
     title: "Would you like to discuss a project?",
-    description:
-      "",
+    description: "",
     cta: {
       text: "Contact Us",
       href: "#",
