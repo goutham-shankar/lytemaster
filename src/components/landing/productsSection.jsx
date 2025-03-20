@@ -36,11 +36,7 @@ const ProductCard = ({
 }) => {
   isFirst = false;
   return (
-    <div
-      className={`w-full h-72 ${
-        isFirst ? "sm:flex-grow-[1.2] lg:flex-grow-[2]" : "sm:flex-grow"
-      } relative flex flex-col items-center gap-2 sm:w-min sm:h-full sm:flex-1`}
-    >
+    <div className="group w-full h-72 sm:flex-grow hover:sm:flex-grow-[1.2] hover:lg:flex-grow-[1.5] relative flex flex-col items-center gap-2 sm:w-min sm:h-full sm:flex-1 transition-all duration-500 ease-in-out">
       <Image
         src={thumbnail}
         alt={title}
@@ -54,11 +50,9 @@ const ProductCard = ({
             <h1 className="text-lg text-white sm:text-2xl xl:text-2xl">
               {title}
             </h1>
-            {/* {highlight && ( */}
-            {/*   <Link href={highlight.href}> */}
-            {/*     <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4" /> */}
-            {/*   </Link> */}
-            {/* )} */}
+            <Link href={highlight.href}>
+              <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full opacity-0 group-hover:opacity-100 sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4 transition-opacity duration-500 ease-in-out" />
+            </Link>
           </div>
           <p className="h-24 text-sm text-white xl:text-lg overflow-hidden text-ellipsis lg:h-44 xl:h-64">
             {description.substr(0, truncateLength)}{" "}
