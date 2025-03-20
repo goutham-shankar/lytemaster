@@ -65,7 +65,7 @@ const ProductCard = ({
             {description.length > truncateLength ? "..." : ""}
           </p>
         </div>
-        <ProductsButton number_of_products={number_of_products} cta={cta} />
+        {/* <ProductsButton number_of_products={number_of_products} cta={cta} /> */}
       </div>
     </div>
   );
