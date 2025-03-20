@@ -291,14 +291,14 @@ export const landingData = {
   },
 
   productsSection: {
-    title: "What we offer",
+    title: "Our Specialization",
     description:
-      "We manufacture and provide only the highest quality lighting fixtures and components. Our products are selected for their durability, energy efficiency, and design. We offer a wide range of options to suit various tastes and applications.",
+      "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal",
     products: [
       {
+        // Descriptions were removed but removing the attribute "description" causes page to break
         title: "Commercial Lighting",
-        description:
-          "The world is a blend of light and shadow, warmth and brilliance. At the right moment, everything glows with a unique aura. Our lights do more than illuminate—they enhance spaces, highlighting their beauty. We design to merge light and space into a seamless harmony. In the darkness, let Lyte be your guiding beacon.",
+        description:"",
         cta: {
           text: "See More",
           href: "#",
@@ -312,8 +312,7 @@ export const landingData = {
       },
       {
         title: "Industrial Lighting",
-        description:
-          "Lyte Master Dunn Highbay luminaries designed to be durable, long life, easy installation and low maintenance with seamless body and has a faster heat dissipation. Made with premium grade aluminium die cast housing, high quality LED’s and stainless steel accessories.",
+        description:"",
         cta: {
           text: "See More",
           href: "#",
@@ -323,8 +322,7 @@ export const landingData = {
       },
       {
         title: "Landscape Lighting",
-        description:
-          "Lyte Master Dunn Highbay luminaires offer durability, easy installation, and low maintenance. With a seamless design for fast heat dissipation, they feature premium aluminum die-cast housing, high-quality LEDs, and stainless steel accessories.",
+        description:"",
         cta: {
           text: "See More",
           href: "#",
@@ -387,7 +385,7 @@ export const landingData = {
   contactSection: {
     title: "Would you like to discuss a project?",
     description:
-      "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting.",
+      "",
     cta: {
       text: "Contact Us",
       href: "#",
