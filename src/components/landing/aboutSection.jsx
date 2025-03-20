@@ -54,7 +54,7 @@ export default function AboutSection({ title, description, cta, images }) {
           <Heading title={title[1]} />   
         </div>
         <Paragraph description={description} className="" />
-        <CtaButton name={cta.text} href={cta.href} />
+        <CtaButton name={cta.text} href={"/about"} />
       </div>
       <AboutImages images={images} />
     </section>   
