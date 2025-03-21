@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import logo from "@public/logo.png";
 
-const address = `Apricot Towers
-Dubai Silicon Oasis, Dubai
-United Arab Emirates
+const address = `Lyte Master GmbH
+Auf dem SchurweBel 5 53347
+Alfter -Witterschlick - Germany
+
 `;
 const socials = [
   {
