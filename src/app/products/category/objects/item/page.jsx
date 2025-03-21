@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Parameters from '@/components/products/parameters';
 import Download from '@/components/products/download';
 import Link from 'next/link';
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function Item() {
       {/* Breadcrumb */}
       <div className="p-4 text-sm absolute top-32 left-5 md:left-20">
         <div className="max-w-6xl mx-auto">
-        <Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / <Link href='/products/category'>CATEGORY</Link> / <Link href='/products/category/objects'>OBJECTS</Link> / ITEM
+          <Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / <Link href='/products/category'>CATEGORY</Link> / <Link href='/products/category/objects'>OBJECTS</Link> / ITEM
         </div>
       </div>
 
@@ -35,21 +36,21 @@ export default function Item() {
 
       {/* Images Section */}
       <div className="flex flex-col items-center justify-center w-full">
-        <div className="flex flex-col md:flex-row lg:gap-6 gap-6 mt-6  md:px-10 px-0 justify-center items-center">
+        <div className="flex flex-col md:flex-row lg:gap-6 gap-6 mt-6 md:px-10 px-0 justify-center items-center">
           <img
             src='/assets/products/sample_bulb.png'
             alt="Dazzle Light"
-            className="md:w-96 w-80  aspect-square  rounded-2xl border-2 border-black"
+            className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
           />
           <img
             src='/assets/products/sample_bulb_cutout.png'
             alt="Cutout Diagram"
-            className="md:w-96 w-80 aspect-square  rounded-2xl border-2 border-black"
+            className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
           />
           <img
             src='/assets/products/sample_bulb_watt.png'
             alt="Cutout Diagram"
-            className="md:h-96 w-full lg:w-auto  rounded-2xl border-2 border-black"
+            className="md:h-96 w-full lg:w-auto rounded-2xl border-2 border-black"
           />
         </div>
       </div>
@@ -87,12 +88,17 @@ export default function Item() {
         <div className="mt-8 lg:ml-12 w-full">
           {/* Standard Configuration */}
           <div className="border-b w-96 border-black">
-            <button
-              onClick={() => setStandardOpen(!standardOpen)}
-              className="w-full text-left text-lg font-semibold py-2 px-4"
-            >
-              Standard Configuration {standardOpen ? '▲' : '▼'}
-            </button>
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => setStandardOpen(!standardOpen)}
+                className="w-full text-left text-lg font-semibold py-2 px-4"
+              >
+                Standard Configuration
+              </button>
+              <div>
+                {standardOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+            </div>
             {standardOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
@@ -101,10 +107,9 @@ export default function Item() {
                 className="overflow-hidden"
               >
                 {showDownloads ? (
-                  // Optical Checkboxes for Standard Configuration
                   <div className="mb-4 mx-5">
                     <p className="font-semibold">Color Temperature</p>
-                    {['3000K', '4000K','6000K'].map((temp) => (
+                    {['3000K', '4000K', '6000K'].map((temp) => (
                       <div key={temp} className="flex items-center gap-2">
                         <input
                           type="checkbox"
@@ -131,7 +136,6 @@ export default function Item() {
                     ))}
                   </div>
                 ) : (
-                  // Initial static values for Standard Configuration
                   <div className="p-4 rounded-md">
                     <p>
                       <strong>COLOUR TEMPERATURE:</strong> 3000K, 4000K, 6000K
@@ -156,12 +160,17 @@ export default function Item() {
 
           {/* Extended Configuration */}
           <div className="border-b w-96 border-black">
-            <button
-              onClick={() => setExtendedOpen(!extendedOpen)}
-              className="w-full text-left text-lg font-semibold py-2 px-4 mt-4"
-            >
-              Extended Configuration {extendedOpen ? '▲' : '▼'}
-            </button>
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => setExtendedOpen(!extendedOpen)}
+                className="w-full text-left text-lg font-semibold py-2 px-4 mt-4"
+              >
+                Extended Configuration
+              </button>
+              <div>
+                {extendedOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+            </div>
             {extendedOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
@@ -170,7 +179,6 @@ export default function Item() {
                 className="overflow-hidden my-4"
               >
                 {showDownloads ? (
-                  // Color Temperature Checkboxes for Extended Configuration
                   <div className="mb-4 mx-4">
                     <p className="font-semibold">Color Temperature</p>
                     {['2700K', '5000K'].map((temp) => (
@@ -186,7 +194,6 @@ export default function Item() {
                     ))}
                   </div>
                 ) : (
-                  // Initial static values for Extended Configuration
                   <div className="p-4 rounded-md">
                     <p>
                       <strong>COLOUR TEMPERATURE:</strong> 2700K, 5000K
