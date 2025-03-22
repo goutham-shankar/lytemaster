@@ -9,8 +9,8 @@ export default function CatalogueSection() {
     },
     {
       cover: "/pdfs/imgs/E_catalog_face1.png",
-      pdf: "/pdfs/E-catalog.pdf",
-      title: "E-catalog"
+      pdf: "/pdfs/E-catalogue.pdf",
+      title: "E-catalogue"
     },
     {
       cover: "/pdfs/imgs/I40_I60_Linear_catalogue_face1.png", 
