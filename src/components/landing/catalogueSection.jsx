@@ -15,17 +15,17 @@ export default function CatalogueSection() {
     {
       cover: "/pdfs/imgs/I40_I60_Linear_catalogue_face1.png", 
       pdf: "/pdfs/I40_I60_Linear_catalogue.pdf",
-      title: "I40_I60_Linear_catalogue"
+      title: "I40 I60 Linear catalogue"
     },
     {
       cover: "/pdfs/imgs/LM_Media_Facade2023_face1.png",
       pdf: "/pdfs/LM_Media_Facade2023.pdf",
-      title: "LM_Media_Facade2023"
+      title: "LM Media Facade2023"
     },
     {
       cover: "/pdfs/imgs/MAGNETIC_TRACK_2023_face1.png",
       pdf: "/pdfs/MAGNETIC_TRACK_2023.pdf",
-      title: "MAGNETIC_TRACK_2023"
+      title: "MAGNETIC TRACK 2023"
     }
   ];
 
