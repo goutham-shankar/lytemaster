@@ -6,7 +6,7 @@ This is a FastAPI-based backend for the Lytemaster project. It provides APIs for
 
 ## Table of Contents
 
-1. [Clone the Repository](###clone-the-repository)
+1. [Clone the Repository](##clone-the-repository)
 2. [Setup Virtual Environment](#setup-instructions)
 3. [Install Dependencies](#running-the-backend)
 4. [Setup Database Connection](#api-documentation)
