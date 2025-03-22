@@ -6,24 +6,14 @@ This is a FastAPI-based backend for the Lytemaster project. It provides APIs for
 
 ## Table of Contents
 
-1. [Clone the Repository](#clone-the-repository)
+1. [Clone the Repository](###clone-the-repository)
 2. [Setup Virtual Environment](#setup-instructions)
 3. [Install Dependencies](#running-the-backend)
 4. [Setup Database Connection](#api-documentation)
 5. [Run the API](#project-structure)
 6. [Project Structure](#contributing)
 
----
 
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Python 3.8 or higher**: [Download Python](https://www.python.org/downloads/)
-- **Git**: [Download Git](https://git-scm.com/downloads)
-- **MySQL**: [Download MySQL](https://dev.mysql.com/downloads/) (or another database if configured)
-
----
 
 ## Setup Instructions
 
