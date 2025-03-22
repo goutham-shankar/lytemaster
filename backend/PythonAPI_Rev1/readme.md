@@ -37,7 +37,9 @@ Terminal (cd backend)
 Windows:
 
 > > myenv\Scripts\activate
-> > MacOS/Linux:
+
+MacOS/Linux:
+
 > > source myenv/bin/activate
 
 ### 3. Install Dependencies
