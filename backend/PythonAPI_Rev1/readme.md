@@ -6,12 +6,12 @@ This is a FastAPI-based backend for the Lytemaster project. It provides APIs for
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Setup Instructions](#setup-instructions)
-3. [Running the Backend](#running-the-backend)
-4. [API Documentation](#api-documentation)
-5. [Project Structure](#project-structure)
-6. [Contributing](#contributing)
+1. [Clone the Repository](#clone-the-repository)
+2. [Setup Virtual Environment](#setup-instructions)
+3. [Install Dependencies](#running-the-backend)
+4. [Setup Database Connection](#api-documentation)
+5. [Run the API](#project-structure)
+6. [Project Structure](#contributing)
 
 ---
 
@@ -54,7 +54,7 @@ Windows:
 
 > > pip install -r requirements.txt
 
-### 4. Setup Database
+### 4. Setup Database Connection
 
 Ensure all requirements from `requirements.txt` have been installed
 Ensure `.env` file has correct DatabaseURL connection sequence
