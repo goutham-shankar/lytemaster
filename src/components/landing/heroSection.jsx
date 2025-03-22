@@ -18,7 +18,7 @@ export default function Hero({ title, cta }) {
       />
 {/* width="320" height="240" */}
       <video autoPlay  loop muted className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max  hidden lg:block"  >
-        <source src={"/video.mp4" } type="video/mp4" />
+        <source src={"/video2.mp4" } type="video/mp4" />
         {/* <source src="movie.ogg" type="video/ogg"/> */}
         {/* Your browser does not support the video tag. */}
       </video>
