@@ -65,7 +65,7 @@ export default function Carousel({ items }) {
               alt={item.image.alt}
               width={800}
               height={1000}
-              className="rounded-xl absolute object-cover w-full h-full brightness-75 object-top transition duration-300 group-hover:brightness-50"
+              className="grayscale rounded-xl absolute object-cover w-full h-full brightness-75 object-top transition duration-300 group-hover:brightness-50 group-hover:grayscale-0"
             />
             <Link
               href={item.href}
