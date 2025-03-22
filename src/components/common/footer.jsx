@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import logo from "@public/logo.png";
 
-const address = `Apricot Towers
-Dubai Silicon Oasis, Dubai
-United Arab Emirates
+const address = `Lyte Master GmbH
+Auf dem SchurweBel 5 53347
+Alfter -Witterschlick - Germany
+
 `;
 const socials = [
   {
@@ -82,13 +83,15 @@ const FooterSection = ({ section, links, index }) => {
 const Branding = () => {
   return (
     <div className="flex items-center gap-4">
-      <Image
+      {/* <Image
         src={logo}
         alt="LyteMaster Logo"
         width={50}
         className="w-12 lg:w-16"
-      />
-      <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">LyteMaster</h1>
+      /> */}
+      {/* <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">LyteMaster</h1> */}
+      <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+
     </div>
   );
 };
@@ -107,7 +110,10 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:justify-between sm:items-start sm:gap-32 lg:gap-80 xl:gap-[36rem]">
+    <footer style = {{backgroundColor : "#707070 "}} className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:justify-between sm:items-start sm:gap-32 lg:gap-80 xl:gap-[36rem]">
+{/*        <footer style={{ backgroundColor: "#707070" }} 
+   className="w-full h-[40vh] sm:h-[30vh] lg:h-[25vh] xl:h-[20vh] px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:justify-between sm:items-start sm:gap-32 lg:gap-80 xl:gap-[36rem]">
+ */}
       <div className="flex flex-col items-center justify-center gap-3">
         <Branding />
         <div className="flex flex-col gap-4 text-gray-300">
