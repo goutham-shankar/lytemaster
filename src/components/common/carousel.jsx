@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { HiOutlineArrowRight, HiOutlineArrowLeft } from "react-icons/hi";
+import { MdOutlineArrowOutward } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,8 +66,15 @@ export default function Carousel({ items }) {
               alt={item.image.alt}
               width={800}
               height={1000}
-              className="grayscale rounded-xl absolute object-cover w-full h-full brightness-75 object-top transition duration-300 group-hover:brightness-50 group-hover:grayscale-0"
+              className="grayscale rounded-xl absolute object-cover w-full h-full object-top transition duration-300 group-hover:brightness-75 group-hover:grayscale-0"
             />
+            <Link
+              href={item.href}
+              className="absolute top-0 right-0 p-6 flex flex-col gap-4 justify-between items-start"
+            >
+              <MdOutlineArrowOutward className="w-8 h-8 m-[0.1rem] p-1 bg-white text-sm text-black rounded-full opacity-0 group-hover:opacity-100 sm:text-base sm:w-10 sm:h-10 sm:p-2 xl:w-16 xl:h-16 xl:p-4 transition-opacity duration-500 ease-in-out" />
+            </Link>
+
             <Link
               href={item.href}
               className="relative w-min px-4 py-6 flex flex-col justify-end text-white"
