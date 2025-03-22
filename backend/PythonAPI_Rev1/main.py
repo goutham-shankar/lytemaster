@@ -108,7 +108,7 @@ def get_db():
 '''
 
 # GET number of products by category (cta_button)
-@app.get("/home/products/cta_button/{category_id}")
+@app.get("/home/products/products_button/{category_id}")
 async def get_product_counts_by_category(
         category_id: int = Path(..., description="ID of the category to count products for"),
         db: Session = Depends(get_db)

@@ -4,7 +4,7 @@ export default function CatalogueSection() {
   const catalogues = [
     {
       cover: "/pdfs/imgs/catalogue_face1.png",
-      pdf: "/pdfs/catalogue.pdf",
+      pdf: "/pdfs/catalogue2.pdf",
       title: "Catalogue"
     },
     {
