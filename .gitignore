@@ -41,6 +41,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# rar files
+
+
+# logs
+433f09de4e0e50d03fbb45bc507ff29967e95ebf
 
 # BACKEND dependencies---
 
