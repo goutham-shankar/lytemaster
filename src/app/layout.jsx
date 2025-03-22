@@ -1,5 +1,5 @@
 import "./globals.css";
-import { DM_Serif_Display, Bebas_Neue } from "next/font/google";
+import { DM_Serif_Display, Bebas_Neue ,Poppins} from "next/font/google";
 import localFont from "next/font/local";
 import common from "@components/common";
 
@@ -13,6 +13,14 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
   subsets: ["latin"],
   weight: ["400"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 const satoshiVariable = localFont({
@@ -33,8 +41,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+
       <body
-        className={`w-full min-h-screen h-full flex flex-col ${dmSerifDisplay.variable} ${bebasNeue.variable} ${satoshiVariable.variable} antialiased font-satoshiVariable overscroll-none scroll-smooth --bg-[#F7F2EA]`}
+        className={`w-full min-h-screen h-full flex flex-col ${poppins} ${dmSerifDisplay.variable} ${bebasNeue.variable} ${satoshiVariable.variable} antialiased -font-satoshiVariable font-poppins overscroll-none scroll-smooth --bg-[#F7F2EA]`}
       >
         <common.Nav />
         <main className="z-1 w-full flex-1 flex flex-col scroll-smooth">
