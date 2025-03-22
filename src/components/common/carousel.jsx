@@ -59,7 +59,7 @@ export default function Carousel({ items }) {
         {items.concat(items.slice(0, visibleCards)).map((item, index) => (
           <div
             key={index}
-            className="w-full px-4 sm:w-1/3 flex-shrink-0 h-80 lg:h-96 rounded-xl relative flex flex-col justify-end items-start overflow-hidden group"
+            className="border-[0.43rem] border-transparent w-full sm:w-1/3 flex-shrink-0 h-80 lg:h-96 rounded-xl relative flex flex-col justify-end items-start overflow-hidden group"
           >
             <Image
               src={item.image.src}
