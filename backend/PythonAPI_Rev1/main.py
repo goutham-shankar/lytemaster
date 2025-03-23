@@ -1,6 +1,10 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status, Query,Path
+<<<<<<< HEAD
 from sqlalchemy import cast, Integer, or_, and_, exists
+=======
+from sqlalchemy import cast, Integer, or_, and_, exists, func
+>>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
 import database
@@ -40,7 +44,11 @@ def get_db():
     finally:
         db.close()
 
+<<<<<<< HEAD
 
+=======
+'''
+>>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 # ----- Example Endpoint Using DB -----
 # Categories endpoint
 #------COMMENTED FROM HERE--------------
@@ -105,6 +113,36 @@ def get_db():
 #         "wattages": wattages
 #     }
 #------COMMENTED TILL HERE--------------
+<<<<<<< HEAD
+=======
+'''
+
+# GET number of products by category (cta_button)
+@app.get("/home/products/products_button/{category_id}")
+async def get_product_counts_by_category(
+        category_id: int = Path(..., description="ID of the category to count products for"),
+        db: Session = Depends(get_db)
+):
+    """Get the number of products for a specific category"""
+    try:
+        # Query to count products for the specified category
+        product_count = db.query(
+            func.count(Product.product_id).label("product_count")
+        ).join(Family, Family.family_id == Product.product_family) \
+            .filter(Family.category == category_id) \
+            .scalar()
+
+        # If no products are found, return 0
+        if product_count is None:
+            return 0
+
+        return product_count
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch product count: {str(e)}"
+        )
+>>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 
 # GET products by category
 @app.get("/categories/{category_id}/products")

@@ -292,8 +292,7 @@ export const landingData = {
 
   productsSection: {
     title: "Our Specialization",
-    description:
-      "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal",
+    description: "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal.", 
     products: [
       {
         // Descriptions were removed but removing the attribute "description" causes page to break

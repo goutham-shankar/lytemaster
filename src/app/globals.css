@@ -22,3 +22,15 @@ html {
   /* background-color: #F4F1ED; */
   background-color: #fbfbfb;
 }
+
+.group:hover .overlay-text {
+  transform: translateY(0);
+}
+
+.catalogue-card {
+  transition: transform 0.3s ease;
+}
+
+.catalogue-card:hover {
+  transform: translateY(-5px);
+}

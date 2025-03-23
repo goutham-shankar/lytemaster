@@ -37,7 +37,11 @@ export default function ProductsPage() {
                   <p className="text-white mb-4 m-3">{product.description}</p>
                 </div>
 
+<<<<<<< HEAD
                 {/* Footer */}
+=======
+                {/* Dynamic Products button */}
+>>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
                 <div className="flex items-center justify-evenly gap-2 text-lg font-medium text-white bg-blur rounded-full mx-14 p-2 text-center shadow-md shadow-black backdrop-blur-md m-4">
                   <Image src="/assets/products/light_bulb_products.png" width={20} height={20} alt="Bulb" />
                   {product.count} Products

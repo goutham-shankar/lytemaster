@@ -105,8 +105,8 @@ export default function ProductsSection({
       id="products"
       className="relative h-max p-8 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-16 lg:px-20"
     >
-      <div className="w-full flex flex-col items-start gap-2">
-        <Heading title={title} variant="2xl" />
+      <div className="w-full flex flex-col items-start gap-2 mb-5">
+        <Heading title={title} variant="2xl" className="mb-4" />
         <Paragraph description={description} className="text-left sm:w-2/3" />
       </div>
       <div className="w-full flex flex-col justify-between items-center gap-4 sm:h-80 sm:flex-row sm:gap-2 lg:h-96 lg:gap-4 xl:h-[32rem]">
