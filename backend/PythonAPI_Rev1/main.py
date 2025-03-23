@@ -1,10 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status, Query,Path
-<<<<<<< HEAD
-from sqlalchemy import cast, Integer, or_, and_, exists
-=======
 from sqlalchemy import cast, Integer, or_, and_, exists, func
->>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
 import database
@@ -44,11 +40,7 @@ def get_db():
     finally:
         db.close()
 
-<<<<<<< HEAD
-
-=======
 '''
->>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 # ----- Example Endpoint Using DB -----
 # Categories endpoint
 #------COMMENTED FROM HERE--------------
@@ -113,8 +105,6 @@ def get_db():
 #         "wattages": wattages
 #     }
 #------COMMENTED TILL HERE--------------
-<<<<<<< HEAD
-=======
 '''
 
 # GET number of products by category (cta_button)
@@ -142,7 +132,6 @@ async def get_product_counts_by_category(
             status_code=500,
             detail=f"Failed to fetch product count: {str(e)}"
         )
->>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 
 # GET products by category
 @app.get("/categories/{category_id}/products")
