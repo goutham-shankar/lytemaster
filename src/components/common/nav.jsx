@@ -170,6 +170,7 @@ export default function Nav() {
   const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [navrailOpen, setNavrailOpen] = useState(false);
+  const pathname = usePathname();
 
   const handleResize = () => {
     setWidth(window.innerWidth);
@@ -193,7 +194,7 @@ export default function Nav() {
   return (
     <nav className={`${variants.navbar} z-50 absolute --bg-[black]`}>
       <Branding />
-      {!navrailOpen && (
+      {!navrailOpen && (isMobile || pathname == "/") && (
         <MenuButton
           navrailOpen={navrailOpen}
           setNavrailOpen={setNavrailOpen}
@@ -201,7 +202,7 @@ export default function Nav() {
           // className="p-2 rounded-full shadow-md backdrop-blur-md border bg-black/80 border-white/10"
         />
       )}
-      {navrailOpen && (
+      {navrailOpen && (isMobile || pathname == "/") && (
         <Navrail
           navrailOpen={navrailOpen}
           setNavrailOpen={setNavrailOpen}
@@ -209,7 +210,7 @@ export default function Nav() {
           isMobile={isMobile}
         />
       )}
-      {/* {!isMobile && <Navbar />} */}
+      {!isMobile && pathname != "/" && <Navbar />}
     </nav>
   );
 }
