@@ -8,7 +8,7 @@ import CtaButton from "@components/common/ctaButton";
 // Hero section
 export default function Hero({ title, cta }) {
   return (
-    <section className="relative text-white text-center bg-red-200 h-screen">
+    <section className="relative text-white text-center h-screen">
       <Image
         src={placeholderImages.hero}
         alt="hero placeholder"
