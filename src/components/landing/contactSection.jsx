@@ -1,5 +1,6 @@
 import { Heading, Paragraph } from "@components/common/text";
 import { placeholderImages } from "@assets/placeholders";
+import { contactUsImage } from "@assets/placeholders";
 import Link from "next/link";
 import Image from "next/image";
 export default function ContactSection({ title, description, cta }) {
@@ -9,7 +10,7 @@ export default function ContactSection({ title, description, cta }) {
       className="relative h-64 text-white lg:h-96 xl:h-[30rem] transition-transform duration-500"
     >
       <Image
-        src={placeholderImages.commercial}
+        src={placeholderImages.contact}
         alt="commercial lighting"
         width="auto"
         height="auto"

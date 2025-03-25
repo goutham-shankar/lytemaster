@@ -7,6 +7,7 @@ import { bento } from "@components/projects/bentoGrid";
 import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
 import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
 import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
+import contactUsImage from "@assets/landing/contact-us.jpg";
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
@@ -35,6 +36,7 @@ export const placeholderImages = {
     bentoThumbnail4,
     commercialLightingThumbnail,
     industrialLightingThumbnail,
+    contactUsImage,
     bentoThumbnail5,
     bentoThumbnail6,
     bentoThumbnail7,
@@ -52,6 +54,7 @@ export const placeholderImages = {
   industrial: industrialLightingThumbnail,
   landscape: landscapeLightingThumbnail,
   hero: heroPlaceholder,
+  contact:contactUsImage
 };
 
 /* data */
