@@ -4,6 +4,7 @@ import { contactUsImage } from "@assets/placeholders";
 import Link from "next/link";
 import Image from "next/image";
 export default function ContactSection({ title, description, cta }) {
+  
   return (
     <section
       id="contact"
