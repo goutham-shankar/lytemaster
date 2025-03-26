@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const lightingProducts = [
   { name: 'BEAM', image: '/assets/products/sample_bulb.png' },
@@ -21,6 +22,8 @@ const lightingProducts = [
 export default function Objects() {
   const [filters, setFilters] = useState({});
   const [showFilters, setShowFilters] = useState(false);
+  const searchParams = useSearchParams();
+  const family_name = searchParams.get('family_name'); 
 
   const toggleFilters = () => setShowFilters(prev => !prev);
 
@@ -92,7 +95,7 @@ export default function Objects() {
         ))}
       </aside>
 
-      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">SPOT DOWN SERIES</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">{family_name}</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
       {/* Lighting Products Grid */}

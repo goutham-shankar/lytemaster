@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
-import { Love_Light } from 'next/font/google';
+
 
 
 
@@ -166,7 +166,8 @@ export default function Category() {
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects?family_id=${product.family_id}" key={index}>
+        <Link  href={`/products/category/objects?category_id=${category_id}&family_id=${product.family_id}&family_name=${product.family_name}`} key={index}>
+
               <div className="p-1">
                 <img
                   src={product.image || '/assets/products/sample_bulb.png' }
@@ -175,7 +176,7 @@ export default function Category() {
                 />
                 <h3 className="text-lg font-medium">{product.family_name}</h3>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </main>
