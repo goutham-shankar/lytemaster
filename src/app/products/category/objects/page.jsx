@@ -115,7 +115,7 @@ export default function Objects() {
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {filteredProducts.map((product, index) => (
             <Link
-              href={`/products/category/objects/item?product_name=${product.product_name}&family_name=${family_name}&product_family=${product.product_family}`}
+              href={`/products/category/objects/item?product_name=${product.product_name}&family_name=${family_name}&product_family=${product.product_family}&product_id=${product.product_id}&category_id=${category_id}`}
               key={index}
             >
               <div className="p-1">

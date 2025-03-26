@@ -7,21 +7,43 @@ import Download from '@/components/products/download';
 import Link from 'next/link';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
   const [extendedOpen, setExtendedOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [showDownloads, setShowDownloads] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState({});
   const searchParams = useSearchParams();
   const productName = searchParams.get('product_name'); 
   const familyName = searchParams.get('family_name'); 
+  const category_id = searchParams.get('category_id');
+  const product_id = searchParams.get('product_id');
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return null; // Prevents hydration mismatch error
+  useEffect(() => {
+    if (category_id) {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`)
+        .then(response => {
+          const product = response.data.find(item => item.product_id == product_id);
+          setCurrentProduct(product);  // Set the current product data
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
+    }
+  }, [category_id, product_id]);
+
+  if (!isClient || !currentProduct) return null;
+
+  // Utility function to handle missing data
+  const getField = (field, fallback = 'Not Available') => {
+    return currentProduct[field] || fallback;
+  };
 
   return (
     <div className="container mx-auto p-6 md:p-12 mt-32 overflow-hidden">
@@ -34,8 +56,8 @@ export default function Item() {
 
       {/* Title */}
       <div className="md:mx-12 mx-3">
-        <h1 className="text-5xl font-bold my-4">{productName}</h1>
-        <p className="text-gray-500">LM-022-DLZ3L | {familyName}</p>
+        <h1 className="text-5xl font-bold my-4">{getField('product_name')}</h1>
+        <p className="text-gray-500">{getField('product_codes')} | {familyName}</p>
       </div>
 
       {/* Images Section */}
@@ -64,27 +86,27 @@ export default function Item() {
         <div className="flex flex-col gap-8 w-full">
           <div>
             <h2 className="text-xl font-semibold">General</h2>
-            <p>Recessed, IP20</p>
-            <p>12W-40W 2700K, 3000K, 4000K, 5000K, 6000K</p>
-            <p>65000h @L80 CRI ≥80/90</p>
-            <p>SDCM: &lt;3</p>
+            <p>{getField('product_mounting')}</p>
+            <p>{getField('product_wattage')}</p>
+            <p>{getField('product_lifetime')}</p>
+            <p>CRI: {getField('product_cri')}</p>
+            <p>SDCM: {getField('product_sdcm')}</p>
           </div>
 
           <div>
             <h2 className="text-xl font-semibold">Electrical</h2>
-            <p>NON-DIM, PHASE 1-10V, DALI BLUETOOTH</p>
+            <p>{getField('product_control')}</p>
           </div>
 
           <div>
             <h2 className="text-xl font-semibold">Physical</h2>
-            <p>Die Cast Aluminium</p>
+            <p>{getField('product_material')}</p>
           </div>
 
           <div>
             <h2 className="text-xl font-semibold">Optical</h2>
-            <p>Direct illumination</p>
-            <p>Beam angle 15°/24°/38°/60°</p>
-            <p>Optical accessories</p>
+            <p>{getField('product_light_distribution', 'Not Available')}</p>
+            <p>Beam Angle: {getField('product_optical_angle', 'Not Available')}</p>
           </div>
         </div>
 
@@ -113,19 +135,19 @@ export default function Item() {
                 {showDownloads ? (
                   <div className="mb-4 mx-5">
                     <p className="font-semibold">Color Temperature</p>
-                    {['3000K', '4000K', '6000K'].map((temp) => (
+                    {getField('product_color_temp', 'Not Available').split(',').map((temp) => (
                       <div key={temp} className="flex items-center gap-2">
                         <input
                           type="checkbox"
-                          id={`ext-temp-${temp}`}
-                          name="ext-temp"
+                          id={`std-temp-${temp}`}
+                          name="std-temp"
                           value={temp}
                         />
-                        <label htmlFor={`ext-temp-${temp}`}>{temp}</label>
+                        <label htmlFor={`std-temp-${temp}`}>{temp}</label>
                       </div>
                     ))}
                     <p className="font-semibold">Optical</p>
-                    {['15°', '24°', '38°', '60°'].map((angle) => (
+                    {getField('product_optical_angle', 'Not Available').split(',').map((angle) => (
                       <div key={angle} className="flex items-center gap-2">
                         <input
                           type="checkbox"
@@ -133,28 +155,26 @@ export default function Item() {
                           name="std-optical"
                           value={angle}
                         />
-                        <label htmlFor={`std-optical-${angle}`}>
-                          {angle}
-                        </label>
+                        <label htmlFor={`std-optical-${angle}`}>{angle}</label>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="p-4 rounded-md">
                     <p>
-                      <strong>COLOUR TEMPERATURE:</strong> 3000K, 4000K, 6000K
+                      <strong>COLOUR TEMPERATURE:</strong> {getField('product_color_temp', 'Not Available')}
                     </p>
                     <p>
-                      <strong>CONTROL:</strong> NON-DIM
+                      <strong>CONTROL:</strong> {getField('product_control')}
                     </p>
                     <p>
-                      <strong>OPTICAL:</strong> 15°/24°/38°/60°
+                      <strong>OPTICAL:</strong> {getField('product_optical_angle', 'Not Available')}
                     </p>
                     <p>
-                      <strong>COLOUR (Housing):</strong> White, Black
+                      <strong>COLOUR (Housing):</strong> {getField('product_housing_color')}
                     </p>
                     <p>
-                      <strong>COLOUR (Reflector):</strong> Aluminium
+                      <strong>COLOUR (Reflector):</strong> {getField('product_reflector_color')}
                     </p>
                   </div>
                 )}
@@ -185,7 +205,7 @@ export default function Item() {
                 {showDownloads ? (
                   <div className="mb-4 mx-4">
                     <p className="font-semibold">Color Temperature</p>
-                    {['2700K', '5000K'].map((temp) => (
+                    {getField('product_color_extended', 'Not Available').split(',').map((temp) => (
                       <div key={temp} className="flex items-center gap-2">
                         <input
                           type="checkbox"
@@ -200,10 +220,10 @@ export default function Item() {
                 ) : (
                   <div className="p-4 rounded-md">
                     <p>
-                      <strong>COLOUR TEMPERATURE:</strong> 2700K, 5000K
+                      <strong>COLOUR TEMPERATURE:</strong> {getField('product_color_extended', 'Not Available')}
                     </p>
                     <p>
-                      <strong>CONTROL:</strong> DALI, PHASE, 1-10V
+                      <strong>CONTROL:</strong> {getField('product_control_extended', 'Not Available')}
                     </p>
                   </div>
                 )}
