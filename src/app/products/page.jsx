@@ -55,7 +55,7 @@ export default function ProductsPage() {
       <main className="flex-1 max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           {products.map((product) => (
-            <a href={`/products/category?categoryId=${product.category_id}`} key={product.category_id}>
+            <a href={`/products/category?category_id=${product.category_id}`} key={product.category_id}>
               <div 
                 className="h-[460px] rounded-2xl shadow-md overflow-hidden flex flex-col justify-between" 
                 style={{ backgroundImage: `url(${product.image})`, backgroundSize: "cover", backgroundPosition: "center" }}
