@@ -39,9 +39,13 @@ export default function ProductsPage() {
     return <div>Error: {error}</div>;
   }
 
-  if (products.length === 0) {
-    return <div>Loading...</div>;
-  }
+if (products.length === 0) {
+  return (
+    <div className="flex items-center justify-center absolute inset-0">
+      <div className="text-center">Loading...</div>
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen flex flex-col mt-28">

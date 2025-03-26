@@ -6,12 +6,16 @@ import Parameters from '@/components/products/parameters';
 import Download from '@/components/products/download';
 import Link from 'next/link';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useSearchParams } from 'next/navigation';
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
   const [extendedOpen, setExtendedOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [showDownloads, setShowDownloads] = useState(false);
+  const searchParams = useSearchParams();
+  const productName = searchParams.get('product_name'); 
+  const familyName = searchParams.get('family_name'); 
 
   useEffect(() => {
     setIsClient(true);
@@ -30,8 +34,8 @@ export default function Item() {
 
       {/* Title */}
       <div className="md:mx-12 mx-3">
-        <h1 className="text-5xl font-bold my-4">Dazzle</h1>
-        <p className="text-gray-500">LM-022-DLZ3L | Spot Down Series</p>
+        <h1 className="text-5xl font-bold my-4">{productName}</h1>
+        <p className="text-gray-500">LM-022-DLZ3L | {familyName}</p>
       </div>
 
       {/* Images Section */}

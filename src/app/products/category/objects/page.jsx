@@ -103,16 +103,19 @@ export default function Objects() {
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects/item" key={index}>
-              <div className="p-1">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
-                />
-                <h3 className="text-lg font-medium">{product.name}</h3>
-              </div>
-            </a>
+            <Link
+            href={`/products/category/objects/item?product_name=${product.name}&family_name=${family_name}`}
+            key={index}
+          >
+            <div className="p-1">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
+              />
+              <h3 className="text-lg font-medium">{product.name}</h3>
+            </div>
+          </Link>
           ))}
         </div>
       </main>
