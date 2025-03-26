@@ -41,16 +41,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-<<<<<<< HEAD
-=======
 # rar files
 
 
 # logs
-433f09de4e0e50d03fbb45bc507ff29967e95ebf
->>>>>>> 8f749667bc90736a4fcd26903dec72be36576446
 
-# BACKEND dependencies---
+
+# -----BACKEND dependencies---
 
 # Environmental Variables
 backend/PythonAPI_Rev1/myenv/
@@ -61,3 +58,7 @@ backend/PythonAPI_Rev1/Models/__pycache__/
 
 # IDE-specific files
 backend/PythonAPI_Rev1/.idea/
+
+# Garbage
+backend/PythonAPI_Rev1/extra
+
