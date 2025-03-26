@@ -7,21 +7,16 @@ import Link from 'next/link';
 
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
+import { Love_Light } from 'next/font/google';
 
-const lightingProducts = [
-  { name: 'Spot Down Series', image: '/assets/products/sample_bulb.png' },
-  { name: 'Tracks System', image: '/assets/products/sample_bulb.png' },
-  { name: 'Modular Series', image: '/assets/products/sample_bulb.png' },
-  { name: 'Panel & General Lighting', image: '/assets/products/sample_bulb.png' },
-  { name: 'Pendant Series', image: '/assets/products/sample_bulb.png' },
-  { name: 'Ceiling Surface Series', image: '/assets/products/sample_bulb.png' },
-  { name: 'Profile Series', image: '/assets/products/sample_bulb.png' },
-];
+
 
 export default function Category() {
   const [filters, setFilters] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [categoryName, setCategoryName] = useState('Loading...');
+  const [lightingProducts, setLightingProducts] = useState([]);
+
 
   const searchParams = useSearchParams();
   const category_id = searchParams.get('category_id');
@@ -30,14 +25,11 @@ export default function Category() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        console.log('ID',category_id);
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`);
-        console.log('API Response:', response.data); // Debugging step
         const category = response.data.find(cat => String(cat.category_id) === String(category_id));
-  
+
         if (category) {
           setCategoryName(category.category_name);
-          console.log('catname Response:', category.category_name);;
         } else {
           setCategoryName('Category Not Found');
         }
@@ -46,8 +38,19 @@ export default function Category() {
         setCategoryName('Error Loading Category');
       }
     };
-  
+
+    // Fetch products based on category_id
+    const fetchLightingProducts = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products/category/${category_id}/families`);
+        setLightingProducts(response.data); // Storing the fetched products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
     fetchCategory();
+    if (category_id) fetchLightingProducts();
   }, [category_id]);
   
 
@@ -163,14 +166,14 @@ export default function Category() {
         <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
           {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects/" key={index}>
+            <a href="/products/category/objects?family_id=${product.family_id}" key={index}>
               <div className="p-1">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.image || '/assets/products/sample_bulb.png' }
+                  alt={product.family_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
-                <h3 className="text-lg font-medium">{product.name}</h3>
+                <h3 className="text-lg font-medium">{product.family_name}</h3>
               </div>
             </a>
           ))}
