@@ -1,12 +1,12 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Depends, HTTPException, status, Query,Path
+from fastapi import FastAPI, Depends, HTTPException, status, Query, Path
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
 import database
 from database import engine, SessionLocal
 from typing import List, AsyncIterator
-#from pydantic import BaseModel
 from ResponseModels.responses import CategoryWithCountResponse
 
 # Lifespan manager
@@ -26,6 +26,20 @@ app = FastAPI(
     lifespan=lifespan  # Use lifespan instead of on_event
 )
 
+# Add CORS middleware
+origins = [
+    "http://localhost",  
+    "http://localhost:3000", 
+    "https://lytemaster.vercel.app/", 
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allow only specified origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 def get_db():
     db = database.SessionLocal()
@@ -45,6 +59,7 @@ def parse_wattage_range(wattage_str: str):
         return int(min_w), int(max_w)
     except (ValueError, AttributeError):
         return None, None
+
 def parse_color_temp(color_temp_str: str):
     """Extract individual color temperatures from a string like '4000K,5000K,6000K'"""
     try:
@@ -55,7 +70,7 @@ def parse_color_temp(color_temp_str: str):
 
 
 # API ENDPOINTS -H1
-# (1) GET categories along with theri id,name and the number of products in them  (eliminates need for 2nd api call to get product count)
+# (1) GET categories along with their id, name, and the number of products in them (eliminates need for 2nd api call to get product count)
 @app.get("/categories", response_model=List[CategoryWithCountResponse])
 def get_categories_with_product_counts(db: Session = Depends(get_db)):
     # Get product count per category via Category → Family → Product
@@ -109,10 +124,9 @@ async def get_product_counts_by_category(
 
 # (3) GET products by category
 @app.get("/categories/{category_id}/products")
-async def get_category_products(category_id: int,db: Session=Depends(get_db)):
+async def get_category_products(category_id: int, db: Session = Depends(get_db)):
     category_products = db.query(Product).join(Family).filter(Family.category == category_id).all()
     return category_products
-
 
 
 # (4) GET search products using filters (LVL 1 Search)
@@ -131,6 +145,7 @@ async def search_products(
         )
     ).offset(skip).limit(limit)
     return search_query_db.all()
+
 
 # (5) Detailed Object Level Filter
 @app.get("/products/product_details/filter")
@@ -190,6 +205,7 @@ async def filtering_products(
             detail=f"Search failed: {str(e)}"
         )
 
+
 # (6) GET Products Category specific family list (LVL 2 Search and Filter)
 @app.get("/products/category/{category_id}/families")
 async def get_filtered_families_by_category(
@@ -237,6 +253,7 @@ async def get_filtered_families_by_category(
             status_code=500,
             detail=f"Failed to fetch families: {str(e)}"
         )
+
 
 # (7) GET Filter products within a specific category and specific family and other filters
 # (LVL 3 Search and Filter)
@@ -286,4 +303,3 @@ async def filter_products_in_category(
             status_code=500,
             detail=f"Filtering failed: {str(e)}"
         )
-
