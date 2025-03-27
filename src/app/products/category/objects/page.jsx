@@ -1,26 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 import Link from 'next/link';
-
-const lightingProducts = [
-  { name: 'BEAM', image: '/assets/products/sample_bulb.png' },
-  { name: 'BEAM SQ', image: '/assets/products/sample_bulb.png' },
-  { name: 'DAZZLE', image: '/assets/products/sample_bulb.png' },
-  { name: 'GLOSS', image: '/assets/products/sample_bulb.png' },
-  { name: 'GLAZE', image: '/assets/products/sample_bulb.png' },
-  { name: 'APOLLO', image: '/assets/products/sample_bulb.png' },
-  { name: 'SAPPHIRE', image: '/assets/products/sample_bulb.png' },
-  { name: 'AURA', image: '/assets/products/sample_bulb.png' },
-  { name: 'TITAN', image: '/assets/products/sample_bulb.png' },
-  { name: 'AMBER RD', image: '/assets/products/sample_bulb.png' },
-];
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 export default function Objects() {
   const [filters, setFilters] = useState({});
   const [showFilters, setShowFilters] = useState(false);
+  const [lightingProducts, setLightingProducts] = useState([]);
+  const searchParams = useSearchParams();
+  
+  // Get family_id, category_id from the URL
+  const category_id = searchParams.get('category_id');
+  const family_id = searchParams.get('family_id');
+  const family_name = searchParams.get('family_name');
+  
+  // Fetch lighting products when category_id and family_id are available
+  useEffect(() => {
+    if (category_id) {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`)
+        .then(response => {
+          setLightingProducts(response.data);  // Assuming the response has a 'data' array with products
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
+    }
+  }, [category_id]);
+
+  // Filter products based on product_family and family_id
+  const filteredProducts = lightingProducts.filter(product => product.product_family == family_id);
+
+
 
   const toggleFilters = () => setShowFilters(prev => !prev);
 
@@ -92,24 +106,27 @@ export default function Objects() {
         ))}
       </aside>
 
-      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">SPOT DOWN SERIES</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">{family_name}</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
       {/* Lighting Products Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
-        <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
+        <p className="text-gray-600 mb-4">{filteredProducts.length} Results</p>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
-          {lightingProducts.map((product, index) => (
-            <a href="/products/category/objects/item" key={index}>
+          {filteredProducts.map((product, index) => (
+            <Link
+              href={`/products/category/objects/item?product_name=${product.product_name}&family_name=${family_name}&product_family=${product.product_family}&product_id=${product.product_id}&category_id=${category_id}`}
+              key={index}
+            >
               <div className="p-1">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.product_image || '/assets/products/sample_bulb.png' }
+                  alt={product.product_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
-                <h3 className="text-lg font-medium">{product.name}</h3>
+                <h3 className="text-lg font-medium">{product.product_name}</h3>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </main>
