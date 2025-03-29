@@ -170,11 +170,12 @@ export default function Category() {
 
               <div className="p-1">
                 <img
-                  src={product.image || '/assets/products/sample_bulb.png' }
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.image}` || '/images/sample_bulb.png' }
                   alt={product.family_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
-                <h3 className="text-lg font-medium">{product.family_name}</h3>
+                {/* <h3>{`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.image}`}</h3> */}
+                <h3 className="text-lg font-medium">{product.family_name} {}</h3>
               </div>
             </Link>
           ))}

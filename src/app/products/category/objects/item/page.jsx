@@ -64,7 +64,7 @@ export default function Item() {
       <div className="flex flex-col items-center justify-center w-full">
         <div className="flex flex-col md:flex-row lg:gap-6 gap-6 mt-6 md:px-10 px-0 justify-center items-center">
           <img
-            src='/assets/products/sample_bulb.png'
+            src= {`${process.env.NEXT_PUBLIC_BASE_URL}/images/${getField('product_name')}.png`}
             alt="Dazzle Light"
             className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
           />

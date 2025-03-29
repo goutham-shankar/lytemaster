@@ -120,7 +120,7 @@ export default function Objects() {
             >
               <div className="p-1">
                 <img
-                  src={product.product_image || '/assets/products/sample_bulb.png' }
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.product_name}.png` || '/assets/products/sample_bulb.png' }
                   alt={product.product_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
