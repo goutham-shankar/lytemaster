@@ -66,7 +66,7 @@ if (products.length === 0) {
               >
                 <div className="py-12 p-6 bg-gradient-to-b from-black via-transparent to-transparent">
                   <h3 className="text-3xl text-white font-bold mb-4">{product.title}</h3>
-                  <p className="text-white mb-4 m-3">{product.description}</p>
+                  {/* <p className="text-white mb-4 m-3">{product.description}</p> */}
                 </div>
 
                 {/* Dynamic Products button */}
