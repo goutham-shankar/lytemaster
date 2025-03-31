@@ -21,7 +21,7 @@ export default function Landing() {
   return (
     <>
       <HeroSection {...landingData.heroSection} />
-      <AboutSection {...landingData.aboutSection} />
+      {/* <AboutSection {...landingData.aboutSection} /> */}
       <ProductsSection {...landingData.productsSection} />
       <HowWeWorkSection {...landingData.howWeWorkSection} />
       <RecentWorksSection {...landingData.recentWorksSection} />

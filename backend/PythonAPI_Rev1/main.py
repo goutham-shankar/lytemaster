@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Depends, HTTPException, status, Query, Path
+from fastapi import FastAPI, Depends, HTTPException, status, Query, Path, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select
 from sqlalchemy.orm import Session
@@ -8,6 +8,7 @@ import database
 from database import engine, SessionLocal
 from typing import List, AsyncIterator
 from ResponseModels.responses import CategoryWithCountResponse
+import os
 
 # Lifespan manager
 @asynccontextmanager
@@ -35,7 +36,8 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Allow only specified origins
+    # allow_origins=origins,  # Allow only specified origins
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allows all headers
@@ -303,3 +305,17 @@ async def filter_products_in_category(
             status_code=500,
             detail=f"Filtering failed: {str(e)}"
         )
+
+@app.get("/images/{image_filename}")
+async def get_secure_product_image(image_filename: str):
+    """Serve images securely only to authenticated users."""
+    IMG_DIR = "./assets/product_imgs"
+    image_path = os.path.join(IMG_DIR, image_filename)
+
+    # Check if the file exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    with open(image_path, "rb") as image_file:
+        return Response(content=image_file.read(), media_type="image/jpeg")
