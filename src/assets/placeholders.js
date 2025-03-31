@@ -301,20 +301,22 @@ export const landingData = {
         // Descriptions were removed but removing the attribute "description" causes page to break
         title: "Commercial Lighting",
         description: "",
+        link : "/products/category?category_id=1",
         cta: {
           text: "See More",
-          href: "#",
+          href: "/products/category?category_id=1",
         },
         thumbnail: placeholderImages.commercial,
         number_of_products: 23,
         highlight: {
-          href: "#",
+          href: "/products/category?category_id=1",
           text: "See More",
         },
       },
       {
         title: "Industrial Lighting",
         description: "",
+        link : "/products/category?category_id=2",
         cta: {
           text: "See More",
           href: "#",
@@ -328,6 +330,7 @@ export const landingData = {
       },
       {
         title: "Landscape Lighting",
+        link : "/products/category?category_id=3",
         description: "",
         cta: {
           text: "See More",
