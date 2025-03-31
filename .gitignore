@@ -55,6 +55,7 @@ backend/PythonAPI_Rev1/myenv/
 # Python cache files
 backend/PythonAPI_Rev1/__pycache__/
 backend/PythonAPI_Rev1/Models/__pycache__/
+backend\PythonAPI_Rev1\ResponseModels\__pycache__
 
 # IDE-specific files
 backend/PythonAPI_Rev1/.idea/
