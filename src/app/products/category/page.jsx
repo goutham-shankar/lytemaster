@@ -91,7 +91,7 @@ export default function Category() {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`);
         setAllProducts(response.data);
-        updateAvailableFilterOptions(response.data);
+        updateAvailableFilterOptions(response.data, null);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -105,7 +105,7 @@ export default function Category() {
   }, [category_id]);
 
   // Update available filter options based on products
-  const updateAvailableFilterOptions = (products) => {
+  const updateAvailableFilterOptions = (products, currentFilters) => {
     const newAvailableFilters = {
       product_color_temp: [],
       product_optical_angle: [],
@@ -124,7 +124,13 @@ export default function Category() {
     // Extract unique values for each filter from products
     products.forEach(product => {
       Object.keys(newAvailableFilters).forEach(key => {
-        if (product[key]) {
+        // Skip filter categories that already have active selections
+        if (currentFilters && currentFilters[key] && currentFilters[key].length > 0) {
+          // For categories with active filters, only keep those active values
+          newAvailableFilters[key] = [...currentFilters[key]];
+        } 
+        else if (product[key]) {
+          // For categories without active filters, extract all available options
           const values = splitValues(product[key]);
           values.forEach(val => {
             if (!newAvailableFilters[key].includes(val)) {
@@ -146,8 +152,9 @@ export default function Category() {
       // Remove the filter if already selected
       newActiveFilters[filterType] = newActiveFilters[filterType].filter(val => val !== value);
     } else {
-      // Add the filter
-      newActiveFilters[filterType].push(value);
+      // Add the filter - replacing any existing filters in this category
+      // This ensures only one value can be selected at a time per filter type
+      newActiveFilters[filterType] = [value];
     }
     
     setActiveFilters(newActiveFilters);
@@ -162,7 +169,7 @@ export default function Category() {
     if (!hasActiveFilters) {
       // If no filters active, show all families
       setFilteredFamilies(productFamilies);
-      updateAvailableFilterOptions(allProducts);
+      updateAvailableFilterOptions(allProducts, null);
       return;
     }
 
@@ -199,41 +206,7 @@ export default function Category() {
     setFilteredFamilies(matchingFamilies);
     
     // Update available options for other filters based on remaining products
-    updateAvailableFilterOptionsWithActiveFilters(filteredProducts, currentFilters);
-  };
-
-  const updateAvailableFilterOptionsWithActiveFilters = (products, currentFilters) => {
-    // Extract available options from filtered products
-    const newAvailableFilters = {
-      product_color_temp: [],
-      product_optical_angle: [],
-      product_housing_color: [],
-      product_reflector_color: [],
-      product_control: [],
-      product_color_extended: [],
-      product_control_exntended: [],
-      product_material: [],
-      product_mounting: [],
-      product_ip_rating: [],
-      product_lifetime: [],
-      product_sdcm: []
-    };
-
-    // Extract unique values for each filter
-    products.forEach(product => {
-      Object.keys(newAvailableFilters).forEach(key => {
-        if (product[key]) {
-          const values = splitValues(product[key]);
-          values.forEach(val => {
-            if (!newAvailableFilters[key].includes(val)) {
-              newAvailableFilters[key].push(val);
-            }
-          });
-        }
-      });
-    });
-
-    setAvailableFilters(newAvailableFilters);
+    updateAvailableFilterOptions(filteredProducts, currentFilters);
   };
 
   // Clear all filters
@@ -254,7 +227,7 @@ export default function Category() {
     });
     
     setFilteredFamilies(productFamilies);
-    updateAvailableFilterOptions(allProducts);
+    updateAvailableFilterOptions(allProducts, null);
   };
 
   // Toggle the mobile filter menu
@@ -407,4 +380,4 @@ export default function Category() {
       </main>
     </div>
   );
-}
+} 

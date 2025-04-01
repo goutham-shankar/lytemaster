@@ -19,24 +19,9 @@ export default function Objects() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   
-  // State for active filters - changed to store single selected value for each parameter
+  // State for active filters - using array structure to match Category page
+  // but we'll store a single value per filter type for radio button behavior
   const [activeFilters, setActiveFilters] = useState({
-    product_color_temp: null,
-    product_optical_angle: null,
-    product_housing_color: null,
-    product_reflector_color: null,
-    product_control: null,
-    product_color_extended: null,
-    product_control_exntended: null,
-    product_material: null,
-    product_mounting: null,
-    product_ip_rating: null,
-    product_lifetime: null,
-    product_sdcm: null
-  });
-
-  // State for available filter options based on current selection
-  const [availableFilters, setAvailableFilters] = useState({
     product_color_temp: [],
     product_optical_angle: [],
     product_housing_color: [],
@@ -50,9 +35,9 @@ export default function Objects() {
     product_lifetime: [],
     product_sdcm: []
   });
-
-  // Store the original full set of filter options
-  const [originalFilterOptions, setOriginalFilterOptions] = useState({
+  
+  // Available filter options based on current products
+  const [availableFilters, setAvailableFilters] = useState({
     product_color_temp: [],
     product_optical_angle: [],
     product_housing_color: [],
@@ -80,9 +65,7 @@ export default function Objects() {
           setFilteredProducts(initialFiltered);
           
           // Initialize available filter options
-          const initialOptions = extractFilterOptions(initialFiltered);
-          setAvailableFilters(initialOptions);
-          setOriginalFilterOptions(initialOptions); // Save the original options
+          updateAvailableFilterOptions(initialFiltered, null);
         })
         .catch(error => {
           console.error('Error fetching products:', error);
@@ -96,9 +79,9 @@ export default function Objects() {
     return value.toString().split(',').map(item => item.trim());
   };
 
-  // Extract unique filter options from a set of products
-  const extractFilterOptions = (products) => {
-    const options = {
+  // Update available filter options based on products
+  const updateAvailableFilterOptions = (products, currentFilters) => {
+    const newAvailableFilters = {
       product_color_temp: [],
       product_optical_angle: [],
       product_housing_color: [],
@@ -115,12 +98,18 @@ export default function Objects() {
 
     // Extract unique values for each filter from products
     products.forEach(product => {
-      Object.keys(options).forEach(key => {
-        if (product[key]) {
+      Object.keys(newAvailableFilters).forEach(key => {
+        // Skip filter categories that already have active selections
+        if (currentFilters && currentFilters[key] && currentFilters[key].length > 0) {
+          // For categories with active filters, only keep those active values
+          newAvailableFilters[key] = [...currentFilters[key]];
+        } 
+        else if (product[key]) {
+          // For categories without active filters, extract all available options
           const values = splitValues(product[key]);
           values.forEach(val => {
-            if (!options[key].includes(val)) {
-              options[key].push(val);
+            if (!newAvailableFilters[key].includes(val)) {
+              newAvailableFilters[key].push(val);
             }
           });
         }
@@ -128,34 +117,48 @@ export default function Objects() {
     });
 
     // Sort all options for better user experience
-    Object.keys(options).forEach(key => {
-      options[key].sort();
+    Object.keys(newAvailableFilters).forEach(key => {
+      newAvailableFilters[key].sort();
     });
 
-    return options;
+    setAvailableFilters(newAvailableFilters);
   };
 
-  // Handle filter selection - modified for radio button behavior
+  // Handle filter radio button change - adjusted to match Category page behavior
   const handleFilterChange = (filterType, value) => {
-    // Create new filters object - if clicking the active filter value, deselect it
-    const newActiveFilters = { 
-      ...activeFilters,
-      [filterType]: activeFilters[filterType] === value ? null : value
-    };
+    const newActiveFilters = { ...activeFilters };
+    
+    if (newActiveFilters[filterType].includes(value)) {
+      // Remove the filter if already selected
+      newActiveFilters[filterType] = [];
+    } else {
+      // Add the filter - replacing any existing filters in this category
+      // This ensures only one value can be selected at a time per filter type
+      newActiveFilters[filterType] = [value];
+    }
     
     setActiveFilters(newActiveFilters);
     applyFilters(newActiveFilters);
   };
 
-  // Apply filters to products - modified for single selection
+  // Apply filters to products - adjusted to match Category page behavior
   const applyFilters = (currentFilters) => {
+    // Check if any filters are active
+    const hasActiveFilters = Object.values(currentFilters).some(arr => arr.length > 0);
+    
     // Start with products filtered by family_id
     let filtered = lightingProducts.filter(product => product.product_family == family_id);
     
+    if (!hasActiveFilters) {
+      // If no filters active, show all products for this family
+      setFilteredProducts(filtered);
+      updateAvailableFilterOptions(filtered, null);
+      return;
+    }
+    
     // Apply each active filter
     Object.keys(currentFilters).forEach(filterType => {
-      // Only apply filter if there's a selected value
-      if (currentFilters[filterType]) {
+      if (currentFilters[filterType].length > 0) {
         filtered = filtered.filter(product => {
           // If the product doesn't have this property, filter it out
           if (!product[filterType]) return false;
@@ -163,59 +166,46 @@ export default function Objects() {
           // Split the product's value for this filter into an array
           const productValues = splitValues(product[filterType]);
           
-          // Check if the selected filter value exists in the product's values for this type
-          return productValues.includes(currentFilters[filterType]);
+          // Check if any of the active filter values for this type
+          // match any of the product's values for this type
+          return currentFilters[filterType].some(filterValue => 
+            productValues.includes(filterValue)
+          );
         });
       }
     });
     
     setFilteredProducts(filtered);
     
-    // Update available options for other filters based on current selection,
-    // but keep all options for the parameters that have a selection
-    updateAvailableFilterOptionsWithActiveFilters(filtered, currentFilters);
+    // Update available options for other filters based on remaining products
+    updateAvailableFilterOptions(filtered, currentFilters);
   };
 
-  // Update available filter options accounting for active filters
-  const updateAvailableFilterOptionsWithActiveFilters = (filteredProducts, currentFilters) => {
-    // Get filter options from currently filtered products
-    const newAvailableFilters = extractFilterOptions(filteredProducts);
-    
-    // For each filter type, if it has a selection, use the original options
-    // instead of the filtered options to ensure all options remain visible
-    Object.keys(currentFilters).forEach(filterType => {
-      if (currentFilters[filterType] !== null) {
-        newAvailableFilters[filterType] = [...originalFilterOptions[filterType]];
-      }
-    });
-    
-    setAvailableFilters(newAvailableFilters);
-  };
-
+  // Clear all filters
   const clearAllFilters = () => {
     setActiveFilters({
-      product_color_temp: null,
-      product_optical_angle: null,
-      product_housing_color: null,
-      product_reflector_color: null,
-      product_control: null,
-      product_color_extended: null,
-      product_control_exntended: null,
-      product_material: null,
-      product_mounting: null,
-      product_ip_rating: null,
-      product_lifetime: null,
-      product_sdcm: null
+      product_color_temp: [],
+      product_optical_angle: [],
+      product_housing_color: [],
+      product_reflector_color: [],
+      product_control: [],
+      product_color_extended: [],
+      product_control_exntended: [],
+      product_material: [],
+      product_mounting: [],
+      product_ip_rating: [],
+      product_lifetime: [],
+      product_sdcm: []
     });
     
     const initialFiltered = lightingProducts.filter(product => product.product_family == family_id);
     setFilteredProducts(initialFiltered);
-    setAvailableFilters({...originalFilterOptions});
+    updateAvailableFilterOptions(initialFiltered, null);
   };
 
   const toggleFilters = () => setShowFilters(prev => !prev);
 
-  // Helper function to render filter section with visible selected state
+  // Helper function to render filter section with radio buttons
   const renderFilterSection = (title, filterType, options) => {
     // Only show filter section if there are options available
     if (!options || options.length === 0) return null;
@@ -224,24 +214,33 @@ export default function Objects() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <div className="max-h-40 overflow-y-auto">
-          {options.map((option) => (
-            <div key={`${filterType}-${option}`} className="flex items-center mb-1">
-              <input 
-                type="radio" 
-                id={`${filterType}-${option}`}
-                name={filterType}
-                className="w-4 h-4 cursor-pointer accent-blue-600"
-                checked={activeFilters[filterType] === option}
-                onChange={() => handleFilterChange(filterType, option)}
-              />
-              <label 
-                htmlFor={`${filterType}-${option}`} 
-                className={`ml-2 cursor-pointer ${activeFilters[filterType] === option ? 'font-medium text-blue-600' : 'text-gray-700'}`}
-              >
-                {option}
-              </label>
-            </div>
-          ))}
+          {options.map((option) => {
+            // Check if this option is selected
+            const isSelected = activeFilters[filterType].includes(option);
+            
+            return (
+              <div key={`${filterType}-${option}`} className="flex items-center mb-1">
+                <div className="relative flex items-center">
+                  <input 
+                    type="checkbox" 
+                    id={`${filterType}-${option}`}
+                    className="mr-2 h-4 w-4 cursor-pointer appearance-none rounded-full border border-gray-300 checked:border-blue-600 checked:bg-white"
+                    checked={isSelected}
+                    onChange={() => handleFilterChange(filterType, option)}
+                  />
+                  {isSelected && (
+                    <div className="pointer-events-none absolute left-[4px] h-2 w-2 rounded-full bg-blue-600"></div>
+                  )}
+                </div>
+                <label 
+                  htmlFor={`${filterType}-${option}`} 
+                  className={`ml-2 cursor-pointer ${isSelected ? 'font-medium text-blue-600' : 'text-gray-700'}`}
+                >
+                  {option}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -249,33 +248,6 @@ export default function Objects() {
 
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
-      {/* Styles to ensure radio buttons show selected state properly across browsers */}
-      <style jsx global>{`
-        input[type="radio"] {
-          appearance: auto;
-          -webkit-appearance: auto;
-        }
-        
-        /* Add visible styling for selected radio buttons */
-        input[type="radio"]:checked {
-          background-color: #2563eb;
-          border-color: #2563eb;
-        }
-        
-        /* Ensure the radio button dot is visible */
-        input[type="radio"]:checked:after {
-          content: '';
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background-color: white;
-          position: relative;
-          left: 3px;
-          top: 3px;
-          display: block;
-        }
-      `}</style>
-      
       {/* Breadcrumb */}
       <div className="p-4 text-sm absolute -top-12 lg:left-20">
         <div className="max-w-6xl mx-auto"><Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / <Link href='/products/category'>CATEGORY</Link> / OBJECTS</div>
@@ -351,7 +323,7 @@ export default function Objects() {
       <main className="w-full md:w-3/4 p-4 mt-8">
         <div className="flex justify-between items-center mb-4">
           <p className="text-gray-600">{filteredProducts.length} Results</p>
-          {activeFilters && Object.values(activeFilters).some(val => val !== null) && (
+          {Object.values(activeFilters).some(arr => arr.length > 0) && (
             <button 
               onClick={clearAllFilters}
               className="text-sm text-blue-600 underline lg:hidden"
