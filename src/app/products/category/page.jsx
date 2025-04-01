@@ -4,22 +4,58 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 import Link from 'next/link';
-
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 
-
-
-
 export default function Category() {
-  const [filters, setFilters] = useState({});
-  const [showFilters, setShowFilters] = useState(false);
-  const [categoryName, setCategoryName] = useState('Loading...');
-  const [lightingProducts, setLightingProducts] = useState([]);
-
-
   const searchParams = useSearchParams();
   const category_id = searchParams.get('category_id');
+  
+  const [categoryName, setCategoryName] = useState('Loading...');
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // Data states
+  const [productFamilies, setProductFamilies] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredFamilies, setFilteredFamilies] = useState([]);
+  
+  // Filter states
+  const [activeFilters, setActiveFilters] = useState({
+    product_color_temp: [],
+    product_optical_angle: [],
+    product_housing_color: [],
+    product_reflector_color: [],
+    product_control: [],
+    product_color_extended: [],
+    product_control_exntended: [],
+    product_material: [],
+    product_mounting: [],
+    product_ip_rating: [],
+    product_lifetime: [],
+    product_sdcm: []
+  });
+  
+  // Available filter options based on current products
+  const [availableFilters, setAvailableFilters] = useState({
+    product_color_temp: [],
+    product_optical_angle: [],
+    product_housing_color: [],
+    product_reflector_color: [],
+    product_control: [],
+    product_color_extended: [],
+    product_control_exntended: [],
+    product_material: [],
+    product_mounting: [],
+    product_ip_rating: [],
+    product_lifetime: [],
+    product_sdcm: []
+  });
+
+  // Helper function to split comma-separated values and return an array
+  const splitValues = (value) => {
+    if (!value) return [];
+    return value.toString().split(',').map(item => item.trim());
+  };
 
   // Fetch category data
   useEffect(() => {
@@ -39,31 +75,218 @@ export default function Category() {
       }
     };
 
-    // Fetch products based on category_id
-    const fetchLightingProducts = async () => {
+    // Fetch product families
+    const fetchFamilies = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products/category/${category_id}/families`);
-        setLightingProducts(response.data); // Storing the fetched products
+        setProductFamilies(response.data);
+        setFilteredFamilies(response.data);
+      } catch (error) {
+        console.error('Error fetching product families:', error);
+      }
+    };
+
+    // Fetch all products in this category to use for filtering
+    const fetchAllProducts = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`);
+        setAllProducts(response.data);
+        updateAvailableFilterOptions(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
 
     fetchCategory();
-    if (category_id) fetchLightingProducts();
+    if (category_id) {
+      fetchFamilies();
+      fetchAllProducts();
+    }
   }, [category_id]);
-  
 
-  // Handle filter checkbox state
-  const handleFilterChange = (category, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [category]: prevFilters[category] ? [...prevFilters[category], value] : [value],
-    }));
+  // Update available filter options based on products
+  const updateAvailableFilterOptions = (products) => {
+    const newAvailableFilters = {
+      product_color_temp: [],
+      product_optical_angle: [],
+      product_housing_color: [],
+      product_reflector_color: [],
+      product_control: [],
+      product_color_extended: [],
+      product_control_exntended: [],
+      product_material: [],
+      product_mounting: [],
+      product_ip_rating: [],
+      product_lifetime: [],
+      product_sdcm: []
+    };
+
+    // Extract unique values for each filter from products
+    products.forEach(product => {
+      Object.keys(newAvailableFilters).forEach(key => {
+        if (product[key]) {
+          const values = splitValues(product[key]);
+          values.forEach(val => {
+            if (!newAvailableFilters[key].includes(val)) {
+              newAvailableFilters[key].push(val);
+            }
+          });
+        }
+      });
+    });
+
+    setAvailableFilters(newAvailableFilters);
+  };
+
+  // Handle filter checkbox change
+  const handleFilterChange = (filterType, value) => {
+    const newActiveFilters = { ...activeFilters };
+    
+    if (newActiveFilters[filterType].includes(value)) {
+      // Remove the filter if already selected
+      newActiveFilters[filterType] = newActiveFilters[filterType].filter(val => val !== value);
+    } else {
+      // Add the filter
+      newActiveFilters[filterType].push(value);
+    }
+    
+    setActiveFilters(newActiveFilters);
+    applyFilters(newActiveFilters);
+  };
+
+  // Apply filters to products, then determine which families contain matching products
+  const applyFilters = (currentFilters) => {
+    // Check if any filters are active
+    const hasActiveFilters = Object.values(currentFilters).some(arr => arr.length > 0);
+    
+    if (!hasActiveFilters) {
+      // If no filters active, show all families
+      setFilteredFamilies(productFamilies);
+      updateAvailableFilterOptions(allProducts);
+      return;
+    }
+
+    // Filter products based on selected criteria
+    let filteredProducts = [...allProducts];
+    
+    // Apply each active filter
+    Object.keys(currentFilters).forEach(filterType => {
+      if (currentFilters[filterType].length > 0) {
+        filteredProducts = filteredProducts.filter(product => {
+          // If the product doesn't have this property, filter it out
+          if (!product[filterType]) return false;
+          
+          // Split the product's value for this filter into an array
+          const productValues = splitValues(product[filterType]);
+          
+          // Check if any of the active filter values for this type
+          // match any of the product's values for this type
+          return currentFilters[filterType].some(filterValue => 
+            productValues.includes(filterValue)
+          );
+        });
+      }
+    });
+    
+    // Get unique family_ids from filtered products
+    const matchingFamilyIds = [...new Set(filteredProducts.map(product => product.product_family))];
+    
+    // Filter families to only those with matching products
+    const matchingFamilies = productFamilies.filter(family => 
+      matchingFamilyIds.includes(family.family_id)
+    );
+    
+    setFilteredFamilies(matchingFamilies);
+    
+    // Update available options for other filters based on remaining products
+    updateAvailableFilterOptionsWithActiveFilters(filteredProducts, currentFilters);
+  };
+
+  const updateAvailableFilterOptionsWithActiveFilters = (products, currentFilters) => {
+    // Extract available options from filtered products
+    const newAvailableFilters = {
+      product_color_temp: [],
+      product_optical_angle: [],
+      product_housing_color: [],
+      product_reflector_color: [],
+      product_control: [],
+      product_color_extended: [],
+      product_control_exntended: [],
+      product_material: [],
+      product_mounting: [],
+      product_ip_rating: [],
+      product_lifetime: [],
+      product_sdcm: []
+    };
+
+    // Extract unique values for each filter
+    products.forEach(product => {
+      Object.keys(newAvailableFilters).forEach(key => {
+        if (product[key]) {
+          const values = splitValues(product[key]);
+          values.forEach(val => {
+            if (!newAvailableFilters[key].includes(val)) {
+              newAvailableFilters[key].push(val);
+            }
+          });
+        }
+      });
+    });
+
+    setAvailableFilters(newAvailableFilters);
+  };
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setActiveFilters({
+      product_color_temp: [],
+      product_optical_angle: [],
+      product_housing_color: [],
+      product_reflector_color: [],
+      product_control: [],
+      product_color_extended: [],
+      product_control_exntended: [],
+      product_material: [],
+      product_mounting: [],
+      product_ip_rating: [],
+      product_lifetime: [],
+      product_sdcm: []
+    });
+    
+    setFilteredFamilies(productFamilies);
+    updateAvailableFilterOptions(allProducts);
   };
 
   // Toggle the mobile filter menu
   const toggleFilters = () => setShowFilters(prev => !prev);
+
+  // Helper function to render filter section
+  const renderFilterSection = (title, filterType, options) => {
+    // Only show filter section if there are options available
+    if (!options || options.length === 0) return null;
+    
+    // Sort options for better user experience
+    const sortedOptions = [...options].sort();
+    
+    return (
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">{title}</h2>
+        <div className="max-h-40 overflow-y-auto">
+          {sortedOptions.map((option) => (
+            <label key={`${filterType}-${option}`} className="block text-gray-700 mb-1">
+              <input 
+                type="checkbox" 
+                className="mr-2" 
+                checked={activeFilters[filterType].includes(option)}
+                onChange={() => handleFilterChange(filterType, option)}
+              /> 
+              {option}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
@@ -88,98 +311,99 @@ export default function Category() {
         transition={{ type: 'tween', duration: 0.3 }}
         className="lg:hidden fixed top-0 left-0 w-72 p-4 bg-white h-full z-40 overflow-y-auto shadow-lg pt-20"
       >
-        <h2 className="text-xl font-semibold mb-4">Mounting type</h2>
-        {['Ceiling recessed', 'Recessed Suspended', 'Surface Mounted', 'Suspended', 'Surface Suspended Recessed'].map((item) => (
-          <label key={item} className="block text-gray-700 mb-2">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('mountingType', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
-
-        <h2 className="text-xl font-semibold mt-6 mb-4">Light distribution</h2>
-        {['A10-A32 wide 100% direct', 'A40-A44 medium 100% direct', 'A50-A80 narrow 100% direct', 'B41-B63 narrow direct'].map((item) => (
-          <label key={item} className="block text-gray-700 mb-2">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('lightDistribution', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
-
-        <h2 className="text-xl font-semibold mt-6 mb-4">Lamp Type</h2>
-        {['LED', 'CONLGB'].map((item) => (
-          <label key={item} className="block text-gray-700 mb-2">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('lampType', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Filters</h2>
+          <button 
+            onClick={clearAllFilters}
+            className="text-sm text-blue-600 underline"
+          >
+            Clear All
+          </button>
+        </div>
+        
+        {renderFilterSection("Color Temperature", "product_color_temp", availableFilters.product_color_temp)}
+        {renderFilterSection("Optical Angle", "product_optical_angle", availableFilters.product_optical_angle)}
+        {renderFilterSection("Housing Color", "product_housing_color", availableFilters.product_housing_color)}
+        {renderFilterSection("Reflector Color", "product_reflector_color", availableFilters.product_reflector_color)}
+        {renderFilterSection("Control", "product_control", availableFilters.product_control)}
+        {renderFilterSection("Extended Color", "product_color_extended", availableFilters.product_color_extended)}
+        {renderFilterSection("Extended Control", "product_control_exntended", availableFilters.product_control_exntended)}
+        {renderFilterSection("Material", "product_material", availableFilters.product_material)}
+        {renderFilterSection("Mounting", "product_mounting", availableFilters.product_mounting)}
+        {renderFilterSection("IP Rating", "product_ip_rating", availableFilters.product_ip_rating)}
+        {renderFilterSection("Lifetime", "product_lifetime", availableFilters.product_lifetime)}
+        {renderFilterSection("SDCM", "product_sdcm", availableFilters.product_sdcm)}
       </motion.aside>
 
       {/* Sidebar Filters for Desktop */}
       <aside className="hidden lg:block w-full md:w-72 p-4 rounded-lg mt-16 lg:ml-20">
-        <h2 className="text-xl font-semibold mb-4">Mounting type</h2>
-        {['Ceiling recessed', 'Recessed Suspended', 'Surface Mounted', 'Suspended', 'Surface Suspended Recessed'].map((item) => (
-          <label key={item} className="block text-gray-700">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('mountingType', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
-
-        <h2 className="text-xl font-semibold mt-6 mb-4">Light distribution</h2>
-        {['A10-A32 wide 100% direct', 'A40-A44 medium 100% direct', 'A50-A80 narrow 100% direct', 'B41-B63 narrow direct'].map((item) => (
-          <label key={item} className="block text-gray-700">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('lightDistribution', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
-
-        <h2 className="text-xl font-semibold mt-6 mb-4">Lamp Type</h2>
-        {['LED', 'CONLGB'].map((item) => (
-          <label key={item} className="block text-gray-700">
-            <input
-              type="checkbox"
-              onChange={() => handleFilterChange('lampType', item)}
-              className="mr-2"
-            /> {item}
-          </label>
-        ))}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Filters</h2>
+          <button 
+            onClick={clearAllFilters}
+            className="text-sm text-blue-600 underline"
+          >
+            Clear All
+          </button>
+        </div>
+        
+        {renderFilterSection("Color Temperature", "product_color_temp", availableFilters.product_color_temp)}
+        {renderFilterSection("Optical Angle", "product_optical_angle", availableFilters.product_optical_angle)}
+        {renderFilterSection("Housing Color", "product_housing_color", availableFilters.product_housing_color)}
+        {renderFilterSection("Reflector Color", "product_reflector_color", availableFilters.product_reflector_color)}
+        {renderFilterSection("Control", "product_control", availableFilters.product_control)}
+        {renderFilterSection("Extended Color", "product_color_extended", availableFilters.product_color_extended)}
+        {renderFilterSection("Extended Control", "product_control_exntended", availableFilters.product_control_exntended)}
+        {renderFilterSection("Material", "product_material", availableFilters.product_material)}
+        {renderFilterSection("Mounting", "product_mounting", availableFilters.product_mounting)}
+        {renderFilterSection("IP Rating", "product_ip_rating", availableFilters.product_ip_rating)}
+        {renderFilterSection("Lifetime", "product_lifetime", availableFilters.product_lifetime)}
+        {renderFilterSection("SDCM", "product_sdcm", availableFilters.product_sdcm)}
       </aside>
 
       <h1 className="absolute top-0 md:left-10 left-5 lg:left-24 md:text-5xl sm:text-4xl text-3xl font-bold">{categoryName}</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
-      {/* Lighting Products Grid */}
+      {/* Product Families Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
-        <p className="text-gray-600 mb-4">{lightingProducts.length} Results</p>
+        <div className="flex justify-between items-center mb-4">
+          <p className="text-gray-600">{filteredFamilies.length} Results</p>
+          {Object.values(activeFilters).some(arr => arr.length > 0) && (
+            <button 
+              onClick={clearAllFilters}
+              className="text-sm text-blue-600 underline lg:hidden"
+            >
+              Clear Filters
+            </button>
+          )}
+        </div>
+        
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
-          {lightingProducts.map((product, index) => (
-        <Link  href={`/products/category/objects?category_id=${category_id}&family_id=${product.family_id}&family_name=${product.family_name}`} key={index}>
-
+          {filteredFamilies.map((family, index) => (
+            <Link href={`/products/category/objects?category_id=${category_id}&family_id=${family.family_id}&family_name=${family.family_name}`} key={index}>
               <div className="p-1">
                 <img
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.image}` || '/images/sample_bulb.png' }
-                  alt={product.family_name}
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${family.image}` || '/images/sample_bulb.png'}
+                  alt={family.family_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
-                {/* <h3>{`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.image}`}</h3> */}
-                <h3 className="text-lg font-medium">{product.family_name} {}</h3>
+                <h3 className="text-lg font-medium">{family.family_name}</h3>
               </div>
             </Link>
           ))}
         </div>
+
+        {filteredFamilies.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-xl text-gray-600">No product families match your selected filters.</p>
+            <button 
+              onClick={clearAllFilters}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
       </main>
     </div>
   );
