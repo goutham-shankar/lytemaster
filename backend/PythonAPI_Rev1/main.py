@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status, Query, Path, Response
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select
+from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select, distinct
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
 import database
@@ -323,5 +323,58 @@ async def get_secure_product_image(image_filename: str):
         return Response(content=image_file.read(), media_type="image/jpeg")
 
 
+# (9) GET Filter Options for products
+@app.get("/products/filter-options")
+def get_filter_options(db: Session = Depends(get_db)):
+    # Get all distinct values for each filter group
+    color_temps = db.query(distinct(Product.product_color_temp)).all()
+    optical_angles = db.query(distinct(Product.product_optical_angle)).all()
+    controls = db.query(distinct(Product.product_control_extended)).all()
+
+    # Clean and parse comma-separated values
+    def parse_values(raw_values):
+        return sorted(set(
+            value.strip()
+            for item in raw_values
+            if item[0]
+            for value in item[0].split(',')
+        ))
+
+    return {
+        "color_temperatures": parse_values(color_temps),
+        "optical_angles": parse_values(optical_angles),
+        "control_types": parse_values(controls),
+        # Add other filter groups similarly
+    }
 
 
+
+# (10) GET Filtered products as per options
+@app.get("/products/filter")
+def filter_products(
+        color_temp: str = None,
+        optical_angle: str = None,
+        control_type: str = None,
+        mounting_type: str = None,
+        db: Session = Depends(get_db)
+):
+    query = db.query(Product)
+
+    if color_temp:
+        query = query.filter(Product.product_color_temp.contains(color_temp))
+
+    if optical_angle:
+        query = query.filter(Product.product_optical_angle.contains(optical_angle))
+
+    if control_type:
+        query = query.filter(
+            or_(
+                Product.product_control_extended.contains(control_type),
+                Product.product_control_extended.startswith(f"{control_type},"),
+                Product.product_control_extended.endswith(f",{control_type}"),
+                Product.product_control_extended.contains(f",{control_type},")
+            )
+        )
+    ''' More filters incoming '''
+
+    return query.all()
