@@ -306,6 +306,8 @@ async def filter_products_in_category(
             detail=f"Filtering failed: {str(e)}"
         )
 
+# (8) GET images of products from backend
+# (each product gets unique image and each family uses the product image of the first product in that family)
 @app.get("/images/{image_filename}")
 async def get_secure_product_image(image_filename: str):
     """Serve images securely only to authenticated users."""
@@ -319,3 +321,7 @@ async def get_secure_product_image(image_filename: str):
     # Read and return the image as a response
     with open(image_path, "rb") as image_file:
         return Response(content=image_file.read(), media_type="image/jpeg")
+
+
+
+

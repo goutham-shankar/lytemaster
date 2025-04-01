@@ -17,7 +17,7 @@ export default function Objects() {
   const category_id = searchParams.get('category_id');
   const family_id = searchParams.get('family_id');
   const family_name = searchParams.get('family_name');
-  
+
   // Fetch lighting products when category_id and family_id are available
   useEffect(() => {
     if (category_id) {
@@ -33,9 +33,6 @@ export default function Objects() {
 
   // Filter products based on product_family and family_id
   const filteredProducts = lightingProducts.filter(product => product.product_family == family_id);
-
-
-
   const toggleFilters = () => setShowFilters(prev => !prev);
 
   return (
