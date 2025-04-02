@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
+import { MdSettingsPhone } from 'react-icons/md';
 
 export default function Item() {
   const [standardOpen, setStandardOpen] = useState(false);
@@ -15,11 +16,13 @@ export default function Item() {
   const [isClient, setIsClient] = useState(false);
   const [showDownloads, setShowDownloads] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
+  const [datasheetLink , setDataSheetLink] = useState("#")
   const searchParams = useSearchParams();
   const productName = searchParams.get('product_name'); 
   const familyName = searchParams.get('family_name'); 
   const category_id = searchParams.get('category_id');
   const product_id = searchParams.get('product_id');
+
 
   useEffect(() => {
     setIsClient(true);
@@ -235,9 +238,9 @@ export default function Item() {
 
       {/* Conditionally render Parameters or Downloads */}
       {!showDownloads ? (
-        <Parameters onRowClick={() => setShowDownloads(true)} />
+        <Parameters setShowDownloads = {setShowDownloads}  setDataSheetLink = {setDataSheetLink} />
       ) : (
-        <Download />
+        <Download datasheetLink = {datasheetLink} />
       )}
     </div>
   );
