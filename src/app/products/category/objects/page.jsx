@@ -4,22 +4,23 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiFilter } from 'react-icons/fi';
 import Link from 'next/link';
-import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
-export default function Category() {
+export default function Objects() {
   const searchParams = useSearchParams();
-  const category_id = searchParams.get('category_id');
   
-  const [categoryName, setCategoryName] = useState('Loading...');
+  // Get family_id, category_id from the URL
+  const category_id = searchParams.get('category_id');
+  const family_id = searchParams.get('family_id');
+  const family_name = searchParams.get('family_name');
+  
+  const [lightingProducts, setLightingProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   
-  // Data states
-  const [productFamilies, setProductFamilies] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
-  const [filteredFamilies, setFilteredFamilies] = useState([]);
-  
-  // Filter states
+  // State for active filters - using array structure to match Category page
+  // but we'll store a single value per filter type for radio button behavior
   const [activeFilters, setActiveFilters] = useState({
     product_color_temp: [],
     product_optical_angle: [],
@@ -51,58 +52,32 @@ export default function Category() {
     product_sdcm: []
   });
 
+  // Fetch lighting products when category_id is available
+  useEffect(() => {
+    if (category_id) {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`)
+        .then(response => {
+          const products = response.data;
+          setLightingProducts(products);
+          
+          // Initial filter based on family_id
+          const initialFiltered = products.filter(product => product.product_family == family_id);
+          setFilteredProducts(initialFiltered);
+          
+          // Initialize available filter options
+          updateAvailableFilterOptions(initialFiltered, null);
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+        });
+    }
+  }, [category_id, family_id]);
+
   // Helper function to split comma-separated values and return an array
   const splitValues = (value) => {
     if (!value) return [];
     return value.toString().split(',').map(item => item.trim());
   };
-
-  // Fetch category data
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`);
-        const category = response.data.find(cat => String(cat.category_id) === String(category_id));
-
-        if (category) {
-          setCategoryName(category.category_name);
-        } else {
-          setCategoryName('Category Not Found');
-        }
-      } catch (error) {
-        console.error('Error fetching category:', error);
-        setCategoryName('Error Loading Category');
-      }
-    };
-
-    // Fetch product families
-    const fetchFamilies = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products/category/${category_id}/families`);
-        setProductFamilies(response.data);
-        setFilteredFamilies(response.data);
-      } catch (error) {
-        console.error('Error fetching product families:', error);
-      }
-    };
-
-    // Fetch all products in this category to use for filtering
-    const fetchAllProducts = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`);
-        setAllProducts(response.data);
-        updateAvailableFilterOptions(response.data, null);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchCategory();
-    if (category_id) {
-      fetchFamilies();
-      fetchAllProducts();
-    }
-  }, [category_id]);
 
   // Update available filter options based on products
   const updateAvailableFilterOptions = (products, currentFilters) => {
@@ -149,13 +124,13 @@ export default function Category() {
     setAvailableFilters(newAvailableFilters);
   };
 
-  // Handle filter checkbox change
+  // Handle filter radio button change - adjusted to match Category page behavior
   const handleFilterChange = (filterType, value) => {
     const newActiveFilters = { ...activeFilters };
     
     if (newActiveFilters[filterType].includes(value)) {
       // Remove the filter if already selected
-      newActiveFilters[filterType] = newActiveFilters[filterType].filter(val => val !== value);
+      newActiveFilters[filterType] = [];
     } else {
       // Add the filter - replacing any existing filters in this category
       // This ensures only one value can be selected at a time per filter type
@@ -166,25 +141,25 @@ export default function Category() {
     applyFilters(newActiveFilters);
   };
 
-  // Apply filters to products, then determine which families contain matching products
+  // Apply filters to products - adjusted to match Category page behavior
   const applyFilters = (currentFilters) => {
     // Check if any filters are active
     const hasActiveFilters = Object.values(currentFilters).some(arr => arr.length > 0);
     
+    // Start with products filtered by family_id
+    let filtered = lightingProducts.filter(product => product.product_family == family_id);
+    
     if (!hasActiveFilters) {
-      // If no filters active, show all families
-      setFilteredFamilies(productFamilies);
-      updateAvailableFilterOptions(allProducts, null);
+      // If no filters active, show all products for this family
+      setFilteredProducts(filtered);
+      updateAvailableFilterOptions(filtered, null);
       return;
     }
-
-    // Filter products based on selected criteria
-    let filteredProducts = [...allProducts];
     
     // Apply each active filter
     Object.keys(currentFilters).forEach(filterType => {
       if (currentFilters[filterType].length > 0) {
-        filteredProducts = filteredProducts.filter(product => {
+        filtered = filtered.filter(product => {
           // If the product doesn't have this property, filter it out
           if (!product[filterType]) return false;
           
@@ -200,18 +175,10 @@ export default function Category() {
       }
     });
     
-    // Get unique family_ids from filtered products
-    const matchingFamilyIds = [...new Set(filteredProducts.map(product => product.product_family))];
-    
-    // Filter families to only those with matching products
-    const matchingFamilies = productFamilies.filter(family => 
-      matchingFamilyIds.includes(family.family_id)
-    );
-    
-    setFilteredFamilies(matchingFamilies);
+    setFilteredProducts(filtered);
     
     // Update available options for other filters based on remaining products
-    updateAvailableFilterOptions(filteredProducts, currentFilters);
+    updateAvailableFilterOptions(filtered, currentFilters);
   };
 
   // Clear all filters
@@ -231,11 +198,11 @@ export default function Category() {
       product_sdcm: []
     });
     
-    setFilteredFamilies(productFamilies);
-    updateAvailableFilterOptions(allProducts, null);
+    const initialFiltered = lightingProducts.filter(product => product.product_family == family_id);
+    setFilteredProducts(initialFiltered);
+    updateAvailableFilterOptions(initialFiltered, null);
   };
 
-  // Toggle the mobile filter menu
   const toggleFilters = () => setShowFilters(prev => !prev);
 
   // Helper function to render filter section with radio buttons
@@ -281,10 +248,9 @@ export default function Category() {
 
   return (
     <div className="flex flex-col md:flex-row p-8 min-h-screen mt-44 relative">
-      <div className="p-4 text-sm absolute -top-12 left-2 lg:left-20">
-        <div className="max-w-6xl mx-auto">
-          <Link href="/">HOME</Link> / <Link href="/products">PRODUCTS</Link> / CATEGORY
-        </div>
+      {/* Breadcrumb */}
+      <div className="p-4 text-sm absolute -top-12 lg:left-20">
+        <div className="max-w-6xl mx-auto"><Link href='/'>HOME</Link> / <Link href='/products'>PRODUCTS</Link> / <Link href='/products/category'>CATEGORY</Link> / OBJECTS</div>
       </div>
 
       {/* Filter Icon for Mobile */}
@@ -294,7 +260,7 @@ export default function Category() {
       >
         <FiFilter size={24} />
       </button>
-      
+
       {/* Mobile Filters Sidebar */}
       <motion.aside
         initial={{ x: '-100%' }}
@@ -311,7 +277,6 @@ export default function Category() {
             Clear All
           </button>
         </div>
-        
         {renderFilterSection("Color Temperature", "product_color_temp", availableFilters.product_color_temp)}
         {renderFilterSection("Optical Angle", "product_optical_angle", availableFilters.product_optical_angle)}
         {renderFilterSection("Housing Color", "product_housing_color", availableFilters.product_housing_color)}
@@ -326,8 +291,8 @@ export default function Category() {
         {renderFilterSection("SDCM", "product_sdcm", availableFilters.product_sdcm)}
       </motion.aside>
 
-      {/* Sidebar Filters for Desktop */}
-      <aside className="hidden lg:block w-full md:w-72 p-4 rounded-lg mt-16 lg:ml-20">
+      {/* Desktop Filters Sidebar */}
+      <aside className="hidden lg:block w-full md:w-72 p-4 mt-12 lg:ml-16">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Filters</h2>
           <button 
@@ -337,7 +302,6 @@ export default function Category() {
             Clear All
           </button>
         </div>
-        
         {renderFilterSection("Color Temperature", "product_color_temp", availableFilters.product_color_temp)}
         {renderFilterSection("Optical Angle", "product_optical_angle", availableFilters.product_optical_angle)}
         {renderFilterSection("Housing Color", "product_housing_color", availableFilters.product_housing_color)}
@@ -352,13 +316,13 @@ export default function Category() {
         {renderFilterSection("SDCM", "product_sdcm", availableFilters.product_sdcm)}
       </aside>
 
-      <h1 className="absolute top-0 md:left-10 left-5 lg:left-24 md:text-5xl sm:text-4xl text-3xl font-bold">{categoryName}</h1>
+      <h1 className="absolute top-0 left-10 lg:left-24 lg:text-5xl sm:text-4xl font-bold text-3xl">{family_name}</h1>
       <div className="hidden md:block w-px bg-black mx-4 relative mt-8"></div>
 
-      {/* Product Families Grid */}
+      {/* Lighting Products Grid */}
       <main className="w-full md:w-3/4 p-4 mt-8">
         <div className="flex justify-between items-center mb-4">
-          <p className="text-gray-600">{filteredFamilies.length} Results</p>
+          <p className="text-gray-600">{filteredProducts.length} Results</p>
           {Object.values(activeFilters).some(arr => arr.length > 0) && (
             <button 
               onClick={clearAllFilters}
@@ -370,23 +334,26 @@ export default function Category() {
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-2">
-          {filteredFamilies.map((family, index) => (
-            <Link href={`/products/category/objects?category_id=${category_id}&family_id=${family.family_id}&family_name=${family.family_name}`} key={index}>
+          {filteredProducts.map((product, index) => (
+            <Link
+              href={`/products/category/objects/item?product_name=${product.product_name}&family_name=${family_name}&product_family=${product.product_family}&product_id=${product.product_id}&category_id=${category_id}`}
+              key={index}
+            >
               <div className="p-1">
                 <img
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${family.image}` || '/images/sample_bulb.png'}
-                  alt={family.family_name}
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${product.product_name}.png` || '/assets/products/sample_bulb.png' }
+                  alt={product.product_name}
                   className="w-50 aspect-square object-cover mb-2 border-2 border-solid border-black bg-gray-300 rounded-lg"
                 />
-                <h3 className="text-lg font-medium">{family.family_name}</h3>
+                <h3 className="text-lg font-medium">{product.product_name}</h3>
               </div>
             </Link>
           ))}
         </div>
-
-        {filteredFamilies.length === 0 && (
+        
+        {filteredProducts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-xl text-gray-600">No product families match your selected filters.</p>
+            <p className="text-xl text-gray-600">No products match your selected filters.</p>
             <button 
               onClick={clearAllFilters}
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
