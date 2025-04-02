@@ -29,9 +29,7 @@ app = FastAPI(
 
 # Add CORS middleware
 origins = [
-    "http://localhost",  
-    "http://localhost:3000", 
-    "https://lytemaster.vercel.app/", 
+"*"
 ]
 
 app.add_middleware(
