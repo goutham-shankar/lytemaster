@@ -319,7 +319,7 @@ async def get_secure_product_image(image_filename: str):
     # Read and return the image as a response
     with open(image_path, "rb") as image_file:
         return Response(content=image_file.read(), media_type="image/jpeg")
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
 
 # (9) GET Filter Options for products
@@ -377,7 +377,7 @@ def filter_products(
     ''' More filters incoming '''
 
     return query.all()
-=======
+#=======
     
 @app.get("/product-wattages/{product_id}", response_model=List[dict])
 def get_product_wattages(product_id: int, db: Session = Depends(get_db)):
@@ -407,4 +407,4 @@ def get_product_wattages(product_id: int, db: Session = Depends(get_db)):
             status_code=500,
             detail=f"Failed to fetch product wattages: {str(e)}"
         )
->>>>>>> 78bdd496f088e6cb2a7ecf9f3d04b3d6087880fe
+#>>>>>>> 78bdd496f088e6cb2a7ecf9f3d04b3d6087880fe
