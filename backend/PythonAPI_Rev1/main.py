@@ -29,9 +29,7 @@ app = FastAPI(
 
 # Add CORS middleware
 origins = [
-    "http://localhost",  
-    "http://localhost:3000", 
-    "https://lytemaster.vercel.app/", 
+"*"
 ]
 
 app.add_middleware(
@@ -321,6 +319,7 @@ async def get_secure_product_image(image_filename: str):
     # Read and return the image as a response
     with open(image_path, "rb") as image_file:
         return Response(content=image_file.read(), media_type="image/jpeg")
+<<<<<<< HEAD
 
 
 # (9) GET Filter Options for products
@@ -378,3 +377,34 @@ def filter_products(
     ''' More filters incoming '''
 
     return query.all()
+=======
+    
+@app.get("/product-wattages/{product_id}", response_model=List[dict])
+def get_product_wattages(product_id: int, db: Session = Depends(get_db)):
+    """Retrieve all data from the ProductWattage table for a specific product ID."""
+    try:
+        # Query product wattages for the given product ID
+        product_wattages = db.query(ProductWattage).filter(ProductWattage.product_id == product_id).all()
+        
+        # Convert to list of dictionaries
+        return [
+            {
+                "product_wattage_id": pw.product_wattage_id,
+                "product_id": pw.product_id,
+                "product_code": pw.product_code,
+                "product_wattage": pw.product_wattage,
+                "product_dimensions": pw.product_dimensions,
+                "product_cut_out": pw.product_cut_out,
+                "product_luminous_flux": pw.product_luminous_flux,
+                "product_datasheet": pw.product_datasheet,
+                "product_voltage": pw.product_voltage,
+                "product_current": pw.product_current,
+            }
+            for pw in product_wattages
+        ]
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch product wattages: {str(e)}"
+        )
+>>>>>>> 78bdd496f088e6cb2a7ecf9f3d04b3d6087880fe

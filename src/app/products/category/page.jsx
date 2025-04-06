@@ -141,6 +141,11 @@ export default function Category() {
       });
     });
 
+    // Sort all options for better user experience
+    Object.keys(newAvailableFilters).forEach(key => {
+      newAvailableFilters[key].sort();
+    });
+
     setAvailableFilters(newAvailableFilters);
   };
 
@@ -233,29 +238,42 @@ export default function Category() {
   // Toggle the mobile filter menu
   const toggleFilters = () => setShowFilters(prev => !prev);
 
-  // Helper function to render filter section
+  // Helper function to render filter section with radio buttons
   const renderFilterSection = (title, filterType, options) => {
     // Only show filter section if there are options available
     if (!options || options.length === 0) return null;
-    
-    // Sort options for better user experience
-    const sortedOptions = [...options].sort();
     
     return (
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <div className="max-h-40 overflow-y-auto">
-          {sortedOptions.map((option) => (
-            <label key={`${filterType}-${option}`} className="block text-gray-700 mb-1">
-              <input 
-                type="checkbox" 
-                className="mr-2" 
-                checked={activeFilters[filterType].includes(option)}
-                onChange={() => handleFilterChange(filterType, option)}
-              /> 
-              {option}
-            </label>
-          ))}
+          {options.map((option) => {
+            // Check if this option is selected
+            const isSelected = activeFilters[filterType].includes(option);
+            
+            return (
+              <div key={`${filterType}-${option}`} className="flex items-center mb-1">
+                <div className="relative flex items-center">
+                  <input 
+                    type="checkbox" 
+                    id={`${filterType}-${option}`}
+                    className="mr-2 h-4 w-4 cursor-pointer appearance-none rounded-full border border-gray-300 checked:border-blue-600 checked:bg-white"
+                    checked={isSelected}
+                    onChange={() => handleFilterChange(filterType, option)}
+                  />
+                  {isSelected && (
+                    <div className="pointer-events-none absolute left-[4px] h-2 w-2 rounded-full bg-blue-600"></div>
+                  )}
+                </div>
+                <label 
+                  htmlFor={`${filterType}-${option}`} 
+                  className={`ml-2 cursor-pointer ${isSelected ? 'font-medium text-blue-600' : 'text-gray-700'}`}
+                >
+                  {option}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -380,4 +398,4 @@ export default function Category() {
       </main>
     </div>
   );
-} 
+}

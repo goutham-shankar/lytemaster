@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Download() {
+export default function Download({ datasheetLink} ) {
   // A simple inline SVG download icon (Heroicons)
-  const DownloadIcon = () => (
+  const DownloadIcon = (  ) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="w-4 h-4"
@@ -28,14 +28,18 @@ export default function Download() {
 
       {/* Download List */}
       <ul className="space-y-2 text-gray-700 text-xl">
+        <a href="">
         <li className="flex items-center gap-2">
           <DownloadIcon />
           <u>IES Files</u>
         </li>
+        </a>
+        <a href={`${datasheetLink}`}>
         <li className="flex items-center gap-2">
           <DownloadIcon />
           <u>Datasheets</u>
         </li>
+        </a>
         <li className="flex items-center gap-2">
           <DownloadIcon />
           <u>Insulation Instructions</u>
