@@ -7,6 +7,7 @@ import { bento } from "@components/projects/bentoGrid";
 import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
 import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
 import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
+import contactUsImage from "@assets/landing/contact-us.jpg";
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
@@ -35,6 +36,7 @@ export const placeholderImages = {
     bentoThumbnail4,
     commercialLightingThumbnail,
     industrialLightingThumbnail,
+    contactUsImage,
     bentoThumbnail5,
     bentoThumbnail6,
     bentoThumbnail7,
@@ -52,6 +54,7 @@ export const placeholderImages = {
   industrial: industrialLightingThumbnail,
   landscape: landscapeLightingThumbnail,
   hero: heroPlaceholder,
+  contact:contactUsImage
 };
 
 /* data */
@@ -59,7 +62,7 @@ export const projectsData = {
   overviewSection: {
     title: "Projects",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pretium aliquet dictumst viverra id imperdiet turpis nulla libero netus. Amet in mattis adipiscing pulvinar sed tincidunt. Eget neque blandit feugiat risus vestibulum proin at augue. Malesuada adipiscing consequat vel tortor hac suspendisse ac dictum.",
+      "Browse through our recent projects below to gain insights into our capabilities. Each project showcases the passion and dedication we bring to the table. If you're looking for a reliable partner for your next venture, we're ready to turn your ideas into remarkable success stories.",
   },
 
   projects: [
@@ -281,63 +284,74 @@ export const landingData = {
       href: "#",
     },
     images: [
-      placeholderImages.about,
-      placeholderImages.about,
-      placeholderImages.about,
+      // placeholderImages.about,
+      "landing_about1.png",
+      "landing_about2.png",
+      "landing_about3.png",
+      // placeholderImages.about,
+      // placeholderImages.about,
     ],
   },
 
   productsSection: {
-    title: "What we offer",
-    description:
-      "We manufacture and provide only the highest quality lighting fixtures and components. Our products are selected for their durability, energy efficiency, and design. We offer a wide range of options to suit various tastes and applications.",
+    title: "Our Specialization",
+    description: "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal.", 
     products: [
       {
+        // Descriptions were removed but removing the attribute "description" causes page to break
         title: "Commercial Lighting",
-        description:
-          "The world is a blend of light and shadow, warmth and brilliance. At the right moment, everything glows with a unique aura. Our lights do more than illuminate—they enhance spaces, highlighting their beauty. We design to merge light and space into a seamless harmony. In the darkness, let Lyte be your guiding beacon.",
+        description: "",
+        link : "/products/category?category_id=1",
         cta: {
           text: "See More",
-          href: "#",
+          href: "/products/category?category_id=1",
         },
         thumbnail: placeholderImages.commercial,
         number_of_products: 23,
         highlight: {
-          href: "#",
+          href: "/products/category?category_id=1",
           text: "See More",
         },
       },
       {
         title: "Industrial Lighting",
-        description:
-          "Lyte Master Dunn Highbay luminaries designed to be durable, long life, easy installation and low maintenance with seamless body and has a faster heat dissipation. Made with premium grade aluminium die cast housing, high quality LED’s and stainless steel accessories.",
+        description: "",
+        link : "/products/category?category_id=2",
         cta: {
           text: "See More",
           href: "#",
         },
         thumbnail: placeholderImages.industrial,
         number_of_products: 15,
+        highlight: {
+          href: "#",
+          text: "See More",
+        },
       },
       {
         title: "Landscape Lighting",
-        description:
-          "Lyte Master Dunn Highbay luminaires offer durability, easy installation, and low maintenance. With a seamless design for fast heat dissipation, they feature premium aluminum die-cast housing, high-quality LEDs, and stainless steel accessories.",
+        link : "/products/category?category_id=3",
+        description: "",
         cta: {
           text: "See More",
           href: "#",
         },
         thumbnail: placeholderImages.landscape,
         number_of_products: 14,
+        highlight: {
+          href: "#",
+          text: "See More",
+        },
       },
     ],
     productsScroll: [
       { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
-      { text: "Lighting Solutions" },
+      { text: "Sustainable Illumination" },
+      { text: "Innovative Lighting Technology" },
+      { text: "Next-Gen Lighting Solutions" },
+      { text: "World-Class LED Products" },
+      { text: "Pioneering Illumination Excellence" },
+      { text: "Unrivaled LED Ingenuity" },
       { text: "Lighting Solutions" },
     ],
   },
@@ -383,8 +397,7 @@ export const landingData = {
 
   contactSection: {
     title: "Would you like to discuss a project?",
-    description:
-      "Driven by the increasing demand for energy efficient lighting, Lyte Master GmbH has, Since the late 2000s been in the LED lighting.",
+    description: "",
     cta: {
       text: "Contact Us",
       href: "#",

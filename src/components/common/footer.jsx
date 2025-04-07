@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import logo from "@public/logo.png";
 
-const address = `Apricot Towers
-Dubai Silicon Oasis, Dubai
-United Arab Emirates
+const address = `
+Lyte Master GmbH 
+Auf Dem SchurweBel, 
+5A 53347 Alfter-Witterschlick Germany
 `;
+
 const socials = [
   {
     alt: "Instagram",
@@ -23,7 +25,11 @@ const socials = [
     icon: Linkedin,
     link: "#",
   },
-  { alt: "Twitter", icon: Twitter, link: "#" },
+  {
+    alt: "Twitter",
+    icon: Twitter,
+    link: "#",
+  },
 ];
 
 const footerLinks = [
@@ -44,25 +50,25 @@ const footerLinks = [
       { name: "Awards", link: "#" },
     ],
   },
-  {
-    section: "Contacts",
-    links: [
-      { name: "Legal Disclaimer", link: "#" },
-      { name: "Privacy Policy", link: "#" },
-      { name: "Terms of Use", link: "#" },
-      { name: "General", link: "#" },
-    ],
-  },
+  // {
+    // section: "Contacts",
+    // links: [
+    //   { name: "Legal Disclaimer", link: "#" },
+    //   { name: "Privacy Policy", link: "#" },
+    //   { name: "Terms of Use", link: "#" },
+    //   { name: "General", link: "#" },
+    // ],
+  // },
 ];
 
-const FooterSection = ({ section, links, index }) => {
+const FooterSection = ({ section, links }) => {
   return (
-    <div key={index} className="w-max">
-      <div className="relative inline-block">
-        <h4 className="text-sm lg:text-base xl:text-xl">{section}</h4>
+    <div className="w-max">
+      <div className="relative inline-block mb-2">
+        <h4 className="text-sm lg:text-base xl:text-lg font-semibold">{section}</h4>
         <span className="absolute bottom-0 left-0 w-2/3 h-1 border-b border-white"></span>
       </div>
-      <ul className="py-2 flex flex-col gap-1 text-gray-300">
+      <ul className="flex flex-col gap-1 text-gray-300">
         {links.map(({ name, link }, index) => (
           <li
             key={index}
@@ -82,23 +88,20 @@ const FooterSection = ({ section, links, index }) => {
 const Branding = () => {
   return (
     <div className="flex items-center gap-4">
-      <Image
-        src={logo}
-        alt="LyteMaster Logo"
-        width={50}
-        className="w-12 lg:w-16"
-      />
-      <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">LyteMaster</h1>
+      {/* Uncomment if you want logo and title */}
+      {/* <Image src={logo} alt="LyteMaster Logo" width={50} className="w-12 lg:w-16" /> */}
+      {/* <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">LyteMaster</h1> */}
+      <h1 className="text-3xl font-dmSerifDisplay lg:text-4xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
     </div>
   );
 };
 
 const Socials = () => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       {socials.map((social) => (
         <Link key={social.alt} href={social.link}>
-          <social.icon size={16} />
+          <social.icon size={18} />
         </Link>
       ))}
     </div>
@@ -107,20 +110,27 @@ const Socials = () => {
 
 export default function Footer() {
   return (
-    <footer className="w-full h-96 px-8 flex flex-col-reverse justify-center items-center bg-black text-white sm:pl-16 sm:pr-24 sm:py-24 sm:flex-row sm:justify-between sm:items-start sm:gap-32 lg:gap-80 xl:gap-[36rem]">
-      <div className="flex flex-col items-center justify-center gap-3">
-        <Branding />
-        <div className="flex flex-col gap-4 text-gray-300">
-          <p className="text-xs whitespace-pre-wrap lg:text-sm xl:text-base">
-            {address}
-          </p>
-          <Socials />
+    <footer style={{ backgroundColor: "#707070" }} className="w-full bg-black text-white">
+      <div className="max-w-[75%] mx-auto px-4 sm:px-8 py-12 flex flex-col-reverse items-center justify-center gap-10 sm:flex-row sm:justify-between sm:items-start">
+        
+        {/* Left Side: Address & Socials */}
+        <div className="flex flex-col items-center sm:items-start gap-4">
+          {/* <Branding /> */}
+          <div className="flex flex-col gap-4 text-gray-300">
+            <p className="text-xs whitespace-pre-wrap lg:text-sm xl:text-base text-center sm:text-left">
+              {address}
+            </p>
+            <Socials />
+          </div>
         </div>
-      </div>
-      <div className="py-8 flex gap-8 sm:gap-16">
-        {footerLinks.map(({ section, links }, index) => (
-          <FooterSection key={index} section={section} links={links} />
-        ))}
+
+        {/* Right Side: Footer Links */}
+        <div className="flex flex-wrap justify-center sm:justify-start gap-8 sm:gap-12">
+          {footerLinks.map(({ section, links }, index) => (
+            <FooterSection key={index} section={section} links={links} />
+          ))}
+        </div>
+
       </div>
     </footer>
   );

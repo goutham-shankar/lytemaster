@@ -27,8 +27,8 @@ const navItems = [
   { name: "Products", href: "/products", dropdown: null },
   { name: "Projects", href: "/projects", dropdown: null },
   { name: "About us", href: "/about", dropdown: null },
-  { name: "News", href: "/news", dropdown: null },
-  { name: "Contact", href: "#", dropdown: false, cta: true },
+  { name: "News", href: "#", dropdown: null },
+  { name: "Contact", href: "/contact", dropdown: false, cta: true },
 ];
 
 const variants = {
@@ -71,7 +71,7 @@ const NavItem = ({ item }) => {
 
   return (
     <li
-      className={`${navItemVariants.base} uppercase ${lightBgPaths.includes(pathname) ? "text-white" : "text-black"}`}
+      className={`${navItemVariants.base} uppercase ${pathname == "/" || pathname == "/about" ? "text-white" : "text-black"}`}
       onMouseOver={() => setIsOpen(true)}
       onMouseOut={() => setIsOpen(false)}
     >
@@ -113,34 +113,39 @@ const Navbar = () => {
   );
 };
 
-const MenuButton = ({ navrailOpen, setNavrailOpen, className = "" }) => {
+const MenuButton = ({ navrailOpen, setNavrailOpen, size, className = "" }) => {
   const pathname = usePathname();
   return (
     <button
       className={`${className} flex items-center gap-2 text-sm ${lightBgPaths.includes(pathname) ? "text-white" : "text-black"}`}
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
-      {navrailOpen ? <X size={24} /> : <Menu size={24} />}
+      {navrailOpen ? <X size={size} /> : <Menu size={size} />}
     </button>
   );
 };
 
-const Navrail = ({ navrailOpen, setNavrailOpen }) => {
+const Navrail = ({ navrailOpen, setNavrailOpen, menuSize, isMobile }) => {
   return (
     <div
-      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[.67rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-black/25 backdrop-blur-md no-doc-scroll sm:px-12 sm:py-[.067rem]"
+      className="z-10 absolute top-0 right-0 pl-4 pr-8 py-[1.66rem] w-screen h-screen flex flex-col justify-center items-center gap-5 text-sm bg-black/25 backdrop-blur-md no-doc-scroll sm:w-80 sm:bg-white sm:text-black sm:py-5 lg:pl-8 lg:pr-16 lg:w-[28rem] 2xl:w-[32rem]"
       onClick={() => setNavrailOpen(!navrailOpen)}
     >
       <div className="w-full flex justify-between items-center gap-3 text-sm transition-all duration-300 ease-in-out">
         <Branding />
-        <MenuButton navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
+        <button
+          className="flex items-center gap-2 text-black"
+          onClick={() => setNavrailOpen(!navrailOpen)}
+        >
+          {navrailOpen ? <X size={menuSize} /> : <Menu size={menuSize} />}
+        </button>
       </div>
-      <ul className="w-full h-full pl-4 flex flex-col justify-start items-start gap-2 text-sm">
+      <ul className="w-full h-full flex flex-col justify-start items-start gap-2 text-sm lg:gap-4 lg:pl-8 sm:pr-16">
         {navItems.map((item, index) => (
           <li key={index} className="group">
             <Link
               href={item.href}
-              className="flex justify-center items-center gap-2 text-2xl "
+              className="flex justify-center items-center gap-2 text-2xl lg:text-3xl text-nowrap"
             >
               {item.name}
             </Link>
@@ -165,6 +170,7 @@ export default function Nav() {
   const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [navrailOpen, setNavrailOpen] = useState(false);
+  const pathname = usePathname();
 
   const handleResize = () => {
     setWidth(window.innerWidth);
@@ -186,19 +192,25 @@ export default function Nav() {
     }
   }, [width]);
   return (
-    <nav className={`${variants.navbar} z-50 absolute`}>
+    <nav className={`${variants.navbar} z-50 absolute --bg-[black]`}>
       <Branding />
-      {isMobile && !navrailOpen && (
+      {!navrailOpen && (isMobile || pathname == "/") && (
         <MenuButton
           navrailOpen={navrailOpen}
           setNavrailOpen={setNavrailOpen}
+          size={isMobile ? 24 : 32}
           // className="p-2 rounded-full shadow-md backdrop-blur-md border bg-black/80 border-white/10"
         />
       )}
-      {isMobile && navrailOpen && (
-        <Navrail navrailOpen={navrailOpen} setNavrailOpen={setNavrailOpen} />
+      {navrailOpen && (isMobile || pathname == "/") && (
+        <Navrail
+          navrailOpen={navrailOpen}
+          setNavrailOpen={setNavrailOpen}
+          menuSize={isMobile ? 24 : 32}
+          isMobile={isMobile}
+        />
       )}
-      {!isMobile && <Navbar />}
+      {!isMobile && pathname != "/" && <Navbar />}
     </nav>
   );
 }

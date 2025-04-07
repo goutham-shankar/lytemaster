@@ -10,6 +10,7 @@ import {
   ContactSection,
 } from "@components/landing";
 import { landingData } from "@assets/placeholders";
+import CatalogueSection from "@/components/landing/catalogueSection";
 
 /* helper components */
 
@@ -20,11 +21,12 @@ export default function Landing() {
   return (
     <>
       <HeroSection {...landingData.heroSection} />
-      <AboutSection {...landingData.aboutSection} />
+      {/* <AboutSection {...landingData.aboutSection} /> */}
       <ProductsSection {...landingData.productsSection} />
       <HowWeWorkSection {...landingData.howWeWorkSection} />
       <RecentWorksSection {...landingData.recentWorksSection} />
       <NewsletterSection {...landingData.newsletterSection} />
+      <CatalogueSection />
       <ContactSection {...landingData.contactSection} />
     </>
   );

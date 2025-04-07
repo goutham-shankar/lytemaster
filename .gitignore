@@ -32,7 +32,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+
 
 # vercel
 .vercel
@@ -40,3 +40,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# rar files
+
+
+# logs
+
+
+# -----BACKEND dependencies---
+
+# Environmental Variables
+backend/PythonAPI_Rev1/myenv/
+
+# Python cache files
+backend/PythonAPI_Rev1/__pycache__/
+backend/PythonAPI_Rev1/Models/__pycache__/
+backend\PythonAPI_Rev1\ResponseModels\__pycache__
+
+# IDE-specific files
+backend/PythonAPI_Rev1/.idea/
+
+# Garbage
+backend/PythonAPI_Rev1/extra
+
