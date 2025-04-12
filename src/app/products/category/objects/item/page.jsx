@@ -112,7 +112,7 @@ export default function Item() {
           /> */}
           <img
            src= { selectedWattage == null ?
-              (parameterItems.length != 0 ? `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: null):
+              (parameterItems.length != 0 ? (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"):
               `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
             
             }
@@ -123,7 +123,7 @@ export default function Item() {
           />
             <img
            src= { selectedWattage == null ?
-              (parameterItems.length != 0 ? `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: null):
+              (parameterItems.length != 0 ?  (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"):
               `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
 
             }
