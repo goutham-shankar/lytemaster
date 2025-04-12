@@ -7,6 +7,7 @@ import { bento } from "@components/projects/bentoGrid";
 import industrialLightingThumbnail from "@assets/landing/industrial-lighting-thumbnail.jpeg";
 import commercialLightingThumbnail from "@assets/landing/commercial-lighting-thumbnail.jpeg";
 import landscapeLightingThumbnail from "@assets/landing/landscape-lighting-thumbnail.jpeg";
+import contactUsImage from "@assets/landing/contact-us.jpg";
 
 /* Industries placeholder images */
 import heroPlaceholder from "@assets/landing/hero-placeholder.jpeg";
@@ -35,6 +36,7 @@ export const placeholderImages = {
         bentoThumbnail4,
         commercialLightingThumbnail,
         industrialLightingThumbnail,
+        contactUsImage,
         bentoThumbnail5,
         bentoThumbnail6,
         bentoThumbnail7,
@@ -52,6 +54,7 @@ export const placeholderImages = {
     industrial: industrialLightingThumbnail,
     landscape: landscapeLightingThumbnail,
     hero: heroPlaceholder,
+    contact: contactUsImage,
 };
 
 /* data */
@@ -270,7 +273,7 @@ export const landingData = {
             name: "View More",
             href: "#", // TODO: Update this link
         },
-        videos: ["/video.mp4", "/video2.mp4"],
+        videos: ["video.mp4", "video2.mp4"],
     },
 
     aboutSection: {
@@ -294,26 +297,28 @@ export const landingData = {
     productsSection: {
         title: "Our Specialization",
         description:
-            "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal",
+            "At Lyte Master, we specialize in delivering innovative and high-quality lighting solutions tailored to meet diverse needs across various industries. Our expertise spans multiple lighting applications, ensuring optimal performance, energy efficiency, and aesthetic appeal.",
         products: [
             {
                 // Descriptions were removed but removing the attribute "description" causes page to break
                 title: "Commercial Lighting",
                 description: "",
+                link: "/products/category?category_id=1",
                 cta: {
                     text: "See More",
-                    href: "#",
+                    href: "/products/category?category_id=1",
                 },
                 thumbnail: placeholderImages.commercial,
                 number_of_products: 23,
                 highlight: {
-                    href: "#",
+                    href: "/products/category?category_id=1",
                     text: "See More",
                 },
             },
             {
                 title: "Industrial Lighting",
                 description: "",
+                link: "/products/category?category_id=2",
                 cta: {
                     text: "See More",
                     href: "#",
@@ -327,6 +332,7 @@ export const landingData = {
             },
             {
                 title: "Landscape Lighting",
+                link: "/products/category?category_id=3",
                 description: "",
                 cta: {
                     text: "See More",
