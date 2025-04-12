@@ -1,12 +1,14 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Depends, HTTPException, status, Query,Path
-from sqlalchemy import cast, Integer, or_, and_, exists
+from fastapi import FastAPI, Depends, HTTPException, status, Query, Path, Response
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select, distinct
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
 import database
 from database import engine, SessionLocal
 from typing import List, AsyncIterator
-from pydantic import BaseModel
+from ResponseModels.responses import CategoryWithCountResponse
+import os
 
 # Lifespan manager
 @asynccontextmanager
@@ -25,13 +27,19 @@ app = FastAPI(
     lifespan=lifespan  # Use lifespan instead of on_event
 )
 
-# Pydantic model for response validation
-class CategoryResponse(BaseModel):
-    category_id: int
-    category_name: str
+# Add CORS middleware
+origins = [
+"*"
+]
 
-    class Config:
-        orm_mode = True  # Enable ORM compatibility
+app.add_middleware(
+    CORSMiddleware,
+    # allow_origins=origins,  # Allow only specified origins
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 def get_db():
     db = database.SessionLocal()
@@ -41,79 +49,8 @@ def get_db():
         db.close()
 
 
-# ----- Example Endpoint Using DB -----
-# Categories endpoint
-#------COMMENTED FROM HERE--------------
-# @app.get(
-#     "/categories",
-#     response_model=List[CategoryResponse],
-#     summary="Get all product categories",
-#     tags=["Categories"]
-# )
-# async def get_categories(db: Session = Depends(get_db)):
-#     """Retrieve all available product categories from the database"""
-#     try:
-#         categories = db.query(Category).all()
-#         if not categories:
-#             raise HTTPException(
-#                 status_code=status.HTTP_404_NOT_FOUND,
-#                 detail="No categories found"
-#             )
-#         return categories
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#             detail=f"Database operation failed: {str(e)}"
-#         )
-#
-# # Sample Family endpoint
-# @app.get("/families", response_model=List[dict], tags=["Families"])
-# async def get_families(db: Session = Depends(get_db)):
-#     """Get all product families with their category"""
-#     try:
-#         families = db.query(Family).all()
-#         return [
-#             {
-#                 "family_id": fam.family_id,
-#                 "name": fam.family_name,
-#                 "category_id": fam.category
-#             }
-#             for fam in families
-#         ]
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=500,
-#             detail=f"Error retrieving families: {str(e)}"
-#         )
-# # ----- Product Endpoints -----
-# @app.get("/products/{product_id}")
-# async def get_product(
-#         product_id: int,
-#         db: Session = Depends(get_db)
-# ):
-#     product = db.query(Product).filter(Product.product_id == product_id).first()
-#     if not product:
-#         raise HTTPException(status_code=404, detail="Product not found")
-#
-#     # Include wattage details
-#     wattages = db.query(ProductWattage).filter(
-#         ProductWattage.product_id == product_id
-#     ).all()
-#
-#     return {
-#         "product": product,
-#         "wattages": wattages
-#     }
-#------COMMENTED TILL HERE--------------
-
-# GET products by category
-@app.get("/categories/{category_id}/products")
-async def get_category_products(category_id: int,db: Session=Depends(get_db)):
-    category_products = db.query(Product).join(Family).filter(Family.category == category_id).all()
-    return category_products
-
-
-# FUNCTIONS for Parsing wattage and color_temp
+# FUNCTIONS -H1
+# (1) for Parsing wattage and color_temp
 def parse_wattage_range(wattage_str: str):
     """Extract min and max wattage from a range string like '3W-40W'"""
     try:
@@ -122,6 +59,7 @@ def parse_wattage_range(wattage_str: str):
         return int(min_w), int(max_w)
     except (ValueError, AttributeError):
         return None, None
+
 def parse_color_temp(color_temp_str: str):
     """Extract individual color temperatures from a string like '4000K,5000K,6000K'"""
     try:
@@ -130,7 +68,68 @@ def parse_color_temp(color_temp_str: str):
     except (ValueError, AttributeError):
         return []
 
-# GET search products using filters (LVL 1 Search)
+
+# API ENDPOINTS -H1
+# (1) GET categories along with their id, name, and the number of products in them (eliminates need for 2nd api call to get product count)
+@app.get("/categories", response_model=List[CategoryWithCountResponse])
+def get_categories_with_product_counts(db: Session = Depends(get_db)):
+    # Get product count per category via Category → Family → Product
+    stmt = (
+        select(
+            Category.category_id,
+            Category.category_name,
+            func.count(Product.product_id).label("product_count")  # Count PRODUCTS, not families
+        )
+        .outerjoin(Family, Category.families)  # Join Category → Family
+        .outerjoin(Product, Family.products)  # Join Family → Product
+        .group_by(Category.category_id, Category.category_name)
+    )
+
+    result = db.execute(stmt).all()
+
+    return [
+        {
+            "category_id": category_id,
+            "category_name": category_name,
+            "product_count": product_count  # Key changed from family_count → product_count
+        } for category_id, category_name, product_count in result
+    ]
+
+
+# (2) GET number of products by category (cta_button) -> included in (1)
+@app.get("/home/products/products_button/{category_id}")
+async def get_product_counts_by_category(
+        category_id: int = Path(..., description="ID of the category to count products for"),
+        db: Session = Depends(get_db)
+):
+    """Get the number of products for a specific category"""
+    try:
+        # Query to count products for the specified category
+        product_count = db.query(
+            func.count(Product.product_id).label("product_count")
+        ).join(Family, Family.family_id == Product.product_family) \
+            .filter(Family.category == category_id) \
+            .scalar()
+
+        # If no products are found, return 0
+        if product_count is None:
+            return 0
+
+        return product_count
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch product count: {str(e)}"
+        )
+
+# (3) GET products by category
+@app.get("/categories/{category_id}/products")
+async def get_category_products(category_id: int, db: Session = Depends(get_db)):
+    category_products = db.query(Product).join(Family).filter(Family.category == category_id).all()
+    return category_products
+
+
+# (4) GET search products using filters (LVL 1 Search)
 @app.get("/products/searchbar/products_search")
 async def search_products(
     query: str = Query(..., description="Search term for product name, category, or family"),
@@ -147,7 +146,8 @@ async def search_products(
     ).offset(skip).limit(limit)
     return search_query_db.all()
 
-# Detailed Object Level Filter
+
+# (5) Detailed Object Level Filter
 @app.get("/products/product_details/filter")
 async def filtering_products(
     search_query: str = Query(None, description="Search term for product name or description"),
@@ -205,7 +205,8 @@ async def filtering_products(
             detail=f"Search failed: {str(e)}"
         )
 
-# GET Products Category specific family list (LVL 2 Search and Filter)
+
+# (6) GET Products Category specific family list (LVL 2 Search and Filter)
 @app.get("/products/category/{category_id}/families")
 async def get_filtered_families_by_category(
     category_id: int = Path(..., description="ID of the category to fetch families for"),
@@ -253,7 +254,8 @@ async def get_filtered_families_by_category(
             detail=f"Failed to fetch families: {str(e)}"
         )
 
-# GET Filter products within a specific category and specific family and other filters
+
+# (7) GET Filter products within a specific category and specific family and other filters
 # (LVL 3 Search and Filter)
 @app.get("/products/category/{category_id}/{family_id}/filter")
 async def filter_products_in_category(
@@ -302,3 +304,107 @@ async def filter_products_in_category(
             detail=f"Filtering failed: {str(e)}"
         )
 
+# (8) GET images of products from backend
+# (each product gets unique image and each family uses the product image of the first product in that family)
+@app.get("/images/{image_filename}")
+async def get_secure_product_image(image_filename: str):
+    """Serve images securely only to authenticated users."""
+    IMG_DIR = "./assets/product_imgs"
+    image_path = os.path.join(IMG_DIR, image_filename)
+
+    # Check if the file exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    with open(image_path, "rb") as image_file:
+        return Response(content=image_file.read(), media_type="image/jpeg")
+#<<<<<<< HEAD
+
+
+# (9) GET Filter Options for products
+@app.get("/products/filter-options")
+def get_filter_options(db: Session = Depends(get_db)):
+    # Get all distinct values for each filter group
+    color_temps = db.query(distinct(Product.product_color_temp)).all()
+    optical_angles = db.query(distinct(Product.product_optical_angle)).all()
+    controls = db.query(distinct(Product.product_control_extended)).all()
+
+    # Clean and parse comma-separated values
+    def parse_values(raw_values):
+        return sorted(set(
+            value.strip()
+            for item in raw_values
+            if item[0]
+            for value in item[0].split(',')
+        ))
+
+    return {
+        "color_temperatures": parse_values(color_temps),
+        "optical_angles": parse_values(optical_angles),
+        "control_types": parse_values(controls),
+        # Add other filter groups similarly
+    }
+
+
+
+# (10) GET Filtered products as per options
+@app.get("/products/filter")
+def filter_products(
+        color_temp: str = None,
+        optical_angle: str = None,
+        control_type: str = None,
+        mounting_type: str = None,
+        db: Session = Depends(get_db)
+):
+    query = db.query(Product)
+
+    if color_temp:
+        query = query.filter(Product.product_color_temp.contains(color_temp))
+
+    if optical_angle:
+        query = query.filter(Product.product_optical_angle.contains(optical_angle))
+
+    if control_type:
+        query = query.filter(
+            or_(
+                Product.product_control_extended.contains(control_type),
+                Product.product_control_extended.startswith(f"{control_type},"),
+                Product.product_control_extended.endswith(f",{control_type}"),
+                Product.product_control_extended.contains(f",{control_type},")
+            )
+        )
+    ''' More filters incoming '''
+
+    return query.all()
+#=======
+    
+@app.get("/product-wattages/{product_id}", response_model=List[dict])
+def get_product_wattages(product_id: int, db: Session = Depends(get_db)):
+    """Retrieve all data from the ProductWattage table for a specific product ID."""
+    try:
+        # Query product wattages for the given product ID
+        product_wattages = db.query(ProductWattage).filter(ProductWattage.product_id == product_id).all()
+        
+        # Convert to list of dictionaries
+        return [
+            {
+                "product_wattage_id": pw.product_wattage_id,
+                "product_id": pw.product_id,
+                "product_code": pw.product_code,
+                "product_wattage": pw.product_wattage,
+                "product_dimensions": pw.product_dimensions,
+                "product_cut_out": pw.product_cut_out,
+                "product_luminous_flux": pw.product_luminous_flux,
+                "product_datasheet": pw.product_datasheet,
+                "product_voltage": pw.product_voltage,
+                "product_current": pw.product_current,
+            }
+            for pw in product_wattages
+        ]
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch product wattages: {str(e)}"
+        )
+#>>>>>>> 78bdd496f088e6cb2a7ecf9f3d04b3d6087880fe

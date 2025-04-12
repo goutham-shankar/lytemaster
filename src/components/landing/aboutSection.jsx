@@ -32,7 +32,7 @@ const AboutImages = ({ images }) => {
           // width={"auto"}
           // height={"auto"}
           className="w-full h-auto object-cover aspect-[2/3] rounded-lg grayscale hover:grayscale-0  transition delay-150"
-        />
+        /> 
       </div>
     </div>
   );

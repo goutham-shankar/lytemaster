@@ -65,7 +65,8 @@ ReDoc: Visit http://localhost:8000/redoc in your browser.
 ### 6. Project Structure
 
 backend/
-├── Models/ # SQLAlchemy models
+├── Models/ # DB Table models
+├── ResponseModels/ # DB Request Models
 ├── database.py # Database connection and session management
 ├── main.py # FastAPI application and endpoints
 ├── requirements.txt # Project dependencies
