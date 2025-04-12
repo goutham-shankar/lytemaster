@@ -1,8 +1,14 @@
+"use client"
+
 import React from 'react';
 
-export default function Download({ datasheetLink} ) {
+import { useEffect } from 'react';
+
+import axios from 'axios';
+
+export default function Download({ selectedWattage }) {
   // A simple inline SVG download icon (Heroicons)
-  const DownloadIcon = (  ) => (
+  const DownloadIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="w-4 h-4"
@@ -21,6 +27,12 @@ export default function Download({ datasheetLink} ) {
     </svg>
   );
 
+  useEffect(() => {
+
+    console.log(selectedWattage);
+
+  }, [selectedWattage])
+
   return (
     <div className="p-4  lg:ml-44 ">
       {/* Heading */}
@@ -29,17 +41,28 @@ export default function Download({ datasheetLink} ) {
       {/* Download List */}
       <ul className="space-y-2 text-gray-700 text-xl">
         <a href="">
-        <li className="flex items-center gap-2">
-          <DownloadIcon />
-          <u>IES Files</u>
-        </li>
+          <li className="flex items-center gap-2">
+            <DownloadIcon />
+            <u>IES Files</u>
+          </li>
         </a>
-        <a href={`${datasheetLink}`}>
-        <li className="flex items-center gap-2">
-          <DownloadIcon />
-          <u>Datasheets</u>
-        </li>
+        <a
+
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/datasheet/${selectedWattage.product_datasheet}`}
+          download={selectedWattage.product_datasheet} // Optional: hints browser to download
+          className="no-underline"
+
+        >
+          {/* <a href={`/datasheet/${selectedWattage.product_datasheet}`}> */}
+          <li className="flex items-center gap-2" onClick={() => {
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/datasheet/${selectedWattage.product_datasheet}`)
+          }}>
+
+            <DownloadIcon />
+            <u>Datasheets</u>
+          </li>
         </a>
+        {/* </a> */}
         <li className="flex items-center gap-2">
           <DownloadIcon />
           <u>Insulation Instructions</u>

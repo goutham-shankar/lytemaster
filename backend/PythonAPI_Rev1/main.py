@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status, Query, Path, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select, distinct
 from sqlalchemy.orm import Session
 from Models.models import Category, Family, Product, ProductWattage, Base
@@ -319,7 +320,63 @@ async def get_secure_product_image(image_filename: str):
     # Read and return the image as a response
     with open(image_path, "rb") as image_file:
         return Response(content=image_file.read(), media_type="image/jpeg")
-#<<<<<<< HEAD
+
+@app.get("/diagram/{diagram}")
+async def get_secure_diagram_image(diagram: str):
+    """Serve images securely only to authenticated users."""
+    IMG_DIR = "./assets/diagrams"
+    image_path = os.path.join(IMG_DIR, diagram)
+
+    # Check if the file exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    with open(image_path, "rb") as image_file:
+        return Response(content=image_file.read(), media_type="image/png")
+    
+@app.get("/light_distribution/{diagram}")
+async def get_secure_diagram_image(diagram: str):
+    """Serve images securely only to authenticated users."""
+    IMG_DIR = "./assets/light_distribution"
+   
+
+    diagram_split = diagram.split("-")
+
+    if "LM" in diagram_split:
+        new_name = "-".join(diagram_split[diagram_split.index("LM"):])
+    elif "LLM" in diagram_split:
+        new_name = "-".join(diagram_split[diagram_split.index("LLM"):])
+
+    image_path = os.path.join(IMG_DIR, new_name)
+
+    # Check if the file exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    with open(image_path, "rb") as image_file:
+        return Response(content=image_file.read(), media_type="image/png")
+
+@app.get("/datasheet/{datasheet}")
+async def get_secure_diagram_image(datasheet: str):
+    """Serve images securely only to authenticated users."""
+    FILE_DIR = "./assets/datasheets"
+    print(datasheet)
+    file_path = os.path.join(FILE_DIR, datasheet)
+
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    return FileResponse(
+        path=file_path,
+        filename= datasheet ,       # name seen by client
+        media_type="application/pdf" # correct content-type
+    )
+    
+
 
 
 # (9) GET Filter Options for products

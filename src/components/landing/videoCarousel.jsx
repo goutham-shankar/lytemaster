@@ -17,17 +17,22 @@ export default function VideoCarousel({ videos }) {
     }, [currentIndex]);
 
     return (
-        <div className="w-full h-screen hidden lg:block">
+        <div className="w-full --h-screen --hidden lg:block">
             <div className="relative overflow-hidden h-full">
-                <video
-                    key={currentIndex}
-                    src={videos[currentIndex]}
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-full object-cover"
-                />
-                {/* Overlaid Indicators */}
+
+
+                <div className="relative w-full h-auto lg:h-screen overflow-hidden">
+                    <video
+                        key={currentIndex}
+                        src={videos[currentIndex]}
+                        autoPlay
+                        loop
+                        muted
+                        className="w-full h-auto lg:w-full lg:h-auto lg:absolute lg:bottom-0 object-cover"
+                    />
+                </div>
+
+
                 <div
                     className="z-10 absolute top-0 left-0 w-full h-full py-4 flex flex-col justify-end items-center"
                     onMouseEnter={() =>
@@ -40,11 +45,10 @@ export default function VideoCarousel({ videos }) {
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`h-[0.4rem] rounded-full cursor-pointer transition-all hover:w-8 duration-500 ease-in-out ${
-                                    idx === currentIndex
-                                        ? "w-8 bg-white"
-                                        : "w-[0.4rem] bg-gray-400"
-                                }`}
+                                className={`h-[0.4rem] rounded-full cursor-pointer transition-all hover:w-8 duration-500 ease-in-out ${idx === currentIndex
+                                    ? "w-8 bg-white"
+                                    : "w-[0.4rem] bg-gray-400"
+                                    }`}
                             />
                         ))}
                     </div>

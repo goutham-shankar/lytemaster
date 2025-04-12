@@ -273,7 +273,8 @@ export const landingData = {
             name: "View More",
             href: "#", // TODO: Update this link
         },
-        videos: ["video.mp4", "video2.mp4"],
+        // videos: ["LINEOFLEX.mp4", "LM Magnetic Track Series.mp4"],
+        videos: ["LINEOFLEX.mp4"],
     },
 
     aboutSection: {

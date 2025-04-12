@@ -10,17 +10,17 @@ import VideoCarousel from "./videoCarousel";
 export default function Hero({ title, cta, videos }) {
     return (
         <section className="relative text-white text-center">
-            <Image
+            {/* <Image
                 src={placeholderImages.hero}
                 alt="hero placeholder"
                 width={1920}
                 height={1080}
                 className="w-full h-screen object-cover object-bottom brightness-75 sm:h-max lg:hidden"
-            />
-            {/* width="320" height="240" */}
+            /> */}
+
             <VideoCarousel videos={videos} />
 
-            <div className="absolute inset-0 px-8 py-32 flex flex-col gap-6 items-start justify-start sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
+            {/* <div className="absolute inset-0 px-8 py-32 flex flex-col gap-6 items-start justify-start sm:px-16 sm:py-32 xl:py-72 xl:gap-10">
                 <Heading
                     title={title}
                     className="text-start text-nowrap lg:hidden"
@@ -31,7 +31,7 @@ export default function Hero({ title, cta, videos }) {
                     href={cta.href}
                     className="border-white hover:bg-white hover:text-black lg:hidden"
                 />
-            </div>
+            </div> */}
         </section>
     );
 }

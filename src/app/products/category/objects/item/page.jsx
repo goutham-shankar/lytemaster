@@ -16,12 +16,26 @@ export default function Item() {
   const [isClient, setIsClient] = useState(false);
   const [showDownloads, setShowDownloads] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
-  const [datasheetLink , setDataSheetLink] = useState("#")
+  
   const searchParams = useSearchParams();
   const productName = searchParams.get('product_name'); 
   const familyName = searchParams.get('family_name'); 
   const category_id = searchParams.get('category_id');
   const product_id = searchParams.get('product_id');
+
+  const [loading, setLoading] = useState(true);
+
+
+  const [parameterItems, setParameterItems] = useState([]);
+
+
+  const [selectedWattage , setSelectedWattage] = useState(null)
+
+
+  // state variables for checking if images are there ( bad method : futuril mattim)
+
+  const [ ld_diagram , setLdDiagram] =  useState(true);
+  const [ technicalDiagram , setTechnicalDiagram ] = useState(true)
 
 
   useEffect(() => {
@@ -33,6 +47,7 @@ export default function Item() {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`)
         .then(response => {
           const product = response.data.find(item => item.product_id == product_id);
+          console.log(product)
           setCurrentProduct(product);  // Set the current product data
         })
         .catch(error => {
@@ -40,6 +55,25 @@ export default function Item() {
         });
     }
   }, [category_id, product_id]);
+
+  useEffect(() => {
+    if (product_id) {
+      console.log('fetching')
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/product-wattages/${product_id}`)
+        .then(response => {
+          console.log(response.data)
+          setParameterItems(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching product wattages:', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [product_id]);
 
   if (!isClient || !currentProduct) return null;
 
@@ -71,21 +105,38 @@ export default function Item() {
             alt="Dazzle Light"
             className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
           />
-          <img
+          {/* <img
             src='/assets/products/sample_bulb_cutout.png'
             alt="Cutout Diagram"
             className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
-          />
+          /> */}
           <img
-            src='/assets/products/sample_bulb_watt.png'
-            alt="Cutout Diagram"
-            className="md:h-96 w-full lg:w-auto rounded-2xl border-2 border-black"
+           src= { selectedWattage == null ?
+              (parameterItems.length != 0 ? `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: null):
+              `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
+            
+            }
+            onError={()=> setLdDiagram(false)}
+            // src= {`/diagram/${ getField('product_datasheet').replace('.pdf', '')  }.png`}
+            // alt="Cutout Diagram"
+            className={`md:h-96 w-1/2 lg:w-auto rounded-2xl border-2 border-black aspect-square object-cover object-center ${ld_diagram? "": "hidden"}`}
+          />
+            <img
+           src= { selectedWattage == null ?
+              (parameterItems.length != 0 ? `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: null):
+              `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
+
+            }
+            onError={()=> setTechnicalDiagram(false)}
+            // src= {`/diagram/${ getField('product_datasheet').replace('.pdf', '')  }.png`}
+            // alt="Cutout Diagram"
+            className={`md:h-96 w-1/2 lg:w-auto rounded-2xl border-2 border-black aspect-square object-cover object-center ${technicalDiagram? "":"hidden"}`}
           />
         </div>
       </div>
 
       {/* Specifications */}
-      <div className="flex flex-col lg:flex-row flex-1 justify-evenly lg:mx-40 w-full overflow-hidden mt-8 mb-8 px-5">
+      <div className="flex flex-col lg:flex-row flex-1 justify-evenly lg:mx-40 w-full overflow-hidden mt-8 mb-8 px-5">  
         <div className="flex flex-col gap-8 w-full">
           <div>
             <h2 className="text-xl font-semibold">General</h2>
@@ -238,9 +289,9 @@ export default function Item() {
 
       {/* Conditionally render Parameters or Downloads */}
       {!showDownloads ? (
-        <Parameters setShowDownloads = {setShowDownloads}  setDataSheetLink = {setDataSheetLink} />
+        <Parameters setShowDownloads = {setShowDownloads}  setSelectedWattage = {setSelectedWattage} parameterItems = {parameterItems} loading = {loading}/>
       ) : (
-        <Download datasheetLink = {datasheetLink} />
+        <Download selectedWattage = {selectedWattage} />
       )}
     </div>
   );

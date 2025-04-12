@@ -2,28 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 
-export default function Parameters({ setShowDownloads , setDataSheetLink }) {
-  const [parameterItems, setParameterItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function Parameters({ setShowDownloads , setSelectedWattage ,parameterItems, loading}) {
+  // const [parameterItems, setParameterItems] = useState([]);
+ 
   const searchParams = useSearchParams();
   const product_id = searchParams.get('product_id');
 
-  useEffect(() => {
-    if (product_id) {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/product-wattages/${product_id}`)
-        .then(response => {
-          setParameterItems(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching product wattages:', error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [product_id]);
+
 
   return (
     <div className="mt-8 w-full lg:px-44 overflow-x-auto">
@@ -48,7 +33,8 @@ export default function Parameters({ setShowDownloads , setDataSheetLink }) {
                 key={index}
                 className="border-b border-black text-gray-500 text-center cursor-pointer hover:bg-gray-100"
                 onClick={() => {
-                  setDataSheetLink(item.product_datasheet)
+                  setSelectedWattage(item);
+                  
                   setShowDownloads(true);
                   
                 }} // Pass selected wattage to parent
