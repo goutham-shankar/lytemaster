@@ -15,7 +15,7 @@ export default function Hero({ title, cta, videos }) {
                 alt="hero placeholder"
                 width={1920}
                 height={1080}
-                className="w-full h-[50vh] object-cover object-bottom brightness-75 sm:h-max lg:hidden"
+                className="w-full h-screen object-cover object-bottom brightness-75 sm:h-max lg:hidden"
             />
             {/* width="320" height="240" */}
             <VideoCarousel videos={videos} />

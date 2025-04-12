@@ -17,7 +17,7 @@ export default function VideoCarousel({ videos }) {
     }, [currentIndex]);
 
     return (
-        <div className="w-full h-[50vh] hidden lg:block">
+        <div className="w-full h-screen hidden lg:block">
             <div className="relative overflow-hidden h-full">
                 <video
                     key={currentIndex}
