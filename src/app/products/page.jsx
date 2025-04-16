@@ -10,16 +10,20 @@ export default function ProductsPage() {
   const [count, setCount] = useState({});
   const [error, setError] = useState(null);
 
+  const images = [ "commercial-lighting-thumbnail.jpeg" , "industrial-lighting-thumbnail.jpeg" , "landscape-lighting-thumbnail.jpeg" ]
+
   useEffect(() => {
-    fetch('/api/products')
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
+        console.log(data)
         data.forEach((product) => {
           // Fetch product count for each category based on category_id
           const fetchData = async () => {
             try {
               const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/home/products/products_button/${product.category_id}`);
+              console.log(response)
               setCount((prevCount) => ({
                 ...prevCount,
                 [product.category_id]: response.data,
@@ -56,13 +60,13 @@ if (products.length === 0) {
 
       {/* Main Content */}
       <h2 className="text-5xl font-bold lg:mx-32 mx-5">Our Products</h2>
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
-          {products.map((product) => (
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-12 w-[100%]">
+        <div className="grid md:grid-cols-3 gap-20 mb-24 --bg-red-200 w-full items-center justify-center">
+          {products.map((product, index) => (
             <a href={`/products/category?category_id=${product.category_id}`} key={product.category_id}>
               <div 
-                className="h-[460px] rounded-2xl shadow-md overflow-hidden flex flex-col justify-between" 
-                style={{ backgroundImage: `url(${product.image})`, backgroundSize: "cover", backgroundPosition: "center" }}
+                className="h-[460px] w-[380px]  rounded-2xl shadow-md overflow-hidden flex flex-col justify-between " 
+                style={{ backgroundImage: `url('/assets/products/${images[index]}')`, backgroundSize: "cover", backgroundPosition: "center" }}
               >
                 <div className="py-12 p-6 bg-gradient-to-b from-black via-transparent to-transparent">
                   <h3 className="text-3xl text-white font-bold mb-4">{product.title}</h3>
