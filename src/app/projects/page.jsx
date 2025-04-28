@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import CtaButton from "@components/common/ctaButton";
 import BentoGrid, { bento } from "@components/projects/bentoGrid";
@@ -33,10 +33,45 @@ const OverviewSection = ({ title, description }) => {
 };
 
 const ProjectSection = ({ title, cta, projects }) => {
+  // Track how many grid components to show (each showing 5 projects)
+  const [gridCount, setGridCount] = useState(1);
+  
+  // Calculate if there are more projects to load
+  const hasMoreProjects = projects.length > gridCount * 5;
+  
+  // Function to load more projects
+  const loadMore = () => {
+    setGridCount(prevCount => prevCount + 1);
+  };
+
   return (
-    <section className="w-full h-max px-8 py-4 flex flex-col justify-center items-center gap-6 text-black sm:px-16 sm:py-8">
+    <section className="w-full h-max px-8 py-4 flex flex-col justify-center items-center gap-10 text-black sm:px-16 sm:py-8">
       <SectionTitle title={title} />
-      <BentoGrid items={projects} />
+      
+      {/* Create multiple BentoGrid components based on gridCount */}
+      {Array.from({ length: gridCount }).map((_, index) => {
+        // Calculate the slice of projects for this grid
+        const startIdx = index * 6;
+        const endIdx = startIdx + 6;
+        const gridProjects = projects.slice(startIdx, endIdx);
+        
+        return (
+          <div key={`grid-${index}`} className="w-full">
+            <BentoGrid items={gridProjects} />
+          </div>
+        );
+      })}
+      
+      {/* Load More button */}
+      {hasMoreProjects && (
+        <button
+          onClick={loadMore}
+          className="px-8 py-3 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+        >
+          Load More
+        </button>
+      )}
+      
       <CtaButton name={cta.name} href={cta.href} />
     </section>
   );

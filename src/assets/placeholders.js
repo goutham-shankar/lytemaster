@@ -134,6 +134,69 @@ export const projectsData = {
                     href: "#",
                     className: bento.sm,
                 },
+                {
+                    name: "Forum Showroom",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[3],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.lg,
+                },
+                {
+                    name: "Beach Bar Restaurant",
+                    location: "Jumeirah, UAE",
+                    image: {
+                        src: placeholderImages.bento[1],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+                {
+                    name: "Cafe Capuchino",
+                    location: "New York, USA",
+                    image: {
+                        src: placeholderImages.bento[4],
+                        alt: "New York, USA",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+                {
+                    name: "Glicerin Bay Office",
+                    location: "London, UK",
+                    image: {
+                        src: placeholderImages.bento[0],
+                        alt: "London, UK",
+                    },
+                    href: "#",
+                    className: bento.lg,
+                },
+                {
+                    name: "Dune Conference Hall",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[5],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+                {
+                    name: "Sea Restaurant",
+                    location: "Tokyo, Japan",
+                    image: {
+                        src: placeholderImages.bento[2],
+                        alt: "Tokyo, Japan",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+               
+              
+                
             ],
         },
 
@@ -195,6 +258,18 @@ export const projectsData = {
                     href: "#",
                     className: bento.md,
                 },
+                {
+                    name: "Sea Restaurant",
+                    location: "Tokyo, Japan",
+                    image: {
+                        src: placeholderImages.bento[2],
+                        alt: "Tokyo, Japan",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+            
+                
             ],
         },
 
@@ -206,6 +281,57 @@ export const projectsData = {
                 href: "#",
             },
             projects: [
+                {
+                    name: "DIAC Housing Facility",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[11],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.lg,
+                },
+                {
+                    name: "Beach Bar Restaurant",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[12],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+                {
+                    name: "Office Space",
+                    location: "Riyadh, KSA",
+                    image: {
+                        src: placeholderImages.bento[13],
+                        alt: "New York, USA",
+                    },
+                    href: "#",
+                    className: bento.sm,
+                },
+                {
+                    name: "DIAC Housing Facility",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[14],
+                        alt: "London, UK",
+                    },
+                    href: "#",
+                    className: bento.lg,
+                },
+
+                {
+                    name: "Seven Luxury Car Rental",
+                    location: "Dubai, UAE",
+                    image: {
+                        src: placeholderImages.bento[15],
+                        alt: "Dubai, UAE",
+                    },
+                    href: "#",
+                    className: bento.md,
+                },
                 {
                     name: "DIAC Housing Facility",
                     location: "Dubai, UAE",
