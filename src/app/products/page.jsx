@@ -10,7 +10,7 @@ export default function ProductsPage() {
   const [count, setCount] = useState({});
   const [error, setError] = useState(null);
 
-  const images = [ "commercial-lighting-thumbnail.jpeg" , "industrial-lighting-thumbnail.jpeg" , "landscape-lighting-thumbnail.jpeg" ]
+  const images = [ "commercial-lighting-thumbnail.jpeg" , "industrial-lighting-thumbnail2.jpg" , "landscape-lighting-thumbnail2.png" ]
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`)
@@ -69,7 +69,7 @@ if (products.length === 0) {
                 style={{ backgroundImage: `url('/assets/products/${images[index]}')`, backgroundSize: "cover", backgroundPosition: "center" }}
               >
                 <div className="py-12 p-6 bg-gradient-to-b from-black via-transparent to-transparent">
-                  <h3 className="text-3xl text-white font-bold mb-4">{product.title}</h3>
+                  <h3 className="text-2xl text-white font-bold mb-4">{product.category_name}</h3>
                   {/* <p className="text-white mb-4 m-3">{product.description}</p> */}
                 </div>
 

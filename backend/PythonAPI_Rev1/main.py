@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from sqlalchemy import cast, Integer, or_, and_, exists, func, within_group, select, distinct
 from sqlalchemy.orm import Session
-from Models.models import Category, Family, Product, ProductWattage, Base
+from Models.models import Projects , Category, Family, Product, ProductWattage, Base
 import database
 from database import engine, SessionLocal
 from typing import List, AsyncIterator
@@ -357,6 +357,21 @@ async def get_secure_diagram_image(diagram: str):
     # Read and return the image as a response
     with open(image_path, "rb") as image_file:
         return Response(content=image_file.read(), media_type="image/png")
+    
+@app.get("/project_image/{diagram}")
+async def get_secure_diagram_image(diagram: str):
+    
+    IMG_DIR = "./assets/projects"
+   
+    image_path = os.path.join(IMG_DIR, diagram)
+
+    # Check if the file exists
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    # Read and return the image as a response
+    with open(image_path, "rb") as image_file:
+        return Response(content=image_file.read(), media_type="image/png")
 
 @app.get("/datasheet/{datasheet}")
 async def get_secure_diagram_image(datasheet: str):
@@ -464,4 +479,36 @@ def get_product_wattages(product_id: int, db: Session = Depends(get_db)):
             status_code=500,
             detail=f"Failed to fetch product wattages: {str(e)}"
         )
-#>>>>>>> 78bdd496f088e6cb2a7ecf9f3d04b3d6087880fe
+
+@app.get("/projects", response_model=List[dict])
+def get_all_projects(db: Session = Depends(get_db)):
+    projects = db.query(Projects).all()
+    
+    # return projects
+
+    return [
+
+        {
+            "project_id": project.idProjects ,
+            "project_name": project.Project_name ,
+            "Project_addr": project.Project_addr , 
+            "Lighting_Type": project.Lighting_Type , 
+            "images": project.images
+        } for project in projects
+    ]   
+
+# Route to retrieve a single project by ID
+@app.get("/projects/{project_id}", response_model=List[dict])
+def get_project(project_id: int, db: Session = Depends(get_db)):
+    project = db.query(Projects).filter(Projects.idProjects == project_id).first()
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return [ {
+            "project_id": project.idProjects ,
+            "project_id": project.idProjects ,
+            "project_name": project.Project_name ,
+            "Project_addr": project.Project_addr , 
+            "Lighting_Type": project.Lighting_Type , 
+            "images": project.images
+
+    }]

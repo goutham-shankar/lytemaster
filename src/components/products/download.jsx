@@ -65,7 +65,7 @@ export default function Download({ selectedWattage }) {
         {/* </a> */}
         <li className="flex items-center gap-2">
           <DownloadIcon />
-          <u>Insulation Instructions</u>
+          <u>Installation Instructions</u>
         </li>
         <li className="flex items-center gap-2">
           <DownloadIcon />
@@ -80,7 +80,7 @@ export default function Download({ selectedWattage }) {
       {/* Button */}
       <button className="mt-6 bg-black text-white px-4 py-2 rounded-md flex items-center gap-2">
         <DownloadIcon />
-        Download Datasheet
+        Download All
       </button>
     </div>
   );

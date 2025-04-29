@@ -59,3 +59,11 @@ class ProductWattage(Base):
     product_current= Column(String(50))
     # Relations
     product_rel = relationship("Product", back_populates="wattages")
+
+class Projects(Base):
+    __tablename__ = "Projects"
+    idProjects = Column(Integer , primary_key=True , index = True )
+    Project_name = Column( String(50))
+    Project_addr = Column( String(50))
+    Lighting_Type = Column( String(100))
+    images = Column( String(100))

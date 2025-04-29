@@ -78,7 +78,7 @@ export default function BentoGrid({ items, cta }) {
                         key={index}
                         className={`w-full h-full relative flex flex-col justify-end items-start overflow-hidden rounded-xl group ${item.className.item}`}
                     >
-                        <Image
+                        <img
                             src={item.image.src}
                             alt={item.image.alt}
                             width={1024}
@@ -106,15 +106,6 @@ export default function BentoGrid({ items, cta }) {
                     </div>
                 ))}
             </div>
-<<<<<<< HEAD
-            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-[0.05rem] bg-white"></span>
-          </Link>
-        </div>
-      ))}
-    </div>
-  );
-}
-=======
 
             {showLoadMore && (
                 <button
@@ -128,4 +119,3 @@ export default function BentoGrid({ items, cta }) {
         </>
     );
 }
->>>>>>> fe2dceb697cdb35e510b4bc2e5fbf6ee182e4146
