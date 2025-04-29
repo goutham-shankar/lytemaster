@@ -92,7 +92,7 @@ export default function ProjectDetail() {
     const fetchProjectDetails = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/projects/${params.project_id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/${params.project_id}`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch project with status: ${response.status}`);
