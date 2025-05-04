@@ -80,7 +80,7 @@ export default function Carousel({ items }) {
               className="relative w-min px-4 py-6 flex flex-col justify-end text-white"
             >
               <div className="flex flex-col justify-end">
-                <p className={`${item.className.location} text-nowrap`}>
+                <p className={`${item.className?.location || ''} text-nowrap`}>
                   {item.location}
                 </p>
                 <p className={`text-lg text-nowrap lg:text-2xl xl:text-3xl`}>
