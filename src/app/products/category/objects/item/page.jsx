@@ -1,21 +1,40 @@
-import { Suspense, useState, useEffect } from 'react';
+'use client';
+
+import { useEffect, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import Parameters from '@/components/products/parameters';
 import Download from '@/components/products/download';
 import Link from 'next/link';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { MdSettingsPhone } from 'react-icons/md';
 
-export default function Item() {
+// Main wrapper component with Suspense
+export default function ItemPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-2xl font-semibold mb-4">Loading product details...</div>
+        </div>
+      </div>
+    }>
+      <ItemContent />
+    </Suspense>
+  );
+}
+
+// Component that uses useSearchParams
+function ItemContent() {
+  const { useSearchParams } = require('next/navigation');
+  const searchParams = useSearchParams();
+  
   const [standardOpen, setStandardOpen] = useState(false);
   const [extendedOpen, setExtendedOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [showDownloads, setShowDownloads] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
   
-  const searchParams = useSearchParams();
   const productName = searchParams.get('product_name'); 
   const familyName = searchParams.get('family_name'); 
   const category_id = searchParams.get('category_id');
@@ -23,9 +42,11 @@ export default function Item() {
 
   const [loading, setLoading] = useState(true);
   const [parameterItems, setParameterItems] = useState([]);
-  const [selectedWattage , setSelectedWattage] = useState(null);
-  const [ld_diagram , setLdDiagram] =  useState(true);
-  const [technicalDiagram , setTechnicalDiagram ] = useState(true);
+  const [selectedWattage, setSelectedWattage] = useState(null);
+
+  // state variables for checking if images are there
+  const [ld_diagram, setLdDiagram] = useState(true);
+  const [technicalDiagram, setTechnicalDiagram] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
@@ -36,7 +57,7 @@ export default function Item() {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category_id}/products`)
         .then(response => {
           const product = response.data.find(item => item.product_id == product_id);
-          console.log(product)
+          console.log(product);
           setCurrentProduct(product);  // Set the current product data
         })
         .catch(error => {
@@ -47,10 +68,10 @@ export default function Item() {
 
   useEffect(() => {
     if (product_id) {
-      console.log('fetching')
+      console.log('fetching');
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/product-wattages/${product_id}`)
         .then(response => {
-          console.log(response.data)
+          console.log(response.data);
           setParameterItems(response.data);
         })
         .catch(error => {
@@ -66,6 +87,7 @@ export default function Item() {
 
   if (!isClient || !currentProduct) return null;
 
+  // Utility function to handle missing data
   const getField = (field, fallback = 'Not Available') => {
     return currentProduct[field] || fallback;
   };
@@ -94,12 +116,20 @@ export default function Item() {
             className="md:w-96 w-80 aspect-square rounded-2xl border-2 border-black"
           />
           <img
-            src= { selectedWattage == null ? (parameterItems.length != 0 ? (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"): `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${selectedWattage.product_datasheet.replace('.pdf', '')}.png` }
+           src= { selectedWattage == null ?
+              (parameterItems.length != 0 ? (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"):
+              `${process.env.NEXT_PUBLIC_BASE_URL}/light_distribution/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
+            
+            }
             onError={()=> setLdDiagram(false)}
             className={`md:h-96 w-1/2 lg:w-auto rounded-2xl border-2 border-black aspect-square object-cover object-center ${ld_diagram? "": "hidden"}`}
           />
           <img
-            src= { selectedWattage == null ? (parameterItems.length != 0 ?  (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"): `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`}
+           src= { selectedWattage == null ?
+              (parameterItems.length != 0 ?  (parameterItems[0].product_datasheet)? `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${parameterItems[0].product_datasheet.replace('.pdf', '')}.png`: "/fake": "/fake"):
+              `${process.env.NEXT_PUBLIC_BASE_URL}/diagram/${selectedWattage.product_datasheet.replace('.pdf', '')}.png`
+
+            }
             onError={()=> setTechnicalDiagram(false)}
             className={`md:h-96 w-1/2 lg:w-auto rounded-2xl border-2 border-black aspect-square object-cover object-center ${technicalDiagram? "":"hidden"}`}
           />
@@ -184,29 +214,86 @@ export default function Item() {
                       </div>
                     ))}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="p-4 rounded-md">
+                    <p>
+                      <strong>COLOUR TEMPERATURE:</strong> {getField('product_color_temp', 'Not Available')}
+                    </p>
+                    <p>
+                      <strong>CONTROL:</strong> {getField('product_control')}
+                    </p>
+                    <p>
+                      <strong>OPTICAL:</strong> {getField('product_optical_angle', 'Not Available')}
+                    </p>
+                    <p>
+                      <strong>COLOUR (Housing):</strong> {getField('product_housing_color')}
+                    </p>
+                    <p>
+                      <strong>COLOUR (Reflector):</strong> {getField('product_reflector_color')}
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </div>
+
+          {/* Extended Configuration */}
+          <div className="border-b w-96 border-black">
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => setExtendedOpen(!extendedOpen)}
+                className="w-full text-left text-lg font-semibold py-2 px-4 mt-4"
+              >
+                Extended Configuration
+              </button>
+              <div>
+                {extendedOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+            </div>
+            {extendedOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="overflow-hidden my-4"
+              >
+                {showDownloads ? (
+                  <div className="mb-4 mx-4">
+                    <p className="font-semibold">Color Temperature</p>
+                    {getField('product_color_extended', 'Not Available').split(',').map((temp) => (
+                      <div key={temp} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={`ext-temp-${temp}`}
+                          name="ext-temp"
+                          value={temp}
+                        />
+                        <label htmlFor={`ext-temp-${temp}`}>{temp}</label>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-md">
+                    <p>
+                      <strong>COLOUR TEMPERATURE:</strong> {getField('product_color_extended', 'Not Available')}
+                    </p>
+                    <p>
+                      <strong>CONTROL:</strong> {getField('product_control_extended', 'Not Available')}
+                    </p>
+                  </div>
+                )}
               </motion.div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Suspense boundary for dynamic content */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Parameters
-          searchParams={searchParams}
-          setShowDownloads={setShowDownloads}
-          setSelectedWattage={setSelectedWattage}
-          setParameterItems={setParameterItems}
-          setTechnicalDiagram={setTechnicalDiagram}
-          setLdDiagram={setLdDiagram}
-        />
-      </Suspense>
-
-      {/* Product download section */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Download />
-      </Suspense>
+      {/* Conditionally render Parameters or Downloads */}
+      {!showDownloads ? (
+        <Parameters setShowDownloads={setShowDownloads} setSelectedWattage={setSelectedWattage} parameterItems={parameterItems} loading={loading}/>
+      ) : (
+        <Download selectedWattage={selectedWattage} />
+      )}
     </div>
   );
 }
