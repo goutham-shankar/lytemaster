@@ -48,20 +48,45 @@ export default function Objects() {
     product_sdcm: []
   });
 
-  // Function to update available filter options
-  const updateAvailableFilterOptions = (products) => {
-    const newAvailableFilters = { ...availableFilters };
-    
-    // Reset all available filters
-    Object.keys(newAvailableFilters).forEach(key => {
-      newAvailableFilters[key] = [];
-    });
+  // Helper function to split comma-separated values and return an array
+  const splitValues = (value) => {
+    if (!value) return [];
+    return value.toString().split(',').map(item => item.trim());
+  };
 
-    // Populate available filters based on current products
+  // Function to update available filter options
+  const updateAvailableFilterOptions = (products, currentFilters) => {
+    const newAvailableFilters = {
+      product_color_temp: [],
+      product_optical_angle: [],
+      product_housing_color: [],
+      product_reflector_color: [],
+      product_control: [],
+      product_color_extended: [],
+      product_control_exntended: [],
+      product_material: [],
+      product_mounting: [],
+      product_ip_rating: [],
+      product_lifetime: [],
+      product_sdcm: []
+    };
+    
+    // Extract unique values for each filter from products
     products.forEach(product => {
       Object.keys(newAvailableFilters).forEach(key => {
-        if (product[key] && !newAvailableFilters[key].includes(product[key])) {
-          newAvailableFilters[key].push(product[key]);
+        // Skip filter categories that already have active selections
+        if (currentFilters && currentFilters[key] && currentFilters[key].length > 0) {
+          // For categories with active filters, only keep those active values
+          newAvailableFilters[key] = [...currentFilters[key]];
+        } 
+        else if (product[key]) {
+          // For categories without active filters, extract all available options
+          const values = splitValues(product[key]);
+          values.forEach(val => {
+            if (!newAvailableFilters[key].includes(val)) {
+              newAvailableFilters[key].push(val);
+            }
+          });
         }
       });
     });
@@ -69,17 +94,20 @@ export default function Objects() {
     setAvailableFilters(newAvailableFilters);
   };
 
-  // Handle filter changes
+  // Handle filter checkbox change
   const handleFilterChange = (filterType, value) => {
-    setActiveFilters(prev => {
-      const newFilters = { ...prev };
-      if (newFilters[filterType].includes(value)) {
-        newFilters[filterType] = newFilters[filterType].filter(item => item !== value);
-      } else {
-        newFilters[filterType] = [...newFilters[filterType], value];
-      }
-      return newFilters;
-    });
+    const newActiveFilters = { ...activeFilters };
+    
+    if (newActiveFilters[filterType].includes(value)) {
+      // Remove the filter if already selected
+      newActiveFilters[filterType] = newActiveFilters[filterType].filter(val => val !== value);
+    } else {
+      // Add the filter - replacing any existing filters in this category
+      // This ensures only one value can be selected at a time per filter type
+      newActiveFilters[filterType] = [value];
+    }
+    
+    setActiveFilters(newActiveFilters);
   };
 
   // Clear all filters
@@ -113,7 +141,7 @@ export default function Objects() {
           setFilteredProducts(initialFiltered);
           
           // Initialize available filter options
-          updateAvailableFilterOptions(initialFiltered);
+          updateAvailableFilterOptions(initialFiltered, null);
         })
         .catch(error => {
           console.error('Error fetching products:', error);
@@ -124,58 +152,58 @@ export default function Objects() {
   // Apply filters whenever activeFilters changes
   useEffect(() => {
     if (lightingProducts.length > 0) {
+      // First filter by family
       let filtered = lightingProducts.filter(product => product.product_family == family_id);
       
       // Apply active filters
-      Object.entries(activeFilters).forEach(([key, values]) => {
-        if (values.length > 0) {
-          filtered = filtered.filter(product => values.includes(product[key]));
+      Object.keys(activeFilters).forEach(filterType => {
+        if (activeFilters[filterType].length > 0) {
+          filtered = filtered.filter(product => {
+            // If the product doesn't have this property, filter it out
+            if (!product[filterType]) return false;
+            
+            // Split the product's value for this filter into an array
+            const productValues = splitValues(product[filterType]);
+            
+            // Check if any of the active filter values for this type
+            // match any of the product's values for this type
+            return activeFilters[filterType].some(filterValue => 
+              productValues.includes(filterValue)
+            );
+          });
         }
       });
       
       setFilteredProducts(filtered);
-      updateAvailableFilterOptions(filtered);
+      updateAvailableFilterOptions(filtered, activeFilters);
     }
   }, [activeFilters, lightingProducts, family_id]);
 
   const toggleFilters = () => setShowFilters(prev => !prev);
 
-  // Helper function to render filter section with radio buttons
+  // Helper function to render filter section
   const renderFilterSection = (title, filterType, options) => {
     // Only show filter section if there are options available
     if (!options || options.length === 0) return null;
+    
+    // Sort options for better user experience
+    const sortedOptions = [...options].sort();
     
     return (
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <div className="max-h-40 overflow-y-auto">
-          {options.map((option) => {
-            // Check if this option is selected
-            const isSelected = activeFilters[filterType].includes(option);
-            
-            return (
-              <div key={`${filterType}-${option}`} className="flex items-center mb-1">
-                <div className="relative flex items-center">
-                  <input 
-                    type="checkbox" 
-                    id={`${filterType}-${option}`}
-                    className="mr-2 h-4 w-4 cursor-pointer appearance-none rounded-full border border-gray-300 checked:border-blue-600 checked:bg-white"
-                    checked={isSelected}
-                    onChange={() => handleFilterChange(filterType, option)}
-                  />
-                  {isSelected && (
-                    <div className="pointer-events-none absolute left-[4px] h-2 w-2 rounded-full bg-blue-600"></div>
-                  )}
-                </div>
-                <label 
-                  htmlFor={`${filterType}-${option}`} 
-                  className={`ml-2 cursor-pointer ${isSelected ? 'font-medium text-blue-600' : 'text-gray-700'}`}
-                >
-                  {option}
-                </label>
-              </div>
-            );
-          })}
+          {sortedOptions.map((option) => (
+            <label key={`${filterType}-${option}`} className="block text-gray-700 mb-1">
+              <input 
+                type="checkbox" 
+                className="mr-2" 
+                checked={activeFilters[filterType].includes(option)}
+                onChange={() => handleFilterChange(filterType, option)}
+              /> 
+              {option}
+            </label>
+          ))}
         </div>
       </div>
     );
